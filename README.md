@@ -20,14 +20,14 @@
 - Analytics and Insights: The Automatic Grading System provides comprehensive  analytics and insights to organizers, helping them gain valuable data on participant performance, question difficulty, and overall competition trends. This data can be leveraged to enhance future competitions and make informed decisions.
 
 ## **Author**
-- [Thomas (Toan) Nguyen](https://github.com/Engity): &emsp; [Linkedin](https://www.linkedin.com/in/thomas-nguyen-cs)
+- [Thomas (Toan) Nguyen](https://github.com/Engity), &emsp; [Linkedin](https://www.linkedin.com/in/thomas-nguyen-cs)
 
-- [Tom Nguyen](https://github.com/Hieu27nguyen): &emsp; [Linkedin]()
+- [Tom Nguyen](https://github.com/Hieu27nguyen), &emsp; [Linkedin]()
 
-- [Tommy Diep](https://github.com/kokinh11): &emsp; [Linkedin]()
+- [Tommy Diep](https://github.com/kokinh11), &emsp; [Linkedin]()
 
-- [Aaron Tran](https://github.com/aaront99): &emsp; [Linkedin]()
+- [Aaron Tran](https://github.com/aaront99), &emsp; [Linkedin]()
 
-- [Felix Vu](https://github.com/mivu4392): &emsp; [Linkedin]()
+- [Felix Vu](https://github.com/mivu4392), &emsp; [Linkedin]()
 
 
