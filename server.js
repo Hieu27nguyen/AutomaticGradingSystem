@@ -1,3 +1,5 @@
+require('dotenv').config(); 
+// const dns = require('dns');
 const express = require('express');
 const app = express();
 const path = require('path');
@@ -5,9 +7,14 @@ const {logger} = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
+const connectDB = require('./config/dBConn')
+const mongoose = require('mongoose');
 const corsOptions = require('./config/corsOptions')
-
 const PORT = process.env.PORT || 3500;
+
+// Set default result order for DNS resolution
+// dns.setDefaultResultOrder('ipv4first');
+connectDB();
 
 app.use(logger);
 
@@ -34,5 +41,13 @@ app.all('*', (req, res) => {
 
 app.use(errorHandler)
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+mongoose.connection.once('open', () => {
+    console.log('Connected to MongoDB')
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+})
+
+mongoose.connection.on('error', err => {
+    console.log(err)
+    logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log')
+})
 
