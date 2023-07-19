@@ -21,7 +21,7 @@ if (!db.testUser.findOne({ name: "name" })) {
   db.testUser.insertOne(
     { name: "name", role: "Student" }
   )
-  console.log("\nINput successful");
+  console.log("\nInput successful");
 }
 else{
   console.log("Already has user with the existing name");
