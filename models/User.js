@@ -5,17 +5,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    password: {
-        type: String,
-        required: true
-    },
     roles: [{
         type: String,
         default: "Contestant"
     }],
-    active: {
-        type: Boolean,
+    email: {
+        type: String,
         default: true
+    },
+    password: {
+        type: String,
+        required: true
     }
 })
 
