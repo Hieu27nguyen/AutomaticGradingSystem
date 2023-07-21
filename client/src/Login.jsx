@@ -10,28 +10,31 @@ export const Login = (props) => {
     }
 
     return (
-        <div className="auth-form-container">
+        <div className="container">
             
             <div className="image-container">
-                <img
-                    src="https://static.vecteezy.com/system/resources/previews/006/697/635/original/seo-web-development-software-coding-and-programming-on-application-in-laptop-computer-devices-with-script-language-testing-and-graphical-icons-vector.jpg"
-                    alt="Coding and Programming"
-                />
+               
             </div>
+
             <div className="form-container">
-                <h1>Login</h1>
-                <form className="login-form" onSubmit={handleSubmit}>
-                    <div className="label-input-container">
-                        <label htmlFor="email">Email:</label>
-                        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-                    </div>
-                    <div className="label-input-container">
-                        <label htmlFor="password">Password:</label>
-                        <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
-                    </div>
-                    <button type="submit">Log In</button>
+
+                <div class="header">
+				<h1 class="animation a1">Welcome to AGS</h1>
+				<h3 class="animation a2">Log in to your account</h3>
+			</div>
+
+            <div>
+                <form className="form" onSubmit={handleSubmit}>
+                        <input class="form-field animation a3" value={email} onChange={(e) => setEmail(e.target.value)}  type="text" placeholder="Username" id="username" name="username" />
+                        <input class="form-field animation a4" value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="Password" id="password" name="password" />
+                        <div id="message"></div>
+                        <input class ="form-field animation a5" type="submit" name="submit" value="LOGIN" />
+                        <p className="animation a5" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</p>
                 </form>
-                <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
+            </div>
+
+                
+                
             </div>
         </div>
     )

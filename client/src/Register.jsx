@@ -2,40 +2,41 @@ import React, { useState } from "react";
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
     const [name, setName] = useState('');
-
+    const [username, setUserName] = useState('');
+    const [pass, setPass] = useState('');
+    const [confirmpass, setConfirmPass] = useState('');
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
     }
 
     return (
-        <div className="auth-form-container">
+        <div className="container">
             <div className="image-container">
-            <img
-          src="https://static.vecteezy.com/system/resources/previews/006/697/635/original/seo-web-development-software-coding-and-programming-on-application-in-laptop-computer-devices-with-script-language-testing-and-graphical-icons-vector.jpg"
-          alt="Coding and Programming"
-        />
             </div>
             <div className="form-container">
-                <h1>Register</h1>
-                <form className="register-form" onSubmit={handleSubmit}>
-                    <div className="label-input-container">
-                        <label htmlFor="name">Full name:</label>
-                        <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="Full Name" />
-                    </div>
-                    <div className="label-input-container">
-                        <label htmlFor="email">Email:</label>
-                        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-                    </div>
-                    <div className="label-input-container">
-                        <label htmlFor="password">Password:</label>
-                        <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
-                    </div>
-                    <button type="submit">Register</button>
+
+                <div className="header">
+                    <h1 class="animation a1">Let's get you started!</h1>
+				    <h3 class="animation a2">Sign up for an account</h3>
+                </div>
+                <div>
+                <form className="form" onSubmit={handleSubmit}>
+                   
+                     
+                        <input class="form-field animation a3" value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="Full Name" />
+                        <input class="form-field animation a3" value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" id="email" name="email" />
+                        <input class="form-field animation a3" value={username} name="username" onChange={(e) => setUserName(e.target.value)} id="username" placeholder="Username" />
+                        <input class="form-field animation a4" value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="Password" id="password" name="password" />
+                        <input class="form-field animation a5" value={confirmpass} onChange={(e) => setConfirmPass(e.target.value)} type="password" placeholder="Confirm Password" id="password" name="password" />
+                    
+                        <input class ="form-field animation a5" type="submit" name="submit" value="REGISTER" />
+                        <p className="animation a5" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</p>
                 </form>
-                <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>
+                </div>
+              
             </div>
         </div>
     )
