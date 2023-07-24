@@ -17,7 +17,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-server": "cd ..\\client && nodemon server",
+    "start-server": "cd ..\\server && npm run start-server",
     "start-client": "npm start",
     "dev": "concurrently \"npm run start-server\" \"npm run start-client\""
   },
