@@ -9,10 +9,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "Contestant"
     }],
-    email: {
-        type: String,
-        default: true
-    },
     password: {
         type: String,
         required: true

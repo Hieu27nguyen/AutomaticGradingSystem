@@ -17,20 +17,14 @@ function checkIfNameExists(name) {
   return db.testUser.findOne({ name: name }) !== null;
 }
 
-// Function to check if email already exists in the testUser collection
-function checkIfEmailExists(email) {
-  return db.testUser.findOne({ email: email }) !== null;
-}
-
 // Function to insert a new student into the testUser collection
-function insertNewStudent(name, email, password) {
+function insertNewStudent(name, password) {
   db.testUser.insertOne({
     name: name,
     role: "Student",
-    email: email,
     password: password
   });
-  console.log("Input successful for " + name + " with email " + email + "\n");
+  console.log("Input successful for " + name + "\n");
 }
 
 console.log(db.getName());
@@ -54,10 +48,10 @@ Object.keys(allUser).map((value) => {
 //   }
 // });
 
-if (!checkIfNameExists("studentName") && !checkIfEmailExists("email")) {
-  insertNewStudent("studentName", "email", "password");
+if (!checkIfNameExists("studentName")) {
+  insertNewStudent("studentName", "password");
 } else {
-  console.log("Student with the name " + "studentName" + " and email " + "email" + " already exists\n");
+  console.log("Student with the name " + "studentName" + " already exists\n");
 }
 
 // Problem Schema: id(given), type, time_limit, and difficulty.
