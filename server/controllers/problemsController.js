@@ -34,11 +34,10 @@ const checkUserRole = async (req) => {
         return res.status(403).json({ error: 'You are not authorized to create a new problem' });
       }
   
-      const { name, description, timelimit, test } = req.body;
+      const { name, description, test } = req.body;
       const newProblem = new Problem({
         name,
         description,
-        timelimit,
         test
       });
       const savedProblem = await newProblem.save();
@@ -70,7 +69,7 @@ const checkUserRole = async (req) => {
   const updateProblem = asyncHandler(async (req, res) => {
     try {
       const { problemId } = req.params;
-      const { name, description, timelimit, test } = req.body;
+      const { name, description, test } = req.body;
   
       // Check the user's role before allowing the update
       const userRole = await checkUserRole(req);
@@ -80,7 +79,7 @@ const checkUserRole = async (req) => {
   
       const updatedProblem = await Problem.findByIdAndUpdate(
         problemId,
-        { name, description, timelimit, test },
+        { name, description, test },
         { new: true }
       );
       if (!updatedProblem) {
