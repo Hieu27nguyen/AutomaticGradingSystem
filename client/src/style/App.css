@@ -109,7 +109,82 @@
   .a5 {
     animation-delay: 2.4s;
   }
+
+  /*Home Page css
+  */
+  .home-page {
   
+    margin: auto;
+    padding: 20px;
+  }
+  nav {
+    background-color: #007bff; /* Blue theme color */
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  li {
+    margin-right: 10px;
+  }
+  
+  li:last-child {
+    margin-right: 0;
+  }
+  
+  button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 15px;
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  /* Active Tab */
+  .active {
+    border-bottom: 2px solid #fff;
+  }
+  
+  /* Profile Dropdown */
+  .profile-dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #007bff;
+    border-radius: 4px;
+    display: none;
+  }
+  
+  .profile-dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown-content button {
+    display: block;
+    padding: 10px 15px;
+    width: 100%;
+    text-align: left;
+    color: #fff;
+    border: none;
+    background-color: transparent;
+  }
+  
+  .dropdown-content button:hover {
+    background-color: #0056b3;
+  }
  
   @keyframes move {
     0% {
@@ -136,4 +211,5 @@
       padding: 20px 40px;
       width: 440px;
     }
+    
   }
