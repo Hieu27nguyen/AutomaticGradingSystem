@@ -1,5 +1,7 @@
 const Problem = require('../models/Problem'); 
 const asyncHandler = require('express-async-handler')
+const multer = require('multer');
+const upload = multer(); // Set up multer for file uploads
 
 // Function to check the user's role
 const checkUserRole = async (req) => {
@@ -22,6 +24,24 @@ const checkUserRole = async (req) => {
       return 'Contestant';
     }
   };
+
+// Function to parse test cases from file
+const parseTestCases = async (testFile) => {
+  // If file is provided, read its content and parse it
+  if (testFile) {
+    const testFileContent = testFile.buffer.toString();
+    try {
+      // Assuming the file content is in JSON format
+      return JSON.parse(testFileContent);
+    } catch (error) {
+      // Handle any parsing errors
+      throw new Error('Error parsing test file');
+    }
+  }
+
+  // If no file provided, return an empty array as the default test cases
+  return [];
+};
   
   // @desc Create a new problem (only for Admin and Judge)
   // @route POST /problems
@@ -34,11 +54,21 @@ const checkUserRole = async (req) => {
         return res.status(403).json({ error: 'You are not authorized to create a new problem' });
       }
   
-      const { name, description, test } = req.body;
+      const { name, description } = req.body;
+      let { test } = req.body;
+  
+      // Handle file upload for test field 
+      if (req.files && req.files.testFile) {
+        const testFileContent = req.files.testFile[0].buffer.toString();
+        // Parse the file content to extract the test cases
+        test = JSON.parse(testFileContent);
+      }
+  
       const newProblem = new Problem({
+        _id: new mongoose.Types.ObjectId(), // Generate a new ObjectId for _id
         name,
         description,
-        test
+        test, // Use the test from the form or file upload
       });
       const savedProblem = await newProblem.save();
       res.status(201).json(savedProblem);
@@ -62,34 +92,36 @@ const checkUserRole = async (req) => {
       res.status(500).json({ error: 'Error getting problem' });
     }
   });
-  
-  // @desc Update a specific problem by ID (only for Admin and Judge)
-  // @route PUT /problems/:problemId
-  // @access Private
-  const updateProblem = asyncHandler(async (req, res) => {
-    try {
-      const { problemId } = req.params;
-      const { name, description, test } = req.body;
-  
-      // Check the user's role before allowing the update
-      const userRole = await checkUserRole(req);
-      if (userRole !== 'Authorized') {
-        return res.status(403).json({ error: 'You are not authorized to update this problem' });
-      }
-  
-      const updatedProblem = await Problem.findByIdAndUpdate(
-        problemId,
-        { name, description, test },
-        { new: true }
-      );
-      if (!updatedProblem) {
-        return res.status(404).json({ message: 'Problem not found' });
-      }
-      res.json(updatedProblem);
-    } catch (error) {
-      res.status(500).json({ error: 'Error updating problem' });
+
+// @desc Update a specific problem by ID (only for Admin and Judge)
+// @route PUT /problems/:problemId
+// @access Private
+const updateProblem = asyncHandler(async (req, res) => {
+  try {
+    const { problemId } = req.params;
+    const { name, description } = req.body;
+
+    // Check the user's role before allowing the update
+    const userRole = await checkUserRole(req);
+    if (userRole !== 'Authorized') {
+      return res.status(403).json({ error: 'You are not authorized to update this problem' });
     }
-  });
+
+    const testCases = await parseTestCases(req.files?.testFile); // Use the utility function
+
+    const updatedProblem = await Problem.findByIdAndUpdate(
+      problemId,
+      { name, description, test: testCases }, // Use the test from the form or file upload
+      { new: true }
+    );
+    if (!updatedProblem) {
+      return res.status(404).json({ message: 'Problem not found' });
+    }
+    res.json(updatedProblem);
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating problem' });
+  }
+});
   
   // @desc Delete a specific problem by ID (only for Admin and Judge)
   // @route DELETE /problems/:problemId
