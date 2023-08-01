@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { setCredentials } from './authSlice'
+import { useLoginMutation } from './authApiSlice'
 
 export const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -41,3 +45,4 @@ export const Register = (props) => {
         </div>
     )
 }
+export default Register
