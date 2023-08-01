@@ -27,11 +27,11 @@ const checkUserRole = async (req) => {
 
 // Function to parse test cases from file
 const parseTestCases = async (testFile) => {
-  // If file is provided, read its content and parse it
+  // Read file content and parse
   if (testFile) {
     const testFileContent = testFile.buffer.toString();
     try {
-      // Assuming the file content is in JSON format
+      // File in JSON format
       return JSON.parse(testFileContent);
     } catch (error) {
       // Handle any parsing errors
@@ -54,21 +54,14 @@ const parseTestCases = async (testFile) => {
         return res.status(403).json({ error: 'You are not authorized to create a new problem' });
       }
   
-      const { name, description } = req.body;
-      let { test } = req.body;
-  
-      // Handle file upload for test field 
-      if (req.files && req.files.testFile) {
-        const testFileContent = req.files.testFile[0].buffer.toString();
-        // Parse the file content to extract the test cases
-        test = JSON.parse(testFileContent);
-      }
+      const {_id, name, description } = req.body;
+      const testCases = await parseTestCases(req.files?.testFile);
   
       const newProblem = new Problem({
-        _id: new mongoose.Types.ObjectId(), // Generate a new ObjectId for _id
+        _id,
         name,
         description,
-        test, // Use the test from the form or file upload
+        test: testCases,
       });
       const savedProblem = await newProblem.save();
       res.status(201).json(savedProblem);
