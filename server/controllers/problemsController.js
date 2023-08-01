@@ -4,7 +4,7 @@ const multer = require('multer');
 const upload = multer(); // Set up multer for file uploads
 
 // Function to check the user's role
-const checkUserRole = async (req) => {
+const checkUserRole = asyncHandler(async (req) => {
     try {
       const userId = req.userId; // Assuming the user ID is stored in the "userId" property of the request object
       const user = await user.findById(userId);
@@ -23,7 +23,7 @@ const checkUserRole = async (req) => {
       // If there is an error fetching
       return 'Contestant';
     }
-  };
+  });
 
 // Function to parse test cases from file
 const parseTestCases = async (testFile) => {
@@ -55,7 +55,19 @@ const parseTestCases = async (testFile) => {
       }
   
       const {_id, name, description } = req.body;
-      const testCases = await parseTestCases(req.files?.testFile);
+      let testCases;
+
+      // Check if test cases are provided in a file
+      const testFile = req.files?.testFile;
+  
+      if (testFile) {
+        // If a file is provided, parse the test cases from the file
+        testCases = await parseTestCases(testFile);
+      } else {
+        // If no file is provided, use the test attribute provided in the request body (if available)
+        const { test } = req.body;
+        testCases = Array.isArray(test) ? test : [];
+      }
   
       const newProblem = new Problem({
         _id,
@@ -100,7 +112,19 @@ const updateProblem = asyncHandler(async (req, res) => {
       return res.status(403).json({ error: 'You are not authorized to update this problem' });
     }
 
-    const testCases = await parseTestCases(req.files?.testFile); // Use the utility function
+    let testCases;
+
+    // Check if test cases are provided in a file
+    const testFile = req.files?.testFile;
+
+    if (testFile) {
+      // If a file is provided, parse the test cases from the file
+      testCases = await parseTestCases(testFile);
+    } else {
+      // If no file is provided, use the test attribute provided in the request body (if available)
+      const { test } = req.body;
+      testCases = Array.isArray(test) ? test : [];
+    }
 
     const updatedProblem = await Problem.findByIdAndUpdate(
       problemId,
