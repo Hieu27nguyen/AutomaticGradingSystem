@@ -1,8 +1,10 @@
 const Problem = require('../models/Problem'); 
 const asyncHandler = require('express-async-handler')
+const multer = require('multer');
+const upload = multer(); // Set up multer for file uploads
 
 // Function to check the user's role
-const checkUserRole = async (req) => {
+const checkUserRole = asyncHandler(async (req) => {
     try {
       const userId = req.userId; // Assuming the user ID is stored in the "userId" property of the request object
       const user = await user.findById(userId);
@@ -21,7 +23,25 @@ const checkUserRole = async (req) => {
       // If there is an error fetching
       return 'Contestant';
     }
-  };
+  });
+
+// Function to parse test cases from file
+const parseTestCases = async (testFile) => {
+  // Read file content and parse
+  if (testFile) {
+    const testFileContent = testFile.buffer.toString();
+    try {
+      // File in JSON format
+      return JSON.parse(testFileContent);
+    } catch (error) {
+      // Handle any parsing errors
+      throw new Error('Error parsing test file');
+    }
+  }
+
+  // If no file provided, return an empty array as the default test cases
+  return [];
+};
   
   // @desc Create a new problem (only for Admin and Judge)
   // @route POST /problems
@@ -34,11 +54,26 @@ const checkUserRole = async (req) => {
         return res.status(403).json({ error: 'You are not authorized to create a new problem' });
       }
   
-      const { name, description, test } = req.body;
+      const {_id, name, description } = req.body;
+      let testCases;
+
+      // Check if test cases are provided in a file
+      const testFile = req.files?.testFile;
+  
+      if (testFile) {
+        // If a file is provided, parse the test cases from the file
+        testCases = await parseTestCases(testFile);
+      } else {
+        // If no file is provided, use the test attribute provided in the request body (if available)
+        const { test } = req.body;
+        testCases = Array.isArray(test) ? test : [];
+      }
+  
       const newProblem = new Problem({
+        _id,
         name,
         description,
-        test
+        test: testCases,
       });
       const savedProblem = await newProblem.save();
       res.status(201).json(savedProblem);
@@ -62,34 +97,48 @@ const checkUserRole = async (req) => {
       res.status(500).json({ error: 'Error getting problem' });
     }
   });
-  
-  // @desc Update a specific problem by ID (only for Admin and Judge)
-  // @route PUT /problems/:problemId
-  // @access Private
-  const updateProblem = asyncHandler(async (req, res) => {
-    try {
-      const { problemId } = req.params;
-      const { name, description, test } = req.body;
-  
-      // Check the user's role before allowing the update
-      const userRole = await checkUserRole(req);
-      if (userRole !== 'Authorized') {
-        return res.status(403).json({ error: 'You are not authorized to update this problem' });
-      }
-  
-      const updatedProblem = await Problem.findByIdAndUpdate(
-        problemId,
-        { name, description, test },
-        { new: true }
-      );
-      if (!updatedProblem) {
-        return res.status(404).json({ message: 'Problem not found' });
-      }
-      res.json(updatedProblem);
-    } catch (error) {
-      res.status(500).json({ error: 'Error updating problem' });
+
+// @desc Update a specific problem by ID (only for Admin and Judge)
+// @route PUT /problems/:problemId
+// @access Private
+const updateProblem = asyncHandler(async (req, res) => {
+  try {
+    const { problemId } = req.params;
+    const { name, description } = req.body;
+
+    // Check the user's role before allowing the update
+    const userRole = await checkUserRole(req);
+    if (userRole !== 'Authorized') {
+      return res.status(403).json({ error: 'You are not authorized to update this problem' });
     }
-  });
+
+    let testCases;
+
+    // Check if test cases are provided in a file
+    const testFile = req.files?.testFile;
+
+    if (testFile) {
+      // If a file is provided, parse the test cases from the file
+      testCases = await parseTestCases(testFile);
+    } else {
+      // If no file is provided, use the test attribute provided in the request body (if available)
+      const { test } = req.body;
+      testCases = Array.isArray(test) ? test : [];
+    }
+
+    const updatedProblem = await Problem.findByIdAndUpdate(
+      problemId,
+      { name, description, test: testCases }, // Use the test from the form or file upload
+      { new: true }
+    );
+    if (!updatedProblem) {
+      return res.status(404).json({ message: 'Problem not found' });
+    }
+    res.json(updatedProblem);
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating problem' });
+  }
+});
   
   // @desc Delete a specific problem by ID (only for Admin and Judge)
   // @route DELETE /problems/:problemId
