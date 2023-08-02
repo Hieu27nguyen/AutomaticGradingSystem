@@ -18,8 +18,9 @@ function checkIfProblemExists(name) {
   }
   
   // Function to insert a new problem into the "problems" collection
-  function insertNewProblem(name, description, test) {
+  function insertNewProblem(_id, name, description, test) {
     db.problems.insertOne({
+      _id,
       name: name,
       description: description,
       test: test
@@ -36,7 +37,7 @@ function checkIfProblemExists(name) {
   
   // Check problems
   if (!checkIfProblemExists("Problem")) {
-    insertNewProblem("Problem", "Description", [
+    insertNewProblem("1","Problem", "Description", [
         {input: "An input", output: "An output"}
     ]);
   } else {
