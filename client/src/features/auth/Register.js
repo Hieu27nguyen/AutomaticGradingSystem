@@ -10,6 +10,8 @@ export const Register = (props) => {
     const [username, setUserName] = useState('');
     const [pass, setPass] = useState('');
     const [confirmpass, setConfirmPass] = useState('');
+    const [role, setRole] = useState('');
+    const availableRoles = ['Admin', 'User', 'Guest'];
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,6 +37,15 @@ export const Register = (props) => {
                         <input class="form-field animation a3" value={username} name="username" onChange={(e) => setUserName(e.target.value)} id="username" placeholder="Username" />
                         <input class="form-field animation a4" value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="Password" id="password" name="password" />
                         <input class="form-field animation a5" value={confirmpass} onChange={(e) => setConfirmPass(e.target.value)} type="password" placeholder="Confirm Password" id="password" name="password" />
+
+                        <select class="form-field animation a5" value={role} onChange={(e) => setRole(e.target.value)} id="role" name="role">
+                            <option value="">Choose Role</option>
+                            {availableRoles.map((roleOption) => (
+                            <option key={roleOption} value={roleOption}>
+                                {roleOption}
+                            </option>
+                            ))}
+                        </select>
                     
                         <input class ="form-field animation a5" type="submit" name="submit" value="REGISTER" />
                         <p className="animation a5" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</p>
