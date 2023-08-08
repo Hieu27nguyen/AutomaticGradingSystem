@@ -24,7 +24,7 @@
 
 - [Tom Nguyen](https://github.com/Hieu27nguyen), &emsp; [Linkedin]()
 
-- [Tommy Diep](https://github.com/kokinh11), &emsp; [Linkedin]()
+- [Tommy Diep](https://github.com/kokinh11), &emsp; [Linkedin](https://www.linkedin.com/in/tommy-diep-cs/)
 
 - [Aaron Tran](https://github.com/aaront99), &emsp; [Linkedin]()
 

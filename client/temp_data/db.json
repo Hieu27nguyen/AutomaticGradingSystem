@@ -1,0 +1,54 @@
+{
+  "User": [
+    {
+      "id": 1,
+      "username": "admin1",
+      "password": "admin1234",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "judge1",
+      "password": "judge1234",
+      "role": "judge"
+    },
+    {
+      "id": 3,
+      "username": "team1",
+      "password": "contestant1234",
+      "role": "contestant"
+    }
+  ],
+  "Problem": [
+    {
+      "id": "1",
+      "name": "problemA",
+      "description": "Just a temporary problem with normal test cases\nSample input:\n1234\n\nSample Output:\n1",
+      "judgeProgram": "",
+      "tests": [
+        {
+          "input": "1",
+          "output": "1234"
+        },
+        {
+          "input": "2",
+          "output": "2341"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "problemB",
+      "description": "Just a temporary problem with a judging program\nSample input:\n2\n\nSample Output:\n4",
+      "judgeProgram": "const judgingFunction = (problemInput, contestantOutput) => { return true };",
+      "tests": [
+        {
+          "input": "2"
+        },
+        {
+          "input": "4"
+        }
+      ]
+    }
+  ]
+}

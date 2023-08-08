@@ -1,5 +1,4 @@
 const User = require('../models/User')
-const Note = require('../models/Note')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 
@@ -55,10 +54,10 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-    const { id, username, roles, active, password } = req.body
+    const { id, username, roles, online, password } = req.body
 
     // Confirm data 
-    if (!id || !username || !Array.isArray(roles) || !roles.length || typeof active !== 'boolean') {
+    if (!id || !username || !Array.isArray(roles) || !roles.length || typeof online !== 'boolean') {
         return res.status(400).json({ message: 'All fields except password are required' })
     }
 
@@ -79,7 +78,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     user.username = username
     user.roles = roles
-    user.active = active
+    user.online = online
 
     if (password) {
         // Hash password 
@@ -100,12 +99,6 @@ const deleteUser = asyncHandler(async (req, res) => {
     // Confirm data
     if (!id) {
         return res.status(400).json({ message: 'User ID Required' })
-    }
-
-    // Does the user still have assigned notes?
-    const note = await Note.findOne({ user: id }).lean().exec()
-    if (note) {
-        return res.status(400).json({ message: 'User has assigned notes' })
     }
 
     // Does the user exist to delete?
