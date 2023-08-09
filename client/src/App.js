@@ -3,9 +3,11 @@ import {Routes ,Route} from 'react-router-dom';
 import Layout from "./components/Layout";
 import './style/App.css';
 import Login from './features/auth/Login';
-import HomePage from './features/auth/HomePage';
+import HomePage from './features/home/HomePage';
 import Problem from './features/problems/ProblemsList';
 import useTitle from './hooks/useTitle';
+import Missing404 from './Missing404';
+
 
 
 function App() {
@@ -25,7 +27,7 @@ function App() {
       
       </Route>
       <Route exact path="/problem" element={<Problem/>} />
-      <Route path="*" component={HomePage} />  Always redirected to homepage if requested a missing resources
+      <Route path="*" element={<Missing404 />}/>  Always redirected to homepage if requested a missing resources
     </Routes>
   )
 }
