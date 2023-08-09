@@ -28,12 +28,14 @@ let importData = async (data) => {
 
       if (await db[collection].findOne({ _id: entry._id }) !== null) {
         console.log("Duplicate problem: " + entry._id);
-      } else if (await db[collection].findOne({score: entry}) < 0) {
-        console.log("Negative Score: " + entry.score);
       } else {
-          await db[collection].insertOne(entry);
-          console.log("Imported problem: " + entry._id);
-      }
+        if (entry.score < 0) {
+            console.log("Negative Score: " + entry.score);
+        } else {
+            await db[collection].insertOne(entry);
+            console.log("Imported problem: " + entry._id);
+        }
+    }
   }
 };
 
