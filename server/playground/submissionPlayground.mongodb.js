@@ -27,7 +27,9 @@ let importData = async (data) => {
       console.log("Fields that need to be unique" + JSON.stringify(unique));
 
       if (await db[collection].findOne({ _id: entry._id }) !== null) {
-          console.log("Duplicate problem: " + entry._id);
+        console.log("Duplicate problem: " + entry._id);
+      } else if (await db[collection].findOne({score: entry}) < 0) {
+        console.log("Negative Score: " + entry.score);
       } else {
           await db[collection].insertOne(entry);
           console.log("Imported problem: " + entry._id);
@@ -46,6 +48,7 @@ const submissionsData = [
     problem: '1', 
     code: 'console.log("Hello, World!");',
     status: 'Pending',
+    score: 0,
     timeSubmitted: new Date('2023-08-02T00:22:09.247Z')
   },
   {
@@ -54,6 +57,7 @@ const submissionsData = [
     problem: '1', 
     code: 'print("Hello, World!")',
     status: 'Accepted',
+    score: 100,
     timeSubmitted: new Date('2023-08-02T00:22:09.247Z')
   },
   //Test 01
@@ -64,6 +68,7 @@ const submissionsData = [
     problem: '3', 
     code: 'console.log("Hello, World!");',
     status: 'Pending',
+    score: 0,
     timeSubmitted: new Date('2023-09-02T04:23:09.247Z')
   },
   {
@@ -72,6 +77,7 @@ const submissionsData = [
     problem: '2', 
     code: 'console.log("Hello, World!");',
     status: 'Pending',
+    score: 0,
     timeSubmitted: new Date('2023-01-01T02:22:09.247Z')
   },
   //Test 02
@@ -82,6 +88,7 @@ const submissionsData = [
     problem: '1', 
     code: 'console.log("Hello, World!");',
     status: 'Pending',
+    score: 0,
     timeSubmitted: new Date('2023-11-02T04:23:09.247Z')
   },
   {
@@ -89,7 +96,8 @@ const submissionsData = [
     user: '3', 
     problem: '1', 
     code: 'console.log("Hello, World!");',
-    status: 'Pending',
+    status: 'Compilation error',
+    score: 0,
     timeSubmitted: new Date('2023-01-01T02:22:09.247Z')
   },
   //Test 03
@@ -99,7 +107,8 @@ const submissionsData = [
     user: '4', 
     problem: '1', 
     code: '',
-    status: 'Pending',
+    status: 'Failed test',
+    score: 0,
     timeSubmitted: new Date('2023-11-02T04:23:09.247Z')
   },
   {
@@ -107,9 +116,30 @@ const submissionsData = [
     user: '3', 
     problem: '1', 
     code: '',
-    status: 'Pending',
+    status: 'Runtime error',
+    score: 20,
     timeSubmitted: new Date('2023-01-01T02:22:09.247Z')
   },
+  //Test 04
+  //Testing negative score
+  {
+    _id: "8",
+    user: '4', 
+    problem: '1', 
+    code: 'console.log("Hello, World!");',
+    status: 'Accepted',
+    score: -10,
+    timeSubmitted: new Date('2022-11-02T04:05:09.247Z')
+  },
+  {
+    _id: "9",
+    user: '3', 
+    problem: '1', 
+    code: 'console.log("Hello, World!");',
+    status: 'Pending',
+    score: -99,
+    timeSubmitted: new Date('2021-01-01T02:02:09.247Z')
+  }
 ];
 
 // Call the importData function with the sample data

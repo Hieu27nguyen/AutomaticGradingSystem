@@ -25,6 +25,10 @@ const submissionSchema = new mongoose.Schema({
     enum: ['Pending', 'Accepted', 'Failed test', 'Runtime error', 'Compilation error'],
     default: 'Pending',
   },
+  score: {
+    type: Number,
+    default: 0,
+  },
   timeSubmitted: {
     type: Date,
     default: Date.now,
