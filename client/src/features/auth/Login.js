@@ -4,16 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import { setCredentials } from './authSlice'
 import { useLoginMutation } from './authApiSlice'
+import usePersist from '../../hooks/usePersist'
 import useTitle from '../../hooks/useTitle';
 import contestImage from "../../img/Photo_Contest_2022.jpg";
 
 const Login = () => {
     useTitle('Login')
-    const userRef = useRef()
-    const errRef = useRef()
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [errMsg, setErrMsg] = useState('')
+    const userRef = useRef();
+    const errRef = useRef();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errMsg, setErrMsg] = useState('');
+    const [persist, setPersist] = usePersist();
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
