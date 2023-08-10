@@ -1,80 +1,88 @@
-// Import the authController module.
-const authController = require('./authController');
-// Import the User model.
-const User = require('../models/User');
-// Import bcrypt for password hashing.
-const bcrypt = require('bcrypt');
-// Import jwt for JSON Web Token operations.
-const jwt = require('jsonwebtoken');
-// Import supertest for HTTP assertions.
 const request = require('supertest');
-// Import express for creating the web server.
-const express = require('express');
-// Import environment variable configuration.
-require('dotenv').config();
+const mongoose = require('mongoose');
+const app = require('../server.js'); // Ensure you point this to your actual Express app instance
+const User = require('../models/User');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-// Mock the User model to avoid actual database calls.
-jest.mock('../models/User');
-// Mock bcrypt to avoid actual hashing.
-jest.mock('bcrypt');
-// Mock jwt to avoid actual token operations.
-jest.mock('jsonwebtoken');
-
-// Initialize the express app.
-const app = express();
-// Use express.json middleware to parse JSON payloads.
-app.use(express.json());
-// Set up login, refresh, and logout routes with respective controllers.
-app.post('/auth', authController.login);
-app.get('/auth/refresh', authController.refresh);
-app.post('/auth/logout', authController.logout);
-
-// Describe the test suite for Auth Controller.
+// Main test suite for Auth Controller
 describe('Auth Controller', () => {
-  // Test case for login functionality.
-  it('should handle login', async () => {
-    // Mock a user to simulate a database find.
-    const mockUser = { username: 'test', password: 'test', roles: ['user'], active: true };
-    // Mock the findOne function to return the mock user.
-    User.findOne.mockResolvedValue(mockUser);
-    // Mock bcrypt's compare function to return true (password matches).
-    bcrypt.compare.mockResolvedValue(true);
-    // Mock jwt's sign function to return a token.
-    jwt.sign.mockReturnValue('token');
+    // Define a test user to be used throughout the test cases
+    const testUser = { username: 'testuser', password: 'testpassword', roles: ['user'] };
 
-    // Make a POST request to login with mock credentials and assert the response.
-    const res = await request(app).post('/auth').send({ username: 'test', password: 'test' });
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('accessToken');
-  });
+    // Before running any tests, connect to the database
+    beforeAll(async () => {
+        // Connect to your MongoDB instance
+        await mongoose.connect('<your_mongo_connection_string>', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+    });
 
-  // Test case for refresh token functionality.
-  it('should handle refresh token', async () => {
-    // Mock a user to simulate a database find.
-    const mockUser = { username: 'test', roles: ['user'] };
-    // Mock jwt's verify function to simulate successful token verification.
-    jwt.verify.mockImplementation((token, secret, cb) => cb(null, { username: 'test' }));
-    // Mock the findOne function to return the mock user.
-    User.findOne.mockResolvedValue(mockUser);
-    // Mock jwt's sign function to return a new token.
-    jwt.sign.mockReturnValue('token');
+    // After each test, clean up the database so every test starts fresh
+    afterEach(async () => {
+        // Clear out the users collection after each test
+        await User.deleteMany({});
+    });
 
-    // Make a GET request to refresh the token and assert the response.
-    const res = await request(app)
-      .get('/auth/refresh')
-      .set('Cookie', ['jwt=refresh-token']);
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('accessToken');
-  });
+    // After all tests have run, disconnect from the database
+    afterAll(async () => {
+        // Disconnect from the MongoDB instance
+        await mongoose.disconnect();
+    });
 
-  // Test case for logout functionality.
-  it('should handle logout', async () => {
-    // Make a POST request to logout and assert the response.
-    const res = await request(app)
-      .post('/auth/logout')
-      .set('Cookie', ['jwt=refresh-token']);
-    expect(res.statusCode).toEqual(200);
-    expect(res.body).toHaveProperty('message', 'Cookie cleared');
-  });
+    // Test case for user login functionality
+    it('should login the user and provide an access token', async () => {
+        // Hash the test user's password and save to the database
+        const hashedPassword = await bcrypt.hash(testUser.password, 10);
+        await User.create({ ...testUser, password: hashedPassword });
+
+        // Attempt to login with the test user's credentials
+        const res = await request(app).post('/auth').send({ username: testUser.username, password: testUser.password });
+        
+        // Assertions to ensure the login was successful
+        expect(res.status).toBe(200);
+        expect(res.body).toHaveProperty('accessToken');
+    });
+
+    // Test case to check the system handles invalid credentials properly
+    it('should fail login for invalid credentials', async () => {
+        const res = await request(app).post('/auth').send({ username: 'invaliduser', password: 'invalidpassword' });
+        
+        // Assertion to ensure the response status is Unauthorized (401)
+        expect(res.status).toBe(401);
+    });
+
+    // Test case to ensure the refresh token functionality works correctly
+    it('should refresh the token', async () => {
+        const hashedPassword = await bcrypt.hash(testUser.password, 10);
+        await User.create({ ...testUser, password: hashedPassword });
+        
+        // First, login to get a refresh token
+        const loginRes = await request(app).post('/auth').send({ username: testUser.username, password: testUser.password });
+        const refreshToken = loginRes.headers['set-cookie'][0].split(';')[0].split('=')[1];
+        
+        // Use the refresh token to get a new access token
+        const res = await request(app).get('/auth/refresh').set('Cookie', [`jwt=${refreshToken}`]);
+        
+        // Assertions to ensure the token refresh was successful
+        expect(res.status).toBe(200);
+        expect(res.body).toHaveProperty('accessToken');
+    });
+
+    // Test case for user logout functionality
+    it('should logout the user and clear the refresh token', async () => {
+        const hashedPassword = await bcrypt.hash(testUser.password, 10);
+        await User.create({ ...testUser, password: hashedPassword });
+
+        // First, login to get a refresh token
+        const loginRes = await request(app).post('/auth').send({ username: testUser.username, password: testUser.password });
+
+        // Use the refresh token to log out
+        const res = await request(app).post('/auth/logout').set('Cookie', loginRes.headers['set-cookie']);
+        
+        // Assertions to ensure the logout was successful and the cookie was cleared
+        expect(res.status).toBe(200);
+        expect(res.body.message).toBe('Cookie cleared');
+    });
 });
-
