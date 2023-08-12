@@ -1,7 +1,7 @@
 export const ROLES = {
-    Contestant: 'contestant',
-    Judge: 'judge',
-    Admin: 'admin',
+    Contestant: 'CONTESTANT',
+    Judge: 'JUDGE',
+    Admin: 'ADMIN',
 
 }
 

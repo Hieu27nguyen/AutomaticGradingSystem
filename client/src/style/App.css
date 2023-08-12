@@ -82,6 +82,7 @@
 
 .form p:hover {
   background-color: #d6e4ff;
+  box-shadow: 0 0 30px lightblue;
 }
 
 .form input[type="submit"] {

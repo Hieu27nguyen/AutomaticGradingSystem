@@ -51,13 +51,13 @@ let data = [
     username: "adminTest00",
     password: "abc123A",
     online: false,
-    roles: "admin",
+    roles: "ADMIN",
   },
   {
     username: "adminTest00",
     password: "abcd1234",
     online: false,
-    roles: "judge",
+    roles: "JUDGE",
   },
   //Test 01
   //Testing insertion with different roles
@@ -65,7 +65,7 @@ let data = [
     username: "adminTest01",
     password: "123",
     online: true,
-    roles: "admin",
+    roles: "ADMIN",
   },
   {
     username: "judgeTest01",
@@ -79,27 +79,27 @@ let data = [
     username: "adminTest02",
     password: "talaaai123",
     online: false,
-    roles: ["admin, judge"],
+    roles: ["ADMIN, JUDGE"],
   },
   {
     username: "judgeTest02",
     password: "talaai123",
     online: false,
-    roles: ["admin, judge, contestant"],
+    roles: ["ADMIN, JUDGE, CONTESTANT"],
   },
   {
   //Test 03
   //Testing duplicate password
     username: "adminTest03",
-    password: "talaaai123",
+    password: "123",
     online: false,
-    roles: "admin",
+    roles: "adMIN",
   },
   {
     username: "judgeTest03",
     password: "talaaai123",
     online: false,
-    roles: "judge",
+    roles: "JUDGE",
   },
 ];
 

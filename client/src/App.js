@@ -24,26 +24,27 @@ function App() {
   //   </div>
   // );
   useTitle('Automatic Grading Contest')
-
   return (
     <Routes>
       <Route path="/" element={<Login />} />
-      <Route path="/login" element={<Login />} />
       {/* Protected Routes */}
       <Route element={<PersistLogin />}>
+      <Route path="/login" element={<Login />} />
         <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
           <Route element={<Prefetch />}>
             <Route path="/home" element={<HomePage />} />
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Judge, ROLES.Admin]} />}>
-            <Route path="/users" element={<User />} />
-            <Route path="/problem" element={<Problem />} />
-          </Route>  
+              <Route path="/users" element={<User />} />
+              <Route path="/problem" element={<Problem />} />
+            </Route>
           </Route>
         </Route>
+
+
       </Route> {/* End Protected Routes */}
 
-      <Route path="*" element={<Missing404 />} />  Always redirected to homepage if requested a missing resources
+      <Route path="*" element={<Missing404 />} />
     </Routes>
 
   )

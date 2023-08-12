@@ -23,13 +23,13 @@ const login = asyncHandler(async (req, res) => {
 
     if (!match) {
         return res.status(401).json({ message: 'Unauthorized' });
-    }
-
+    }   
+    
     const accessToken = jwt.sign(
         {
             "UserInfo": {
                 "username": foundUser.username,
-                "roles": foundUser.roles
+                "roles": foundUser.roles.map(x => x = x.toUpperCase())//Format the roles
             }
         },
         process.env.ACCESS_TOKEN_SECRET,
@@ -72,13 +72,13 @@ const refresh = (req, res) => {
 
             const foundUser = await User.findOne({ username: decoded.username }).exec()
 
-            if (!foundUser) return res.status(401).json({ message: 'Unauthorized' })
+            if (!foundUser) return res.status(401).json({ message: 'Unauthorized Cookie' })
 
             const accessToken = jwt.sign(
                 {
                     "UserInfo": {
                         "username": foundUser.username,
-                        "roles": foundUser.roles
+                        "roles": foundUser.roles.map(x => x = x.toUpperCase())//Format the roles
                     }
                 },
                 process.env.ACCESS_TOKEN_SECRET,
