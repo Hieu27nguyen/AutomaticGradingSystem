@@ -5,18 +5,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    online: {
+        type: Boolean,
+        required: true
+    },
     roles: [{
         type: String,
-        default: "Contestant"
+        default: "contestant"
     }],
-    email: {
-        type: String,
-        default: true
-    },
     password: {
         type: String,
         required: true
     }
 })
 
-module.exports = mongoose.model('User', userSchema)
+module.exports = mongoose.model('users', userSchema)

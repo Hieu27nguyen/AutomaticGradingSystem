@@ -1,0 +1,30 @@
+{
+  "name": "automaticgradingsystem",
+  "version": "1.0.0",
+  "description": "Automatic grading system for programming competition",
+  "main": "\\server\\server.js",
+  "scripts": {
+    "start": "cd server && node server",
+    "start-server": "cd server && nodemon server",
+    "start-client": "cd client && npm start",
+    "dev": "concurrently \"npm run start-server\" \"npm run start-client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Engity/AutomaticGradingSystem.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Engity/AutomaticGradingSystem/issues"
+  },
+  "homepage": "https://github.com/Engity/AutomaticGradingSystem#readme",
+  "dependencies": {
+   
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "nodemon": "^2.0.22"
+  }
+}
