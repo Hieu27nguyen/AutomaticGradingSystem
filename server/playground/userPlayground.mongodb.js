@@ -101,6 +101,25 @@ let data = [
     online: false,
     roles: "JUDGE",
   },
+  //Test contestants
+  {
+    username: "contestantTest00",
+    password: "123",
+    online: false,
+    roles: "Contestant",
+  },
+  {
+    username: "contestantTest01",
+    password: "123",
+    online: false,
+    roles: "Contestant",
+  },
+  {
+    username: "contestantTest02",
+    password: "123",
+    online: false,
+    roles: "Contestant",
+  },
 ];
 
 importData(data, ["username"], ["password"]);
