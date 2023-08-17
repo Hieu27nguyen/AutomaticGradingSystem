@@ -1,7 +1,7 @@
 const Problem = require('../models/Problem'); 
 const asyncHandler = require('express-async-handler')
-const multer = require('multer');
-const upload = multer(); // Set up multer for file uploads
+// const multer = require('multer');
+// const upload = multer(); // Set up multer for file uploads
 
 // Function to check the user's role
 const checkUserRole = asyncHandler(async (req) => {
@@ -82,6 +82,8 @@ const parseTestCases = async (testFile) => {
     }
   });
 
+  
+
   // @desc Get a specific problem by ID
   // @route GET /problems/:problemId
   // @access Public
@@ -89,8 +91,10 @@ const parseTestCases = async (testFile) => {
     try {
       const { problemId } = req.params;
       const problem = await Problem.findById(problemId);
+      
       if (!problem) {
-        return res.status(404).json({ message: 'Problem not found' });
+        
+        return res.status(404).json({ message: 'Get Problem by ID not found' });
       }
       res.json(problem);
     } catch (error) {
