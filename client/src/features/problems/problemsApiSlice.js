@@ -11,7 +11,7 @@ const initialState = problemsAdapter.getInitialState()
 export const problemsApiSlice = apiSlice.injectEndpoints({
     endpoints: builder => ({
         getProblems: builder.query({
-            query: () => '/Problem',
+            query: () => '/problems',
             validateStatus: (response, result) => {
                 return response.status === 200 && !result.isError
             },
@@ -33,7 +33,7 @@ export const problemsApiSlice = apiSlice.injectEndpoints({
         }),
         addNewProblem: builder.mutation({
             query: initialProblemData => ({
-                url: '/Problem',
+                url: '/problems',
                 method: 'POST',
                 body: {
                     ...initialProblemData,
@@ -45,7 +45,7 @@ export const problemsApiSlice = apiSlice.injectEndpoints({
         }),
         updateProblem: builder.mutation({
             query: initialProblemData => ({
-                url: '/Problem',
+                url: '/problems',
                 method: 'PATCH',
                 body: {
                     ...initialProblemData,
@@ -57,7 +57,7 @@ export const problemsApiSlice = apiSlice.injectEndpoints({
         }),
         deleteProblem: builder.mutation({
             query: ({ id }) => ({
-                url: `/Problem`,
+                url: `/problems`,
                 method: 'DELETE',
                 body: { id }
             }),

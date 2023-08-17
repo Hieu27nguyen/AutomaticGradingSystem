@@ -1,6 +1,5 @@
 
 import { Routes, Route } from 'react-router-dom';
-import Layout from "./components/Layout";
 import './style/App.css';
 import Login from './features/auth/Login';
 import HomePage from './features/home/HomePage';
@@ -15,14 +14,9 @@ import { ROLES } from './config/roles';
 
 
 
+
 function App() {
-  // return (
-  //   <div className="App">
-  //     {
-  //       currentForm === "register" ? <Register onFormSwitch={toggleForm} /> : <Login onFormSwitch={toggleForm} />
-  //     }
-  //   </div>
-  // );
+ 
   useTitle('Automatic Grading Contest')
   return (
     <Routes>
@@ -30,14 +24,18 @@ function App() {
       {/* Protected Routes */}
       <Route element={<PersistLogin />}>
       <Route path="/login" element={<Login />} />
+      
         <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
           <Route element={<Prefetch />}>
             <Route path="/home" element={<HomePage />} />
-
+            
             <Route element={<RequireAuth allowedRoles={[ROLES.Judge, ROLES.Admin]} />}>
               <Route path="/users" element={<User />} />
-              <Route path="/problem" element={<Problem />} />
+              <Route path="/problems" element={<Problem />} />
             </Route>
+          
+          
+          
           </Route>
         </Route>
 
