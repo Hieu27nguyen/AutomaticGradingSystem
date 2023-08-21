@@ -17,7 +17,7 @@ const UsersList = () => {
     if (isError) {
         content = <p className="errmsg">{error?.data?.message}</p>
     }
-
+    
     if (isSuccess) {
 
         const { ids } = users
@@ -32,7 +32,7 @@ const UsersList = () => {
                     <tr>
                         <th scope="col" className="table__th user__username">Username</th>
                         <th scope="col" className="table__th user__roles">Roles</th>
-                        <th scope="col" className="table__th user__edit">Edit</th>
+                        <th scope="col" className="table__th user__edit"></th>
                     </tr>
                 </thead>
                 <tbody>
