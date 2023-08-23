@@ -6,7 +6,7 @@ const verifyJWT = require('../middleware/verifyJWT')
 router.use(verifyJWT)
 
 router.route('/')
-    .get(problemControllers.getProblemById)
+    .get(problemControllers.getAllProblems)
     .post(problemControllers.createProblem)
     .patch(problemControllers.updateProblem)
     .delete(problemControllers.deleteProblem)
