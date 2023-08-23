@@ -21,13 +21,14 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/home" element={<HomePage />} />
       {/* Protected Routes */}
       <Route element={<PersistLogin />}>
       <Route path="/login" element={<Login />} />
       
         <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
           <Route element={<Prefetch />}>
-            <Route path="/home" element={<HomePage />} />
+            {/* <Route path="/home" element={<HomePage />} /> */}
             
             <Route element={<RequireAuth allowedRoles={[ROLES.Judge, ROLES.Admin]} />}>
               <Route path="/users" element={<User />} />
