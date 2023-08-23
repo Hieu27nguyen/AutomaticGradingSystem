@@ -4,6 +4,18 @@ const asyncHandler = require('express-async-handler')
 // const upload = multer(); // Set up multer for file uploads
 
 // Function to check the user's role
+const getAllProblems = asyncHandler(async (req, res) => {
+  // Get all users from MongoDB
+  const problems = await Problem.find().lean()
+
+  // If no users 
+  if (!problems?.length) {
+      return res.status(400).json({ message: 'No problems found' })
+  }
+
+  res.json(problems)
+})
+
 const checkUserRole = asyncHandler(async (req) => {
     try {
       const userId = req.userId; // Assuming the user ID is stored in the "userId" property of the request object
@@ -168,8 +180,8 @@ const updateProblem = asyncHandler(async (req, res) => {
   });
   
   module.exports = {
+    getAllProblems,
     createProblem,
-    getProblemById,
     updateProblem,
     deleteProblem
   };

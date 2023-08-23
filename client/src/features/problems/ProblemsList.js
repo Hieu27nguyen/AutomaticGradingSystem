@@ -3,7 +3,7 @@ import Problem from './Problem'
 
 const ProblemsList = () => {
     
-    let {
+    const {
         data: problems,
         isLoading,
         isSuccess,
@@ -15,28 +15,10 @@ const ProblemsList = () => {
 
     if (isLoading) content = <p>Loading...</p>
 
-    // if (isError) {
-    //     content = <p className="errmsg">{error?.data?.message}</p>
-    // }
-    isSuccess = true;
-     problems = { ids: [1, 2], entities:[
-
-        //Test 00
-        //Testing duplicate problem id
-        {
-          _ids: 1,
-          name: "Problem00",
-          description: "yessir",
-          judgeProgram: [{ input: "abc", output: "dfc" }],
-        },
-        {
-            _ids:2,
-          name: "Problem01",
-          description: "nosir",
-          judgeProgram: [{ input: "adb", output: "adsdv" }],
-        }
-
-    ]};
+    if (isError) {
+        content = <p className="errmsg">{error?.data?.message}</p>
+    }
+   
 
     if (isSuccess) {
         
@@ -44,7 +26,7 @@ const ProblemsList = () => {
         const { ids } = problems       
 
         const tableContent = ids?.length
-            ? ids.map(problemId => <Problem key={problemId["name"]} problemId={problemId} />)
+            ? ids.map(problemId => <Problem key={problemId} problemId={problemId} />)
             : null
 
         content = (
@@ -53,6 +35,7 @@ const ProblemsList = () => {
                     <tr>
                         <th scope="col" className="table__th problem__name">Problem Name</th>
                         <th scope="col" className="table__th problem__roles">Description</th>
+                        <th scope="col" className="table__th user__edit"></th>
                     </tr>
                 </thead>
                 <tbody>
