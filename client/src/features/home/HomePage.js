@@ -4,9 +4,11 @@ import useAuth from '../../hooks/useAuth';
 import { useNavigate } from "react-router-dom";
 import UsersList from '../users/UserList';
 import ProblemsList from '../problems/ProblemsList';
+import DashLayout from '../../components/DashLayout'; // Use DashLayout
 
 
 const HomePage = () => {
+  
   const [sendLogout, {
     isLoading,
     isSuccess,
@@ -48,63 +50,13 @@ const HomePage = () => {
     }
   };
 
-  const renderNavItems = () => {
-    if (roles.includes('CONTESTANT')) {
-      return (
-        <ul>
-          <li className={activeTab === 'Home' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Home')}>Home</button>
-          </li>
-          <li className={activeTab === 'Problems' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Problems')}>Problems</button>
-          </li>
-          <li className={activeTab === 'Scoreboards' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Scoreboards')}>Scoreboards</button>
-          </li>
-          <li className={activeTab === 'Competitions' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Competitions')}>Competitions</button>
-          </li>
-        </ul>
-      );
-    } else {
-      return (
-        <ul>
-          <li className={activeTab === 'Home' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Home')}>Home</button>
-          </li>
-          <li className={activeTab === 'Competitions' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Competitions')}>Competitions</button>
-          </li>
-          <li className={activeTab === 'Manage Contestants' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Manage Contestants')}>Manage Contestants</button>
-          </li>
-          <li className={activeTab === 'Problems Management' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Problems Management')}>Problems Management</button>
-          </li>
-        </ul>
-      );
-    }
-  };
-
   return (
-    <div className="home-page">
-      <nav>
-        {renderNavItems()}
-        <div className="profile-dropdown">
-          <button onClick={() => handleTabClick('Profile')}>Profile</button>
-          <button
-            className="icon-button"
-            title="Logout"
-            onClick={loggingOut}
-          >
-            Logout
-          </button>
-        </div>
-      </nav>
-      <div className="tab-content">
-        {renderTabContent()}
-      </div>
-    </div>
+    <DashLayout
+      activeTab={activeTab}
+      handleTabClick={handleTabClick}
+      renderTabContent={renderTabContent}
+      loggingOut={loggingOut}
+    />
   );
 };
 
