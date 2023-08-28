@@ -82,6 +82,7 @@
 
 .form p:hover {
   background-color: #d6e4ff;
+  box-shadow: 0 0 30px lightblue;
 }
 
 .form input[type="submit"] {
@@ -104,7 +105,7 @@
 
 /*Home Page css
   */
-.home-page {
+.nav-bar {
   margin: auto;
   padding: 20px;
 }
@@ -186,6 +187,73 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* || TABLES - GENERAL */
+
+
+thead,
+tbody,
+tr {
+  display: contents;
+}
+
+.table {
+  font-size: 1rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  
+  gap: 0.1em;
+}
+
+.table__button {
+  padding: 0.25em;
+  font-size: 1.5rem;
+  color: rgb(182, 14, 14);
+}
+
+.table__thead {
+  top: 0;
+  z-index: 1;
+}
+
+.table__th,
+.table__cell {
+  background-color: var(--TABLE-BGCOLOR);
+  text-align: left;
+  border: 1px solid var(--TABLE-COLOR);
+  padding: 0.5em;
+}
+
+.table__cell:last-child {
+  display: grid;
+  place-content: center;
+
+}
+
+.table__cell--inactive {
+  background-color: var(--INACTIVE);
+}
+/* Button styles */
+.table__button {
+  padding: 0.5em 1em; /* Adjusted padding for button */
+  font-size: 1rem; /* Adjusted font size for button */
+  color: rgb(182, 14, 14);
+  background-color: transparent;
+  border: 1px solid rgb(182, 14, 14);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  margin-right: 100px;
+}
+
+/* Hover styles for the button */
+.table__button:hover {
+  background-color: rgb(182, 14, 14);
+  color: white;
+  border-color: transparent;
+}
+
+
 @keyframes move {
   0% {
     opacity: 0;
@@ -211,5 +279,6 @@ button:hover {
     padding: 20px 40px;
     width: 440px;
   }
+  
 
 }
