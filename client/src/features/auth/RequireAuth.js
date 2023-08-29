@@ -5,6 +5,8 @@ const RequireAuth = ({ allowedRoles }) => {
     const location = useLocation()
     const { roles } = useAuth()
 
+    allowedRoles.map(x => x = x.toUpperCase());
+
     const content = (
         roles.some(role => allowedRoles.includes(role))
             ? <Outlet />
