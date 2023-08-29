@@ -64,7 +64,7 @@ const parseTestCases = async (testFile) => {
         // If a file is provided, parse the test cases from the file
         testCases = await parseTestCases(testFile);
       } else {
-        // If no file is provided, use the test attribute provided in the request body (if available)
+        // If no file is provided, use the test attribute provided in the request body
         const { test } = req.body;
         testCases = Array.isArray(test) ? test : [];
       }
@@ -121,7 +121,7 @@ const updateProblem = asyncHandler(async (req, res) => {
       // If a file is provided, parse the test cases from the file
       testCases = await parseTestCases(testFile);
     } else {
-      // If no file is provided, use the test attribute provided in the request body (if available)
+      // If no file is provided, use the test attribute provided in the request body
       const { test } = req.body;
       testCases = Array.isArray(test) ? test : [];
     }
