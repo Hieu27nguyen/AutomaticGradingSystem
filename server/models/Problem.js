@@ -1,14 +1,15 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-    id: {
+    _id: {
         type: String, 
         required: true,
         unique: true
     },
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     description: {
         type: String, // Can be a text or PDF link
@@ -25,7 +26,7 @@ const userSchema = new mongoose.Schema({
         },
         output: {
             type: String,
-            required: true
+            required: false
         }
     }]
 })
