@@ -1,0 +1,123 @@
+/* || TABLES - GENERAL */
+
+
+.bi-person-plus-fill{
+  margin-right: 10px;
+}
+.user-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  transition: box-shadow 0.3s ease; /* Add a subtle hover effect */
+}
+
+.user-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.user-info {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+}
+
+
+
+.username {
+  flex: 1;
+  font-size: 18px;
+  color: #333333;
+  margin-bottom: 8px;
+ 
+ 
+}
+
+.roles {
+  flex: 1;
+  font-size: 16px;
+  margin-right: 110px;
+ 
+}
+
+.user-action{
+  display: flex;
+  gap: 8px
+}
+
+
+
+
+
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+.titles{
+  font-family:'Segoe UI';
+  display: flex;
+  flex-grow: 1;
+  margin-right: 20px;
+}
+.titles h4 {
+  margin-left: 20px; 
+  color: #888;
+  opacity: 0.7;
+}
+
+.add_button{
+  margin-right: 20px ;
+  padding: 0.5em 1.25em;
+  font-family: 'Rubik', sans-serif;
+  background-color: rgb(1, 153, 255) ;
+  color: white;
+  border-color: transparent;
+  margin-right: 2rem;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.add_button:hover{
+  background-color: rgb(1, 127, 211);
+  color:#FFF;
+  border-color: transparent;
+}
+
+
+.table-titles {
+  display: flex;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 8px 16px;
+}
+
+.table-titles h3 {
+  font-size: 18px;
+  color: #104b99;
+}
+
+.table-titles h3:nth-child(1) {
+  flex:1
+}
+
+.table-titles h3:nth-child(2) {
+  flex:1.4
+}
+
+
+
+
+
+
+
+

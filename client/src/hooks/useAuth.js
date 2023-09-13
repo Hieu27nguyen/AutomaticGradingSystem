@@ -7,7 +7,7 @@ const useAuth = () => {
     let isJudge = false
     let isAdmin = false
     let status = "CONTESTANT"
-
+                
     if (token) {
         const decoded = jwtDecode(token)
         const { username, roles } = decoded.UserInfo

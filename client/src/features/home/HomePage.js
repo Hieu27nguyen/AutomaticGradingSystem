@@ -4,7 +4,7 @@ import useAuth from '../../hooks/useAuth';
 import { useNavigate } from "react-router-dom";
 import UsersList from '../users/UserList';
 import ProblemsList from '../problems/ProblemsList';
-
+import '../../style/HomePage.css'
 
 const HomePage = () => {
   const [sendLogout, {
@@ -26,7 +26,7 @@ const HomePage = () => {
 
   const loggingOut = () => {
     sendLogout();
-    navigate('/login');
+    navigate('/');
   };
 
   const renderTabContent = () => {
@@ -53,16 +53,16 @@ const HomePage = () => {
       return (
         <ul>
           <li className={activeTab === 'Home' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Home')}>Home</button>
+            <button className='home-button' onClick={() => handleTabClick('Home')}>Home</button>
           </li>
           <li className={activeTab === 'Problems' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Problems')}>Problems</button>
+            <button className='home-button' onClick={() => handleTabClick('Problems')}>Problems</button>
           </li>
           <li className={activeTab === 'Scoreboards' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Scoreboards')}>Scoreboards</button>
+            <button className='home-button' onClick={() => handleTabClick('Scoreboards')}>Scoreboards</button>
           </li>
           <li className={activeTab === 'Competitions' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Competitions')}>Competitions</button>
+            <button className='home-button' onClick={() => handleTabClick('Competitions')}>Competitions</button>
           </li>
         </ul>
       );
@@ -70,16 +70,16 @@ const HomePage = () => {
       return (
         <ul>
           <li className={activeTab === 'Home' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Home')}>Home</button>
+            <button className='home-button' onClick={() => handleTabClick('Home')}>Home</button>
           </li>
           <li className={activeTab === 'Competitions' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Competitions')}>Competitions</button>
+            <button className='home-button' onClick={() => handleTabClick('Competitions')}>Competitions</button>
           </li>
           <li className={activeTab === 'Manage Contestants' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Manage Contestants')}>Manage Contestants</button>
+            <button className='home-button' onClick={() => handleTabClick('Manage Contestants')}>Manage Contestants</button>
           </li>
           <li className={activeTab === 'Problems Management' ? 'active' : ''}>
-            <button onClick={() => handleTabClick('Problems Management')}>Problems Management</button>
+            <button className='home-button' onClick={() => handleTabClick('Problems Management')}>Problems Management</button>
           </li>
         </ul>
       );
@@ -91,9 +91,9 @@ const HomePage = () => {
       <nav>
         {renderNavItems()}
         <div className="profile-dropdown">
-          <button onClick={() => handleTabClick('Profile')}>Profile</button>
+          <button className='home-button' onClick={() => handleTabClick('Profile')}>Profile</button>
           <button
-            className="icon-button"
+            className="home-button"
             title="Logout"
             onClick={loggingOut}
           >
