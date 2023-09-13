@@ -5,38 +5,14 @@ const submissionConnection = axios.create({
     timeout: 1000,
 });
 
-const GET_SUPPORTED_LANGUAGES = async () => {
-    const languages = await submissionConnection.get('/languages');
-    //console.log(languages.data);
-    return languages.data;
+const GET_STATUSES = async () => {
+    const statuses = await submissionConnection.get('/statuses');
+    return statuses.data;
 };
 
-const createSubmission = async (sourcecode = '', problem = null) => {
-    console.log("Creating submission");
-    const { status, data, callback_url } = await submissionConnection.post('/submissions/?base64_encoded=false&wait=true', {
-        source_code:
-            `#include <stdio.h>
-            int main(void) {
-                char name[10];
-                scanf("%s", name);
-                printf("hello, %s\\n", name);
-                return 0;
-            }`
-        ,
-        language_id: 50,
-        stdin: "world",
-        expected_output: "hello, world"
-    }, {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-    console.log("Token " + status);
-
-    token = "5205cc0c-9c1d-4521-9cb9-b8bde09b1eee";
-    const submissionStatus = await submissionConnection.get(`/submissions/${data.token}?base64_encoded=false`,);
-    console.log(submissionStatus.data);
-
+const GET_SUPPORTED_LANGUAGES = async () => {
+    const languages = await submissionConnection.get('/languages');
+    return languages.data;
 };
 
 const runSubmission = async (sourcecode = '', languageID = 0, problem = null) => {
