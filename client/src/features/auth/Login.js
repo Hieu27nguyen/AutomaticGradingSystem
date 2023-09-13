@@ -31,7 +31,7 @@ const Login = () => {
     useEffect(() => {
         setErrMsg('');
     }, [username, password])
-    console.log(existingAuth);
+
     const goBackToHomePage = () => {    
         navigate('/home');
     }

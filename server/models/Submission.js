@@ -25,6 +25,11 @@ const submissionSchema = new mongoose.Schema({
     enum: ['Pending', 'Accepted', 'Failed test', 'Runtime error', 'Compilation error'],
     default: 'Pending',
   },
+  language_id: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
   score: {
     type: Number,
     default: 0,
