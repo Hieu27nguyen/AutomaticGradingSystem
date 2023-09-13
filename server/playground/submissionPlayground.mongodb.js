@@ -45,19 +45,19 @@ const submissionsData = [
   //Test 00
   //Testing duplicate submission id
   {
-    _id: "1",
+    _id: ObjectID("Sub1"),
     user: '1', 
     problem: '1', 
-    code: 'console.log("Hello, World!");',
+    sourcecode: 'console.log("Hello, World!");',
     status: 'Pending',
     score: 0,
     timeSubmitted: new Date('2023-08-02T00:22:09.247Z')
   },
   {
-    _id: "1",
+    _id: ObjectID("Sub1"),
     user: '1', 
     problem: '1', 
-    code: 'print("Hello, World!")',
+    sourcecode: 'print("Hello, World!")',
     status: 'Accepted',
     score: 100,
     timeSubmitted: new Date('2023-08-02T00:22:09.247Z')
@@ -65,19 +65,19 @@ const submissionsData = [
   //Test 01
   //Testing allow user to submit mutiple submissions
   {
-    _id: "2",
+    _id: ObjectID("Sub2"),
     user: '1', 
     problem: '3', 
-    code: 'console.log("Hello, World!");',
+    sourcecode: 'console.log("Hello, World!");',
     status: 'Pending',
     score: 0,
     timeSubmitted: new Date('2023-09-02T04:23:09.247Z')
   },
   {
-    _id: "3",
+    _id: ObjectID("Sub3"),
     user: '1', 
     problem: '2', 
-    code: 'console.log("Hello, World!");',
+    sourcecode: 'console.log("Hello, World!");',
     status: 'Pending',
     score: 0,
     timeSubmitted: new Date('2023-01-01T02:22:09.247Z')
@@ -85,19 +85,19 @@ const submissionsData = [
   //Test 02
   //Testing allow duplicate problem_id
   {
-    _id: "4",
+    _id: ObjectID("Sub4"),
     user: '4', 
     problem: '1', 
-    code: 'console.log("Hello, World!");',
+    sourcecode: 'console.log("Hello, World!");',
     status: 'Pending',
     score: 0,
     timeSubmitted: new Date('2023-11-02T04:23:09.247Z')
   },
   {
-    _id: "5",
+    _id: ObjectID("Sub5"),
     user: '3', 
     problem: '1', 
-    code: 'console.log("Hello, World!");',
+    sourcecode: 'console.log("Hello, World!");',
     status: 'Compilation error',
     score: 0,
     timeSubmitted: new Date('2023-01-01T02:22:09.247Z')
@@ -105,19 +105,19 @@ const submissionsData = [
   //Test 03
   //Testing allow empty code
   {
-    _id: "6",
+    _id: ObjectID("Sub6"),
     user: '4', 
     problem: '1', 
-    code: '',
+    sourcecode: '',
     status: 'Failed test',
     score: 0,
     timeSubmitted: new Date('2023-11-02T04:23:09.247Z')
   },
   {
-    _id: "7",
+    _id: ObjectID("Sub7"),
     user: '3', 
     problem: '1', 
-    code: '',
+    sourcecode: '',
     status: 'Runtime error',
     score: 20,
     timeSubmitted: new Date('2023-01-01T02:22:09.247Z')
@@ -125,19 +125,19 @@ const submissionsData = [
   //Test 04
   //Testing negative score
   {
-    _id: "8",
+    _id: ObjectID("Sub8"),
     user: '4', 
     problem: '1', 
-    code: 'console.log("Hello, World!");',
+    sourcecode: 'console.log("Hello, World!");',
     status: 'Accepted',
     score: -10,
     timeSubmitted: new Date('2022-11-02T04:05:09.247Z')
   },
   {
-    _id: "9",
+    _id: ObjectID("Sub9"),
     user: '3', 
     problem: '1', 
-    code: 'console.log("Hello, World!");',
+    sourcecode: 'console.log("Hello, World!");',
     status: 'Pending',
     score: -99,
     timeSubmitted: new Date('2021-01-01T02:02:09.247Z')

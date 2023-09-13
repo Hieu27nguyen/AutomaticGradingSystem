@@ -37,14 +37,4 @@ const runSubmission = async (sourcecode = '', languageID = 0, problem = null) =>
     return submissionStatus.data;
 };
 
-
-// Make request
-const temp = () => {
-    console.log("Getting connection");
-    axios.get(process.env.JUDGE_URL + 'languages')
-
-        // Show response data
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err))
-}
 module.exports = { submissionConnection, GET_SUPPORTED_LANGUAGES, createSubmission, runSubmission }
