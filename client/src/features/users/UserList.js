@@ -1,7 +1,6 @@
 import { useGetUsersQuery } from "./usersApiSlice";
 import User from './User';
 import '../../style/UserList.css';
-import 'bootstrap-icons/font/bootstrap-icons.css'
 import { useNavigate } from "react-router-dom";
 import { useState , useEffect } from "react";
 

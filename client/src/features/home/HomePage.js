@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import UsersList from '../users/UserList';
 import ProblemsList from '../problems/ProblemsList';
 import '../../style/HomePage.css'
+import CompetitionsList from '../competitions/CompetitionsList';
 
 const HomePage = () => {
   const [sendLogout, {
@@ -33,8 +34,8 @@ const HomePage = () => {
     switch (activeTab) {
       case 'Home':
         return <h2>Welcome to the Home Page, {username}!</h2>;
-      case 'Competitions':
-        return <h2>Competitions Available</h2>;
+      case 'Competition':
+        return <CompetitionsList/>;
       case 'Problems':
         return <ProblemsList />;
       case 'Scoreboards':
@@ -62,7 +63,7 @@ const HomePage = () => {
             <button className='home-button' onClick={() => handleTabClick('Scoreboards')}>Scoreboards</button>
           </li>
           <li className={activeTab === 'Competitions' ? 'active' : ''}>
-            <button className='home-button' onClick={() => handleTabClick('Competitions')}>Competitions</button>
+            <button className='home-button' onClick={() => handleTabClick('Competition')}>Competition</button>
           </li>
         </ul>
       );
@@ -73,7 +74,7 @@ const HomePage = () => {
             <button className='home-button' onClick={() => handleTabClick('Home')}>Home</button>
           </li>
           <li className={activeTab === 'Competitions' ? 'active' : ''}>
-            <button className='home-button' onClick={() => handleTabClick('Competitions')}>Competitions</button>
+            <button className='home-button' onClick={() => handleTabClick('Competition')}>Competition</button>
           </li>
           <li className={activeTab === 'Manage Contestants' ? 'active' : ''}>
             <button className='home-button' onClick={() => handleTabClick('Manage Contestants')}>Manage Contestants</button>

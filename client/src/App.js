@@ -4,6 +4,7 @@ import './style/App.css';
 import Login from './features/auth/Login';
 import HomePage from './features/home/HomePage';
 import Problem from './features/problems/ProblemsList';
+import CompetitionsList from './features/competitions/CompetitionsList';
 import PersistLogin from './features/auth/PersistLogin';
 import RequireAuth from './features/auth/RequireAuth';
 import Prefetch from './features/auth/Prefetch'
@@ -23,6 +24,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/home" element={<HomePage />} />
+      {/* <Route path="/competitions" element={<CompetitionsList />} /> */}
       {/* Protected Routes */}
       <Route element={<PersistLogin />}>
       <Route path="/login" element={<Login />} />

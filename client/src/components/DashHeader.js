@@ -27,8 +27,8 @@ const DashHeader = ({ activeTab, handleTabClick }) => {
                 <li className={activeTab === 'Scoreboards' ? 'active' : ''}>
                     <button onClick={() => handleTabClick('Scoreboards')}>Scoreboards</button>
                 </li>
-                <li className={activeTab === 'Competitions' ? 'active' : ''}>
-                    <button onClick={() => handleTabClick('Competitions')}>Competitions</button>
+                <li className={activeTab === 'Competition' ? 'active' : ''}>
+                    <button onClick={() => handleTabClick('Competition')}>Competition</button>
                 </li>
             </ul>
         </nav>
