@@ -1,0 +1,83 @@
+/*Home Page css
+  */
+  .nav-bar {
+    margin: auto;
+    padding: 20px;
+  }
+  
+  nav {
+    background-color: #270141;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  li {
+    margin-right: 10px;
+  }
+  
+  li:last-child {
+    margin-right: 0;
+  }
+  
+  .home-button {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 15px;
+  }
+  
+  .home-button:focus {
+    outline: none;
+  }
+  
+  .home-button:hover {
+    background-color: rgb(92, 5, 173);
+    box-shadow: 0 0 30px rgb(134, 130, 130);
+  }
+  
+  /* Active Tab */
+  .active {
+    border-bottom: 2px solid #fff;
+  }
+  
+  /* Profile Dropdown */
+  .profile-dropdown {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #6b8eb3;
+    border-radius: 4px;
+    display: none;
+  }
+  
+  .profile-dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  .dropdown-content button {
+    display: block;
+    padding: 10px 15px;
+    width: 100%;
+    text-align: left;
+    color: #fff;
+    border: none;
+    background-color: transparent;
+  }
+  
+  .dropdown-content button:hover {
+    background-color: #0056b3;
+  }
+  

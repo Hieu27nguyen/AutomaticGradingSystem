@@ -6,13 +6,14 @@ import HomePage from './features/home/HomePage';
 import Problem from './features/problems/ProblemsList';
 import PersistLogin from './features/auth/PersistLogin';
 import RequireAuth from './features/auth/RequireAuth';
-import User from './features/users/UserList';
 import Prefetch from './features/auth/Prefetch'
 import useTitle from './hooks/useTitle';
 import Missing404 from './Missing404';
 import { ROLES } from './config/roles';
-
-
+import UsersList from './features/users/UserList';
+import EditUser from './features/users/EditUser'
+import NewUser from './features/users/NewUser'
+//import Register from './features/users/Register';
 
 
 function App() {
@@ -31,7 +32,11 @@ function App() {
             {/* <Route path="/home" element={<HomePage />} /> */}
             
             <Route element={<RequireAuth allowedRoles={[ROLES.Judge, ROLES.Admin]} />}>
-              <Route path="/users" element={<User />} />
+              <Route path="users">
+                <Route index element= {<UsersList/>} />
+                <Route path=":id" element={<EditUser/>}></Route>
+              </Route>
+              <Route path="/newuser" element={<NewUser/>}/>
               <Route path="/problems" element={<Problem />} />
             </Route>
           
