@@ -1,60 +1,8 @@
-/* || TABLES - GENERAL */
-
+/*UserList css */
 
 .bi-person-plus-fill{
   margin-right: 10px;
 }
-.user-card {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  padding: 10px;
-  margin-bottom: 16px;
-  margin-top: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-  transition: box-shadow 0.3s ease; /* Add a subtle hover effect */
-}
-
-.user-card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.user-info {
-  display: flex;
-  flex-grow: 1;
-  align-items: center;
-}
-
-
-
-.username {
-  flex: 1;
-  font-size: 18px;
-  color: #333333;
-  margin-bottom: 8px;
- 
- 
-}
-
-.roles {
-  flex: 1;
-  font-size: 16px;
-  margin-right: 110px;
- 
-}
-
-.user-action{
-  display: flex;
-  gap: 8px
-}
-
-
-
-
-
 
 .header {
   display: flex;
@@ -62,21 +10,22 @@
   justify-content: space-between;
   
 }
+
 .titles{
   font-family:'Segoe UI';
   display: flex;
-  flex-grow: 1;
-  margin-right: 20px;
+  margin-left: 20px;
 }
 .titles h4 {
   margin-left: 20px; 
   color: #888;
   opacity: 0.7;
+  
 }
 
 .add_button{
   margin-right: 20px ;
-  padding: 0.5em 1.25em;
+  padding: 0.65em 1.25em;
   font-family: 'Rubik', sans-serif;
   background-color: rgb(1, 153, 255) ;
   color: white;
@@ -93,26 +42,169 @@
   border-color: transparent;
 }
 
+.body{
+  display: flex;
+  flex-direction: column;
+}
+
+.check-and-titles {
+  display: flex;
+  
+}
+
+.check-all {
+  margin-left: 1%;
+  margin-top: 25px ;
+}
 
 .table-titles {
   display: flex;
   align-items: center;
-  background-color: #f0f0f0;
-  padding: 8px 16px;
+  flex-grow: 1;
+  margin-left: 10px;
+  max-width: 95%;
+  border: 1px solid #ffffff;
+  border-left: 4px solid #ffffff;
+  border-radius: 4px;
+  padding: 3px;
+  
 }
 
 .table-titles h3 {
   font-size: 18px;
   color: #104b99;
+  
 }
 
 .table-titles h3:nth-child(1) {
-  flex:1
+  flex:0.4
 }
 
 .table-titles h3:nth-child(2) {
-  flex:1.4
+  
+  margin-right: auto;
 }
+
+
+
+.table-titles button {
+  margin-left: auto;
+  
+}
+
+.table-content {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+
+}
+
+
+
+
+
+
+
+.no-contestant {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%; 
+  font-size: 20px;
+  font-weight: bold;
+  color: #e40505;
+  padding-top: 3rem;
+
+  text-align: center;
+}
+
+/* User css */
+
+.user {
+  display: flex;
+  flex-direction: row;
+}
+.user-checkbox {
+  margin-left:1%;
+  margin-top: 20px;
+}
+.user-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #104b99;
+  border-radius: 4px;
+  padding: 3px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: 10px;
+  max-width: 95%;
+}
+
+.user-card:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-card.highlight {
+  background-color: #d7e1f5;
+  transition: background-color 0.2s ease; 
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+
+
+.username {
+  flex:0.4;
+  font-size: 16px;
+  color: #333333;
+ 
+ 
+}
+
+.roles {
+  font-size: 16px;
+  margin-right: auto;
+}
+
+.user-action{
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.edit-button{
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  color: #333333;
+}
+.edit-button:hover {
+  background-color: #e9e8e8;
+  border-color: transparent;
+}
+.delete-button{
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  color: #000000;
+}
+.delete-button:hover {
+  background-color: #e9e8e8;
+  border-color: transparent;
+}
+
+
+
+
 
 
 
