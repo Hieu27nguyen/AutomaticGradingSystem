@@ -44,20 +44,16 @@ const competitionData = [
     {
       _id: 0,
       name: "Event00",
-      description: "a",
       date: new Date('2023-08-02T00:22:09.247Z'),
       time: '10:09 PM',
       duration: "4 hours",
-      location: "MLG 110"
     },
     {
         _id: 0,
         name: "Event00",
-        description: "a",
         date: new Date('2023-11-02T00:22:09.247Z'),
         time: '10:09 PM',
         duration: "4 hours",
-        location: "MLG 120"
     }
   ];
   

@@ -1,33 +1,3 @@
-// import React, { useState } from 'react';
-// import UWBuildingImage from "../../img/UW_image.jpg";
-// import EventInputForm from './EventForm';
-// import useAuth from '../../hooks/useAuth';
-
-// const CompetitionsList = () => {
-//   const [isFormVisible, setIsFormVisible] = useState(false);
-//   const { roles } = useAuth();
-
-//   const isAllowedToAddEvent = roles.includes('JUDGE') || roles.includes('ADMIN');
-
-//   const handleButtonClick = () => {
-//     setIsFormVisible(true);
-//   };
-
-//   const handleCloseForm = () => {
-//     setIsFormVisible(false);
-//   };
-
-//   return (
-//     <div className="event-container" style={{ backgroundImage: `url(${UWBuildingImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat'}}>
-//       {isAllowedToAddEvent && !isFormVisible && (
-//         <button type="Add Event" onClick={handleButtonClick} className="custom-button">Add Event</button>
-//       )}
-//       {isFormVisible && <EventInputForm onClose={handleCloseForm} />}
-//     </div>
-//   );
-// };
-
-// export default CompetitionsList;
 import React, { useState } from 'react';
 import UWBuildingImage from "../../img/UW_image.jpg";
 import EventForm from './EventForm';
@@ -56,10 +26,14 @@ const CompetitionsList = () => {
   };
 
   return (
-    <div className="event-container" style={{ backgroundImage: `url(${UWBuildingImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat'}}>
+    <div className="event-container" style={{ 
+      backgroundImage: `url(${UWBuildingImage})`, 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center', 
+      backgroundRepeat: 'no-repeat'}}>
       {eventData && !isEditing ? (
         // Display event information panel after submission
-        <div className="event-information-wrapper"> {/* Add this wrapper div */}
+        <div className="event-information-wrapper">
         <EventInformation
           eventData={eventData}
           onEdit={handleEditClick}
