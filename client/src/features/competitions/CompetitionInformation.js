@@ -1,7 +1,7 @@
 import React from 'react';
 import "../../style/Event.css"
 
-const EventInformation = ({ eventData, onEdit }) => {
+const CompetitionInformation = ({ eventData, onEdit }) => {
 
   const eventDate = new Date(eventData.eventDate);
   const eventTime = new Date(`1970-01-01T${eventData.eventTime}`);
@@ -18,7 +18,6 @@ const EventInformation = ({ eventData, onEdit }) => {
     hour12: true,
   });
   
-
   return (
     <div className="white-box"> 
       <h3>Event Information</h3>
@@ -31,7 +30,7 @@ const EventInformation = ({ eventData, onEdit }) => {
   );
 };
 
-export default EventInformation;
+export default CompetitionInformation;
 
 
 

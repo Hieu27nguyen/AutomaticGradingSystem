@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import EventInformation from './EventInformation';
+import CompetitionInformation from './CompetitionInformation';
 import "../../style/Event.css"
 
 
-const EventForm = ({ onCancel, onSubmit,initialData  }) => { 
+const CompetitionForm = ({ onCancel, onSubmit,initialData  }) => { 
   const [eventName, setEventName] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [eventTime, setEventTime] = useState('');
@@ -56,7 +56,7 @@ const EventForm = ({ onCancel, onSubmit,initialData  }) => {
     <div className="event-input-form">
       <h2>Add Event</h2>
       {isSubmitted ? (
-        <EventInformation
+        <CompetitionInformation
           eventName={eventName}
           eventDate={eventDate}
           eventTime={eventTime}
@@ -116,4 +116,5 @@ const EventForm = ({ onCancel, onSubmit,initialData  }) => {
   );
 };
 
-export default EventForm;
+export default CompetitionForm;
+
