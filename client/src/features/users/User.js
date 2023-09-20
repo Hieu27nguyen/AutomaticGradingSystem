@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectUserById } from './usersApiSlice'
 import { useDeleteUserMutation } from './usersApiSlice'
-
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const User = ({ userId, isChecked = false, setIsChecked }) => {
 
