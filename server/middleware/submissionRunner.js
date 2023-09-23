@@ -37,4 +37,4 @@ const runSubmission = async (sourcecode = '', languageID = 0, problem = null) =>
     return submissionStatus.data;
 };
 
-module.exports = { submissionConnection, GET_SUPPORTED_LANGUAGES, createSubmission, runSubmission }
+module.exports = { submissionConnection, GET_SUPPORTED_LANGUAGES, runSubmission }

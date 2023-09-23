@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const submissionSchema = new mongoose.Schema({
   _id: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     required: true,
     unique: true
   },
@@ -12,7 +12,7 @@ const submissionSchema = new mongoose.Schema({
     required: true,
   },
   problem: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Problem',
     required: true,
   },
