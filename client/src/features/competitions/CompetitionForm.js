@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import CompetitionInformation from './CompetitionInformation';
 import "../../style/Event.css"
-
+import { getCurrentDate } from './Utils';
 
 const CompetitionForm = ({ onCancel, onSubmit,initialData  }) => { 
+  const currentDate = getCurrentDate();
   const [eventName, setEventName] = useState('');
-  const [eventDate, setEventDate] = useState('');
+  const [eventDate, setEventDate] = useState(currentDate);
   const [eventTime, setEventTime] = useState('');
   const [eventDuration, setEventDuration] = useState('');
   const [formErrors, setFormErrors] = useState({});
@@ -86,7 +87,6 @@ const CompetitionForm = ({ onCancel, onSubmit,initialData  }) => {
           />
           {formErrors.eventDate && <span className="form-error">{formErrors.eventDate}</span>}
         </div>
-        
         <div className="form-group">
           <label htmlFor="eventTime" className="form-label"> Time:</label>
           <input

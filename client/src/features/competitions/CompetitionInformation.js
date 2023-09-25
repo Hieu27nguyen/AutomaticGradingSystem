@@ -1,22 +1,10 @@
 import React from 'react';
 import "../../style/Event.css"
+import { getCurrentFormattedDate, formatTimeTo12HourClock } from './Utils';
 
 const CompetitionInformation = ({ eventData, onEdit }) => {
-
-  const eventDate = new Date(eventData.eventDate);
-  const eventTime = new Date(`1970-01-01T${eventData.eventTime}`);
-
-  const formattedDate = eventDate.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-
-  const formattedTime = eventTime.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  });
+  const formattedDate = getCurrentFormattedDate(eventData.eventDate);
+  const formattedTime = formatTimeTo12HourClock(eventData.eventTime);
   
   return (
     <div className="white-box"> 
