@@ -1,43 +1,26 @@
-import { createEntityAdapter, createSelector, createAsyncThunk  } from "@reduxjs/toolkit";
+import { createEntityAdapter, createSelector } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice";
-import axios from 'axios';
 
 const competitionsAdapter = createEntityAdapter({});
 
-const initialState = competitionsAdapter.getInitialState();
 const CREATE_COMPETITION_API_ENDPOINT = '/competitions';
 
 export const competitionsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     // Fetch all competitions
     getCompetitions: builder.query({
-      query: () => '/competitions', 
-      transformResponse: (responseData) => {
-        return responseData;
-      },
+      query: () => '/competitions',
       providesTags: ['Competition'],
     }),
 
     // Add a new competition
     addNewCompetition: builder.mutation({
       query: (newCompetitionData) => ({
-        url: '/competitions', 
+        url: CREATE_COMPETITION_API_ENDPOINT, // Use the correct endpoint here
         method: 'POST',
         body: newCompetitionData,
       }),
       invalidatesTags: ['Competition'],
-    }),
-
-    // Update an existing competition
-    updateCompetition: builder.mutation({
-      query: (updatedCompetitionData) => ({
-        url: '/competitions', 
-        method: 'PUT',
-        body: updatedCompetitionData,
-      }),
-      invalidatesTags: (result, error, arg) => [
-        { type: 'Competition', id: arg.id },
-      ],
     }),
   }),
 });
@@ -45,33 +28,44 @@ export const competitionsApiSlice = apiSlice.injectEndpoints({
 export const {
   useGetCompetitionsQuery,
   useAddNewCompetitionMutation,
-  useUpdateCompetitionMutation,
 } = competitionsApiSlice;
 
-// Returns the query result object
-export const selectCompetitionsResult = competitionsApiSlice.endpoints.getCompetitions.select();
-
-// Creates a memoized selector
-export const selectCompetitionsData = createSelector(
-  selectCompetitionsResult,
-  (competitionsResult) => competitionsResult.data // normalized state object with ids & entities
-);
-
 // Define async thunk for creating competitions
-export const createCompetition = createAsyncThunk(
-    'competitions/create',
-    async (competitionData, thunkAPI) => {
-      try {
-        // Make a POST request to your API endpoint with the competition data
-        const response = await axios.post(CREATE_COMPETITION_API_ENDPOINT, competitionData);
-        // Return the response data
-        return response.data;
-      } catch (error) {
-        // Handle any errors here (e.g., network error, validation error)
-        throw error;
-      }
+export const createCompetition = (competitionData) => async (dispatch) => {
+  try {
+    // Make a POST request to your API endpoint with the competition data
+    const response = await fetch(CREATE_COMPETITION_API_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(competitionData),
+    });
+
+    if (!response.ok) {
+      // Handle API error (e.g., validation error) here
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Error creating competition');
     }
-  );
+
+    // Assuming your API returns the created competition data
+    const createdCompetition = await response.json();
+
+    // Dispatch an action to update the Redux store with the created competition
+    dispatch(
+      useAddNewCompetitionMutation(createdCompetition, {
+        invalidateTags: ['Competition'],
+      })
+    );
+
+    // Return the created competition data
+    return createdCompetition;
+  } catch (error) {
+    // Handle network errors or other errors here
+    throw error;
+  }
+};
+
 
 
 
