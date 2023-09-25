@@ -6,6 +6,11 @@ const scoreboardSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    contestID: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        unique: true
+    },
     totalScore: {
         type: Number,
         required: true
