@@ -1,9 +1,11 @@
-import { createEntityAdapter, createSelector  } from "@reduxjs/toolkit";
+import { createEntityAdapter, createSelector, createAsyncThunk  } from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice";
+import axios from 'axios';
 
 const competitionsAdapter = createEntityAdapter({});
 
 const initialState = competitionsAdapter.getInitialState();
+const CREATE_COMPETITION_API_ENDPOINT = '/competitions';
 
 export const competitionsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -54,6 +56,22 @@ export const selectCompetitionsData = createSelector(
   selectCompetitionsResult,
   (competitionsResult) => competitionsResult.data // normalized state object with ids & entities
 );
+
+// Define async thunk for creating competitions
+export const createCompetition = createAsyncThunk(
+    'competitions/create',
+    async (competitionData, thunkAPI) => {
+      try {
+        // Make a POST request to your API endpoint with the competition data
+        const response = await axios.post(CREATE_COMPETITION_API_ENDPOINT, competitionData);
+        // Return the response data
+        return response.data;
+      } catch (error) {
+        // Handle any errors here (e.g., network error, validation error)
+        throw error;
+      }
+    }
+  );
 
 
 
