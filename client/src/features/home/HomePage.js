@@ -6,6 +6,7 @@ import UsersList from '../users/UserList';
 import ProblemsList from '../problems/ProblemsList';
 import '../../style/HomePage.css'
 import CompetitionsList from '../competitions/CompetitionsList';
+import ScorePage from '../../scorePage/ScorePage';
 
 const HomePage = () => {
   const [sendLogout, {

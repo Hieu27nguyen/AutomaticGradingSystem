@@ -1,6 +1,7 @@
 
 import { Routes, Route } from 'react-router-dom';
 import './style/App.css';
+import Welcome from './features/home/WelcomePage';
 import Login from './features/auth/Login';
 import HomePage from './features/home/HomePage';
 import Problem from './features/problems/ProblemsList';
@@ -22,6 +23,7 @@ function App() {
   useTitle('Automatic Grading Contest')
   return (
     <Routes>
+      <Route path="/" element={<Welcome />} />
       <Route path="/" element={<Login />} />
       <Route path="/home" element={<HomePage />} />
       {/* <Route path="/competitions" element={<CompetitionsList />} /> */}

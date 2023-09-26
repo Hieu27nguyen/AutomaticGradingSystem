@@ -1,0 +1,42 @@
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* take the full height of the viewport */
+  }
+  
+  .welcome-header {
+    font-weight: bold;
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    font-size: 2rem;
+    color: white;
+  }
+  
+  .signin-button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    transition: background-color 0.2s;
+  
+    &:hover {
+        background-color: #0056b3;
+    }
+  }
+  
+  .welcome-background {
+    background-image: url("https://static.vecteezy.com/system/resources/previews/006/697/635/original/seo-web-development-software-coding-and-programming-on-application-in-laptop-computer-devices-with-script-language-testing-and-graphical-icons-vector.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+  }
