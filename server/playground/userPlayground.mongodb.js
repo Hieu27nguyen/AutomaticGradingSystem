@@ -103,19 +103,36 @@ let data = [
   },
   //Test contestants
   {
+    _id: ObjectId("Contestant00"),
     username: "contestantTest00",
     password: "123",
     online: false,
     roles: "Contestant",
   },
   {
+    _id: ObjectId("Contestant01"),
     username: "contestantTest01",
     password: "123",
     online: false,
     roles: "Contestant",
   },
   {
+    _id: ObjectId("Contestant02"),
     username: "contestantTest02",
+    password: "123",
+    online: false,
+    roles: "Contestant",
+  },
+  {
+    _id: ObjectId("Contestant03"),
+    username: "contestantTest03",
+    password: "123",
+    online: false,
+    roles: "Contestant",
+  },
+  {
+    _id: ObjectId("Contestant04"),
+    username: "contestantTest04",
     password: "123",
     online: false,
     roles: "Contestant",

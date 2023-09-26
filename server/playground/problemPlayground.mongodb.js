@@ -1,6 +1,7 @@
 /* global use, db */
 // MongoDB Playground
 // Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+let bcrypt = require('bcrypt');
 
 const database = 'autogradingsystem';
 const collection = 'problems';
@@ -17,9 +18,9 @@ try {
 
 // Problem Schema: id(given), name, description, judgeProgram, and test.
 // Function to insert a new problem into the "problems" collection
-let importData = async (data) => {
-    for (const entry of data) {
-        uniqueFields = ['_id', 'name'];
+
+let importData = async (data, uniqueFields = [], encryptedFields = []) => { //////
+    for (const entry of data) { // Use "for...of" loop instead of forEach
         let unique = {};
         uniqueFields.map(x => {
             unique[x] = entry[x];
@@ -27,14 +28,28 @@ let importData = async (data) => {
 
         console.log("Fields that need to be unique" + JSON.stringify(unique));
 
-        if (await db[collection].findOne({ _id: entry._id }) !== null) {
-            console.log("Duplicate problem: " + entry._id);
+        if (await db[collection].findOne(unique) !== null) { //////
+            console.log("Duplicate data");
         } else {
-            await db[collection].insertOne(entry);
-            console.log("Imported problem: " + entry._id);
+            let dataToImport = {};
+            for (let key in entry) {
+                let val = entry[key]; // Declare "val" using "let"
+
+                // Encrypt the value first
+                if (encryptedFields.includes(key)) {
+                    val = await bcrypt.hash(entry[key], 10);
+                    dataToImport[key] = val;
+                    console.log(val);
+                } else {
+                    dataToImport[key] = val;
+                }
+            }
+            console.log("Data to be imported " + JSON.stringify(dataToImport));
+            await db[collection].insertOne(dataToImport); ////// 
         }
     }
 };
+
 
 // Sample data to import
 const problemsData = [
@@ -42,14 +57,12 @@ const problemsData = [
     //Test 00
     //Testing duplicate problem id
     {
-        _id: ObjectID("Prob0"),
         name: "Problem00",
         description: "yessir",
         judgeProgram: "",
         test: [{ input: "abc", output: "dfc" }],
     },
     {
-        _id: ObjectID("Prob1"),
         name: "Problem01",
         description: "nosir",
         judgeProgram: "",
@@ -59,10 +72,10 @@ const problemsData = [
         ],
     },
     {
-        _id: ObjectID("Prob2"),
         name: "Problem02",
         description: "asdsad",
-        judgeProgram: `
+        judgeProgram:
+         `
             const judgingFunction = (contestantOutput, problemInput = "") => {
                 let num = parseInt(contestantOutput);
                 let res = false;
@@ -76,8 +89,7 @@ const problemsData = [
                 }
                 return res;
             };
-        `
-        ,
+        `,
         test: [
             { input: "2", output: "" },
             { input: "4", output: "" }
@@ -86,4 +98,4 @@ const problemsData = [
 ];
 
 // Import problems data
-importData(problemsData);
+importData(problemsData, ["name"]);
