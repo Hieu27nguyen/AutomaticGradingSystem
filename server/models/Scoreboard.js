@@ -15,6 +15,10 @@ const scoreboardSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    solvedProblem: {
+        type: Number,
+        required: true
+    },
     submissionDetail: [
         {
             problemID: {
@@ -31,10 +35,7 @@ const scoreboardSchema = new mongoose.Schema({
             },
         }
     ],
-    rank: {
-        type: Number,
-        required: true
-    },
+   
 });
 
 module.exports = mongoose.model('scoreboard', scoreboardSchema)
