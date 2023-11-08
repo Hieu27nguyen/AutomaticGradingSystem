@@ -45,8 +45,8 @@ const User = ({ userId, isChecked = false, setIsChecked }) => {
                         <p className='roles'>{userRolesString}</p>
                     </div>
                     <div className='user-action'>
-                        <button className='edit-button' onClick={handleEdit}><i class="bi bi-pencil-fill"></i></button>
-                        <button className='delete-button' onClick={handleDelete}><i class="bi bi-trash3"></i></button>
+                        <button className='edit-button' onClick={handleEdit}><i className="bi bi-pencil-fill"></i></button>
+                        <button className='delete-button' onClick={handleDelete}><i className="bi bi-trash3"></i></button>
                     </div>
 
                 </div>

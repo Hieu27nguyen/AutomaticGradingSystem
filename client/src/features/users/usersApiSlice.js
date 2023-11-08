@@ -29,8 +29,9 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                         ...result.ids.map(id => ({ type: 'User', id }))
                     ]
                 } else return [{ type: 'User', id: 'LIST' }]
-            }
+            },
         }),
+
         addNewUser: builder.mutation({
             query: initialUserData => ({
                 url: '/users',
@@ -91,3 +92,4 @@ export const {
     selectIds: selectUserIds
     // Pass in a selector that returns the users slice of state
 } = usersAdapter.getSelectors(state => selectUsersData(state) ?? initialState)
+

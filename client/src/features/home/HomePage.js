@@ -92,7 +92,7 @@ const HomePage = () => {
       <nav>
         {renderNavItems()}
         <div className="profile-dropdown">
-          <button className='home-button' onClick={() => handleTabClick('Profile')}>Profile</button>
+          
           <button
             className="home-button"
             title="Logout"

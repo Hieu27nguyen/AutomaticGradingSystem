@@ -112,12 +112,12 @@ const EditUserForm = ({ user }) => {
                     onChange={onPasswordChanged}
                 />
                  <div className="form__action-buttons">
-                        <button
+                       <button
                             className="icon-button"
                             title="Save"
                             onClick={onSaveUserClicked}
                             disabled={!canSave}
-                        >
+                        > 
                            Confirm
                         </button>
                     </div>

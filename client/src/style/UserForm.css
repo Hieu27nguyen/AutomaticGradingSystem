@@ -84,6 +84,11 @@ margin-top: 1rem;
   color: #fff;
   letter-spacing: 1px;
   font-family: 'Rubik', sans-serif;
+  cursor:pointer;
+}
+.submit-button:disabled {
+  opacity: 0.5; /* Reduce opacity to indicate it's disabled */
+  cursor: not-allowed; /* Change cursor to not-allowed */
 }
 
 

@@ -14,11 +14,12 @@ import { ROLES } from './config/roles';
 import UsersList from './features/users/UserList';
 import EditUser from './features/users/EditUser'
 import NewUser from './features/users/NewUser'
-//import Register from './features/users/Register';
+import ProblemsList from './features/problems/ProblemsList';
+import NewProblem from './features/problems/NewProblem';
 
 
 function App() {
- 
+
   useTitle('Automatic Grading Contest')
   return (
     <Routes>
@@ -27,23 +28,28 @@ function App() {
       {/* <Route path="/competitions" element={<CompetitionsList />} /> */}
       {/* Protected Routes */}
       <Route element={<PersistLogin />}>
-      <Route path="/login" element={<Login />} />
-      
+        <Route path="/login" element={<Login />} />
+
         <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
           <Route element={<Prefetch />}>
             {/* <Route path="/home" element={<HomePage />} /> */}
-            
+
             <Route element={<RequireAuth allowedRoles={[ROLES.Judge, ROLES.Admin]} />}>
               <Route path="users">
-                <Route index element= {<UsersList/>} />
-                <Route path=":id" element={<EditUser/>}></Route>
+                <Route index element={<UsersList />} />
+                <Route path=":id" element={<EditUser />}></Route>
               </Route>
-              <Route path="/newuser" element={<NewUser/>}/>
-              <Route path="/problems" element={<Problem />} />
+              <Route path="/newuser" element={<NewUser />} />
+              
+               <Route path="problems">
+                <Route index element={<ProblemsList />} />
+              </Route>
+              <Route path="/newproblem" element={<NewProblem/>} />
             </Route>
-          
-          
-          
+            
+
+
+
           </Route>
         </Route>
 
