@@ -47,6 +47,8 @@ const UsersList = () => {
         // Update the "Check All" button state
         setIsCheckedAll(areAllContestantsSelected);
       }, [selectedCheckboxes, contestants]);
+
+
     const handleCheckAll = () => {
         const updatedCheckboxes = {};
         const areAllChecked = !isCheckedAll;
@@ -120,7 +122,7 @@ const UsersList = () => {
                                         <button className='edit-button' disabled style={{ color: 'transparent', backgroundColor: 'transparent', border: 'none', cursor: 'default' }}><i className="bi bi-pencil-fill"></i></button>
                                         {/*Ignore this edit-button */}
                                         
-                                        <button className={`delete-button ${selectedCheckboxes}`} onClick={handleDeleteAll} ><i class="bi bi-trash3"></i></button>
+                                        <button className={`delete-button ${selectedCheckboxes}`} onClick={handleDeleteAll} ><i className="bi bi-trash3"></i></button>
                                     </div>
                                 </div>
                             </div>

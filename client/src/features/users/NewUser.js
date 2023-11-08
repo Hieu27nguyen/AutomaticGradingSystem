@@ -66,7 +66,7 @@ const NewUserForm = () => {
             setUsername('')
             setPassword('')
             setRoles([])
-            navigate('/users')
+            navigate('/home')
         }
     }, [isSuccess, navigate])
 
@@ -129,7 +129,7 @@ const NewUserForm = () => {
                     onBlur={() => setUserFocus(false)}
                 />
                 <p id="uidnote" className={userFocus && username && !validUsername ? "instructions" : "offscreen"}>
-                <i class="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
+                <i className="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
                     4 to 24 characters.<br />
                     Must begin with a letter.<br />
                     Letters, numbers, underscores, hyphens allowed.
@@ -179,7 +179,7 @@ const NewUserForm = () => {
                     onBlur={() => setConfirmPasswordFocus(false)}
                 />
                 <p id="confirmnote" className={confirmPasswordFocus && !validConfirmPassword ? "instructions" : "offscreen"}>
-                <i class="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
+                <i className="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
                           Must match the first password input field.
                 </p>
                
