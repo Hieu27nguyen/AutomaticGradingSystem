@@ -8,7 +8,7 @@ const getAllProblems = asyncHandler(async (req, res) => {
   // Get all users from MongoDB
   const problems = await Problem.find().lean()
 
-  // If no users
+  // If no users 
   if (!problems?.length) {
       return res.status(400).json({ message: 'No problems found' })
   }

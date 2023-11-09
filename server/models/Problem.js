@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
     _id: {
-        type:  mongoose.Schema.Types.ObjectId, 
+        type: String, 
         required: true,
         unique: true
     },
@@ -31,4 +31,4 @@ const userSchema = new mongoose.Schema({
     }]
 })
 
-module.exports = mongoose.model('problems', userSchema)
+module.exports = mongoose.model('Problem', userSchema)

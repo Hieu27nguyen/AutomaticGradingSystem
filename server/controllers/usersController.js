@@ -1,5 +1,4 @@
 const User = require('../models/User')
-const Scoreboard = require('../models/Scoreboard')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 
@@ -43,31 +42,11 @@ const createNewUser = asyncHandler(async (req, res) => {
 
     // Create and store new user 
     const user = await User.create(userObject)
-    const isContestant = user.roles.includes('CONTESTANT')
-   
-    if (isContestant) {
-        //Create new entry in scoreboard
-        const scoreboardEntry = {
-            "userID": user._id,
-            "rank": 0,
-            "score": 0,
-            "submissionDetail": [],
-        }
 
-        const scoreboard = await Scoreboard.create(scoreboardEntry)
-
-        if (user && scoreboard) { //created 
-            res.status(201).json({ message: `New user ${username} created` })
-        } else {
-            res.status(400).json({ message: 'Invalid user data received' })
-        }
-    } else{
-        //Not a contestant no need to create entry on Scoreboard
-        if (user) { //created 
-            res.status(201).json({ message: `New user ${username} created` })
-        } else {
-            res.status(400).json({ message: 'Invalid user data received' })
-        }
+    if (user) { //created 
+        res.status(201).json({ message: `New user ${username} created` })
+    } else {
+        res.status(400).json({ message: 'Invalid user data received' })
     }
 })
 
