@@ -6,37 +6,42 @@ import useAuth from '../../hooks/useAuth';
 import '../../style/Event.css';
 import {
   useGetCompetitionsQuery,
+  useAddNewCompetitionMutation,
+  useUpdateCompetitionMutation,
 } from './competitionApiSlice';
 
 const CompetitionsList = () => {
   const { roles } = useAuth();
   const isAllowedToAddEvent = roles.includes('JUDGE') || roles.includes('ADMIN');
 
-  const [eventData, setEventData] = useState(null); // To store submitted or fetched event data
-  const [isEditing, setIsEditing] = useState(false); // To control edit mode
+  const { data: competitionData } = useGetCompetitionsQuery();
+  const [addNewCompetition] = useAddNewCompetitionMutation();
+  const [updateCompetition] = useUpdateCompetitionMutation();
 
-  const { data: competitionData, isError, isLoading } = useGetCompetitionsQuery();
+  const [editingContest, setEditingContest] = useState(false);
+  const [contestData, setContestData] = useState(null);
 
-  // useEffect to fetch event data
-  useEffect(() => {
-    // If the data is fetched successfully, set in eventData
-    if (!isLoading && !isError && competitionData) {
-      setEventData(competitionData);
+  const handleContestClick = () => {
+    setEditingContest(true);
+  };
+
+  const handleFormSubmit = (contestData) => {
+    if (editingContest) {
+      // Update contest if already exists
+      updateCompetition({ ...contestData });
+    } else {
+      // Create a new contest
+      addNewCompetition(contestData);
     }
-  }, [isLoading, isError, competitionData]);
-
-  const handleEventSubmit = (eventData) => {
-    setEventData(eventData);
-    setIsEditing(false); // Exit edit mode after submission
+    setEditingContest(false);
   };
 
-  const handleEditClick = () => {
-    setIsEditing(true); // Enter edit mode
-  };
-
-  const handleEditCancel = () => {
-    setIsEditing(false); // Exit edit mode without saving changes
-  };
+  useEffect(() => {
+    // Update the contestData state when competitionData changes
+    if (competitionData && competitionData[0]) {
+      setContestData(competitionData[0]);
+    }
+  }, [competitionData]);
 
   return (
     <div
@@ -48,27 +53,30 @@ const CompetitionsList = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      {eventData && !isEditing ? (
-        // Display event information panel after submission or fetch
+      {contestData && editingContest ? (
+        <CompetitionForm
+          onSubmit={handleFormSubmit}
+          initialData={contestData}
+        />
+      ) : contestData && !editingContest ? (
         <div className="event-information-wrapper">
           <CompetitionInformation
-            eventData={eventData}
-            onEdit={handleEditClick}
+            name={contestData.name}
+            time={contestData.time}
+            date={contestData.date}
+            duration={contestData.duration}
+            onEdit={handleContestClick}
           />
         </div>
       ) : (
-        // Display the input form if eventData is null
-        <CompetitionForm
-          onSubmit={handleEventSubmit}
-          onCancel={handleEditCancel}
-          initialData={eventData}
-        />
+        <CompetitionForm onSubmit={handleFormSubmit} />
       )}
     </div>
   );
 };
 
 export default CompetitionsList;
+
 
 
 

@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler');
 
 const checkUserRole = asyncHandler(async (req) => {
     try {
-      const userId = req.userId; // Assuming the user ID is stored in the "userId" property of the request object
+      const userId = req.userId; 
       const user = await user.findById(userId);
       if (!user) {
         // If the user is not found
@@ -26,20 +26,21 @@ const checkUserRole = asyncHandler(async (req) => {
 // Create a new competition
 const createCompetition = asyncHandler(async (req, res) => {
     // Check the user's role
-    const userRole = await checkUserRole(req);
-    if (userRole !== 'Authorized') {
-      return res.status(403).json({ error: 'You are not authorized to create a new competition' });
-    }
+    // const userRole = await checkUserRole(req);
+    // if (userRole !== 'Authorized') {
+    //   return res.status(403).json({ error: 'You are not authorized to create a new competition' });
+    // }
   
-    const { _id, name, startDateTime, duration } = req.body;
-  
-    const newCompetition = new Competition({
-      _id,
+    const { name, date, time, duration } = req.body;
+    const newCompetition = await Competition.create({
       name,
-      startDateTime,
+      date,
+      time,
       duration,
-    });
-  
+    }).then;
+
+
+
     try {
       const savedCompetition = await newCompetition.save();
       res.status(201).json(savedCompetition);
@@ -52,34 +53,36 @@ const createCompetition = asyncHandler(async (req, res) => {
 const getAllCompetitions = asyncHandler(async (req, res) => {
   try {
     const competitions = await Competition.find().lean();
+    console.log(competitions);
     res.json(competitions);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching competitions' });
   }
 });
 
-// Update a specific competition by ID
+// Update a specific competition
+// Update the first element in the database
 const updateCompetition = asyncHandler(async (req, res) => {
-    const { competitionId } = req.params;
-    const { name, startDateTime, duration } = req.body;
-  
+    const { name, date, time, duration } = req.body;
     // Check the user's role
-    const userRole = await checkUserRole(req);
-    if (userRole !== 'Authorized') {
-      return res.status(403).json({ error: 'You are not authorized to update this competition' });
-    }
+    // const userRole = await checkUserRole(req);
+    // if (userRole !== 'Authorized') {
+    //   return res.status(403).json({ error: 'You are not authorized to update this competition' });
+    // }
   
     try {
-      const updatedCompetition = await Competition.findByIdAndUpdate(
-        competitionId,
-        { name, startDateTime, duration },
-        { new: true }
-      );
-  
-      if (!updatedCompetition) {
+      const firstCompetition = await Competition.findOne();
+    
+      if (!firstCompetition) {
         return res.status(404).json({ message: 'Competition not found' });
       }
   
+      firstCompetition.name = name;
+      firstCompetition.date = date;
+      firstCompetition.time = time;
+      firstCompetition.duration = duration;
+      
+      const updatedCompetition = await firstCompetition.save();
       res.json(updatedCompetition);
     } catch (error) {
       res.status(500).json({ error: 'Error updating competition' });
@@ -87,14 +90,15 @@ const updateCompetition = asyncHandler(async (req, res) => {
   });
 
 // Delete a specific competition by ID
+// Currently not using but leave here for further implementation
 const deleteCompetition = asyncHandler(async (req, res) => {
     const { competitionId } = req.params;
   
     // Check the user's role
-    const userRole = await checkUserRole(req);
-    if (userRole !== 'Authorized') {
-      return res.status(403).json({ error: 'You are not authorized to delete this competition' });
-    }
+    // const userRole = await checkUserRole(req);
+    // if (userRole !== 'Authorized') {
+    //   return res.status(403).json({ error: 'You are not authorized to delete this competition' });
+    // }
   
     try {
       const deletedCompetition = await Competition.findByIdAndDelete(competitionId);

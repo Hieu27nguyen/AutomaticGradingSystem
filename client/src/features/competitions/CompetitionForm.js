@@ -1,120 +1,127 @@
 import React, { useState, useEffect } from 'react';
-import CompetitionInformation from './CompetitionInformation';
-import "../../style/Event.css"
+import "../../style/Event.css";
 import { getCurrentDate } from './Utils';
 
-const CompetitionForm = ({ onCancel, onSubmit,initialData  }) => { 
-  const currentDate = getCurrentDate();
-  const [eventName, setEventName] = useState('');
-  const [eventDate, setEventDate] = useState(currentDate);
-  const [eventTime, setEventTime] = useState('');
-  const [eventDuration, setEventDuration] = useState('');
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
+const getCurrentTime = () => {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const amOrPm = hours >= 12 ? 'PM' : 'AM';
 
-  // Use the initialData to pre-fill the form fields
+  // Format hours and minutes to 2 digits each
+  const formattedHours = hours.toString().padStart(2, '0');
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+
+  return `${formattedHours}:${formattedMinutes} ${amOrPm}`;
+};
+
+const CompetitionForm = ({ onCancel, onSubmit, initialData }) => {
+  const currentDate = getCurrentDate();
+  const currentTime = getCurrentTime();
+  const [name, setName] = useState('');
+  const [date, setDate] = useState(currentDate);
+  const [time, setTime] = useState(currentTime);
+  const [duration, setDuration] = useState(5);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+
   useEffect(() => {
+    // Pre-fill form with initialData if available
     if (initialData) {
-      setEventName(initialData.eventName);
-      setEventDate(initialData.eventDate);
-      setEventTime(initialData.eventTime);
-      setEventDuration(initialData.eventDuration);
+      setName(initialData.name || 'a');
+      setDate(initialData.date || currentDate);
+      setTime(initialData.time || currentTime);
+      setDuration(initialData.duration || 5);
     }
-  }, [initialData]);
+  }, [initialData, currentDate, currentTime]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const errors = {};
-    if (!eventName.trim()) {
-      errors.eventName = 'Event name is required.';
-    }
-    if (!eventDate) {
-      errors.eventDate = 'Event date is required.';
-    }
-    if (!eventTime) {
-        errors.eventTime = "Event time is required";
-    }
-    if (!eventDuration) {
-        errors.eventDuration = "Event duration is required";
-    }
-
-    if (Object.keys(errors).length === 0) {
-        setIsSubmitted(true);
-        const event = {
-          eventName,
-          eventDate,
-          eventTime,
-          eventDuration,
-        };
-        onSubmit(event); 
-      }
   
-    setFormErrors(errors);
+    const errors = {};
+    if (!name.trim()) {
+      errors.name = 'Event name is required.';
+    }
+    if (!date) {
+      errors.date = 'Event date is required.';
+    }
+    if (!time) {
+      errors.time = 'Event time is required';
+    }
+    if (!duration) {
+      errors.duration = 'Event duration is required';
+    }
+  
+    if (Object.keys(errors).length === 0) {
+      setIsSubmitted(true);
+  
+      const event = {
+        name,
+        date,
+        time,
+        duration,
+      };
+      onSubmit(event);
+    } else {
+      // Set the formErrors state with the validation errors
+      setFormErrors(errors);
+    }
   };
 
   return (
     <div className="event-input-form">
-      <h2>Add Event</h2>
-      {isSubmitted ? (
-        <CompetitionInformation
-          eventName={eventName}
-          eventDate={eventDate}
-          eventTime={eventTime}
-          eventDuration={eventDuration}
-        />
-      ) : (
-<form onSubmit={handleSubmit}>
+      <h2>Contest Information</h2>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="eventName" className="form-label">Competition Name:</label>
+          <label htmlFor="Name" className="form-label">Contest Name:</label>
           <input
             type="text"
-            id="eventName"
-            value={eventName}
-            onChange={(e) => setEventName(e.target.value)}
+            id="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="form-input"
           />
-          {formErrors.eventName && <span className="form-error">{formErrors.eventName}</span>}
+          {formErrors.name && <p className="form-error">{formErrors.name}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="eventDate" className="form-label"> Date:</label>
+          <label htmlFor="Date" className="form-label"> Date:</label>
           <input
             type="date"
-            id="eventDate"
-            value={eventDate}
-            onChange={(e) => setEventDate(e.target.value)}
+            id="Date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
             className="form-input"
           />
-          {formErrors.eventDate && <span className="form-error">{formErrors.eventDate}</span>}
+          {formErrors.date && <p className="form-error">{formErrors.date}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="eventTime" className="form-label"> Time:</label>
+          <label htmlFor="Time" className="form-label"> Time:</label>
           <input
             type="time"
-            id="eventTime"
-            value={eventTime}
-            onChange={(e) => setEventTime(e.target.value)}
+            id="Time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
             className="form-input"
           />
-          {formErrors.eventTime && <span className="form-error">{formErrors.eventTime}</span>}
+          {formErrors.time && <p className="form-error">{formErrors.time}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="eventDuration" className="form-label"> Duration:</label>
+          <label htmlFor="Duration" className="form-label"> Duration(hour):</label>
           <input
-            type="text"
-            id="eventDuration"
-            value={eventDuration}
-            onChange={(e) => setEventDuration(e.target.value)}
+            type="number"
+            id="Duration"
+            value={duration}
+            onChange={(e) => setDuration(parseInt(e.target.value, 10))}
             className="form-input"
           />
-          {formErrors.eventDuration && <span className="form-error">{formErrors.eventDuration}</span>}
+          {formErrors.duration && <p className="form-error">{formErrors.duration}</p>}
         </div>
         <button type="submit" className="custom-button">Submit</button>
-        <button type="button" onClick={onCancel} className="custom-button">Cancel</button>      </form>
-      )}
+      </form>
     </div>
   );
 };
 
 export default CompetitionForm;
+
 
