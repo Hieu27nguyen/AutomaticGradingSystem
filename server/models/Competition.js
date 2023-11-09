@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-    _id: {
-        type:  mongoose.Schema.Types.ObjectId, 
-        required: true,
-        unique: true
-    },
     name: {
         type: String,
         required: true
@@ -21,6 +16,7 @@ const userSchema = new mongoose.Schema({
     },
     duration: {
         type : Number,
+        default: 5,
         required: true
     },
     memLimit:{
