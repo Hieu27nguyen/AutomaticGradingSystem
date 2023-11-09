@@ -1,27 +1,65 @@
-const User = require('../models/User')
 const Scoreboard = require('../models/Scoreboard')
+const User = require('../models/User')
+const Problem = require('../models/Problem')
 const asyncHandler = require('express-async-handler')
-const bcrypt = require('bcrypt')
+
 
 // @desc Get all users
 // @route GET /users
 // @access Private
-const getAllUsers = asyncHandler(async (req, res) => {
-    // Get all users from MongoDB
-    const users = await User.find().select('-password').lean()
 
-    // If no users 
-    if (!users?.length) {
-        return res.status(400).json({ message: 'No users found' })
+// userID: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     required: true,
+//     unique: true
+// },
+// contestID: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     required: true,
+//     unique: true
+// },
+// totalScore: {
+//     type: Number,
+//     required: true
+// },
+// solvedProblem: {
+//     type: Number,
+//     required: true
+// },
+// submissionDetail: [
+//     {
+//         problemID: {
+//             type: mongoose.Schema.Types.ObjectId,
+//             required: true
+//         },
+//         attemptedTime: {
+//             type: Number,
+//             required: true
+//         },
+//         score: {
+//             type: Number,
+//             required: true
+//         },
+//     }
+// ],
+
+
+const getScoreboardRecords = asyncHandler(async (req, res) => {
+    // Get all from the scoreboard from MongoDB
+    const scoreboard = await Scoreboard.find().lean()
+
+    // If no record yet 
+    if (!scoreboard?.length) {
+        return res.status(400).json({ message: 'No one record submission yet' })
     }
 
-    res.json(users)
+    res.json(scoreboard)
 })
 
 // @desc Create new user
 // @route POST /users
 // @access Private
-const createNewUser = asyncHandler(async (req, res) => {
+const createRecord = asyncHandler(async (req, res) => {
     const { username, password, roles } = req.body
 
     // Confirm data
@@ -43,38 +81,18 @@ const createNewUser = asyncHandler(async (req, res) => {
 
     // Create and store new user 
     const user = await User.create(userObject)
-    const isContestant = user.roles.includes('CONTESTANT')
-   
-    if (isContestant) {
-        //Create new entry in scoreboard
-        const scoreboardEntry = {
-            "userID": user._id,
-            "rank": 0,
-            "score": 0,
-            "submissionDetail": [],
-        }
 
-        const scoreboard = await Scoreboard.create(scoreboardEntry)
-
-        if (user && scoreboard) { //created 
-            res.status(201).json({ message: `New user ${username} created` })
-        } else {
-            res.status(400).json({ message: 'Invalid user data received' })
-        }
-    } else{
-        //Not a contestant no need to create entry on Scoreboard
-        if (user) { //created 
-            res.status(201).json({ message: `New user ${username} created` })
-        } else {
-            res.status(400).json({ message: 'Invalid user data received' })
-        }
+    if (user) { //created 
+        res.status(201).json({ message: `New record for user ${username} created` })
+    } else {
+        res.status(400).json({ message: 'Invalid user data received' })
     }
 })
 
 // @desc Update a user
 // @route PATCH /users
 // @access Private
-const updateUser = asyncHandler(async (req, res) => {
+const updateRecord = asyncHandler(async (req, res) => {
     const { id, username, roles, online, password } = req.body
 
     // Confirm data 
@@ -114,7 +132,7 @@ const updateUser = asyncHandler(async (req, res) => {
 // @desc Delete a user
 // @route DELETE /users
 // @access Private
-const deleteUser = asyncHandler(async (req, res) => {
+const deleteRecord = asyncHandler(async (req, res) => {
     const { id } = req.body
 
     // Confirm data
@@ -137,8 +155,8 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-    getAllUsers,
-    createNewUser,
-    updateUser,
-    deleteUser
+    getScoreboardRecords,
+    createRecord,
+    updateRecord,
+    deleteRecord
 }

@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-    _id: {
-        type: String, 
-        required: true,
-        unique: true
-    },
     name: {
         type: String,
         required: true
@@ -15,14 +10,24 @@ const userSchema = new mongoose.Schema({
         default: Date.now,
         required: true
     },
-    time: {
+    timeStarted: {
         type: String,
         required: true
     },
     duration: {
-        type : String,
+        type : Number,
+        default: 5,
         required: true
-    }
+    },
+    memLimit:{
+        type : Number,
+        required: true
+    },
+    timeLimit:{
+        type : Number,
+        required: true
+    },
+
 })
 
 module.exports = mongoose.model('competitions', userSchema)

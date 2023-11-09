@@ -26,6 +26,18 @@ const checkUserRole = asyncHandler(async (req) => {
     }
 });
 
+const getAllSubmissions = asyncHandler(async (req, res) => {
+    // Get all users from MongoDB
+    const submissions = await Submission.find().lean();
+
+    // If no users 
+    if (!submissions?.length) {
+        return res.status(400).json({ message: 'No submission found found' })
+    }
+
+    res.json(submissions)
+})
+
 // Function to parse code from file
 const parseCodeFromFile = async (codeFile) => {
     // Read its content and return the code
@@ -76,13 +88,13 @@ const createSubmission = asyncHandler(async (req, res) => {
             if (result.status.id === 3) {
                 testPassed++;
             }
-            else if (result.status.id !== 4){//Encounter compile or runtime error
+            else if (result.status.id !== 4) {//Encounter compile or runtime error
                 status = result.status.description;
                 return;
             }
         });
 
-        if (status !== "" && testPassed === problem.test.length){
+        if (status !== "" && testPassed === problem.test.length) {
             status = "Accepted";
         }
 
@@ -123,12 +135,12 @@ const getSubmissionById = asyncHandler(async (req, res) => {
 const updateSubmission = asyncHandler(async (req, res) => {
     try {
         const { submissionId } = req.params;
-        const { status } = req.body;
+
 
         // Check the user's role
         const userRole = await checkUserRole(req);
         if (userRole !== 'Authorized') {
-            return res.status(403).json({ error: 'You are not authorized to update a this submission' });
+            return res.status(403).json({ error: 'You are not authorized to rejudge this submission' });
         }
 
         // Find the submission by ID
@@ -138,7 +150,38 @@ const updateSubmission = asyncHandler(async (req, res) => {
             return res.status(404).json({ message: 'Submission not found' });
         }
 
-        // Update the submission's status
+        // ReJudge the submission the submission's status
+        // submission.status = status;
+
+        //Get problem
+        const problem = await Problem.findById(submission.problemId);
+        if (!problem || !problem.test) {
+            return res.status(400).json({ message: 'Cannot find problem with the correct ID' });
+        }
+
+        //Running the test cases
+        let testPassed = 0;
+        let status = "";
+        problem.test.forEach(async (test) => {
+            const simplifyProblem = {
+                stdin: test.input,
+                expectedOutput: test.output,
+            };
+
+            //Grading submission
+            let result = await submissionRunner.runSubmission(submission.sourcecode, submission.languageID, simplifyProblem);
+
+            //Test passed, result returns accepted
+            if (result.status.id === 3) {
+                testPassed++;
+            }
+            else if (result.status.id !== 4) {//Encounter compile or runtime error
+                status = result.status.description;
+                return;
+            }
+        });
+
+        //Save the submission status
         submission.status = status;
 
         const updatedSubmission = await submission.save();
@@ -179,6 +222,7 @@ const deleteSubmission = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+    getAllSubmissions,
     createSubmission,
     getSubmissionById,
     updateSubmission,

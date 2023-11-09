@@ -19,10 +19,10 @@ try {
 // Function to insert a new problem into the "problems" collection
 let importData = async (data) => {
     for (const entry of data) {
-      uniqueFields = ['_id'];
-      let unique = {};
-      uniqueFields.map(x => {
-          unique[x] = entry[x];
+        uniqueFields = ['_id'];
+        let unique = {};
+        uniqueFields.map(x => {
+            unique[x] = entry[x];
         });
 
         console.log("Fields that need to be unique" + JSON.stringify(unique));
@@ -42,11 +42,11 @@ const competitionData = [
     //Test 00
     //Testing duplicate problem id
     {
-      _id: 0,
-      name: "Event00",
-      date: new Date('2023-08-02T00:22:09.247Z'),
-      time: '10:09 PM',
-      duration: "4 hours",
+        _id: 0,
+        name: "Event00",
+        date: new Date('2023-08-02T00:22:09.247Z'),
+        time: '10:09 PM',
+        duration: "4 hours",
     },
     {
         _id: 0,
@@ -55,7 +55,7 @@ const competitionData = [
         time: '10:09 PM',
         duration: "4 hours",
     }
-  ];
-  
-  // Import problems data
-  importData(competitionData);
+];
+
+// Import problems data
+importData(competitionData);

@@ -38,8 +38,11 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
+            setPersist(true)
             const { accessToken } = await login({ username, password }).unwrap()
+            
             dispatch(setCredentials({ accessToken }))
+            
             setUsername('')
             setPassword('')
             goBackToHomePage();
@@ -114,7 +117,7 @@ const Login = () => {
                                 onChange={handlePwdInput} required
                                 style={{ animationDelay: getAnimationDelay() }}
                             />
-                            <label htmlFor="persist" className="animation" style={{ display: "flex", animationDelay: getAnimationDelay() }}>
+                            {/* <label htmlFor="persist" className="animation" style={{ display: "flex", animationDelay: getAnimationDelay() }}>
                                 <input
                                     type="checkbox"
                                     className="animation"
@@ -123,7 +126,7 @@ const Login = () => {
                                     checked={persist}
                                 />
                                 <h5 className="animation">Keep logging in</h5>
-                            </label>
+                            </label> */}
 
                             <p ref={errRef} className="errMsg" aria-live="assertive"
                                 style={{ visibility: errVisibility }}>
