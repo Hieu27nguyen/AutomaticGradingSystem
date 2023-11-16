@@ -2,21 +2,17 @@ const Competition = require('../models/Competition');
 const asyncHandler = require('express-async-handler');
 
 
+
 const checkUserRole = asyncHandler(async (req) => {
     try {
-      const userId = req.userId; 
-      const user = await user.findById(userId);
-      if (!user) {
-        // If the user is not found
-        return 'Contestant';
-      }
       // If the user is found, retrieve the roles from the "roles" array
-      const roles = user.roles;
+      const roles = req.roles.map(roles=>roles.toLowerCase());
       // Check if the user has the "Admin" or "judge" role
-      if (roles.includes('Admin') || roles.includes('judge')) {
+      if (roles.includes('admin') || roles.includes('judge')) {
         return 'Authorized'; // Return a custom role to represent authorized access
+      } else {
+        return 'Contestant'; //If the user doesn't have the required roles
       }
-      return 'Contestant'; //If the user doesn't have the required roles
     } catch (error) {
       // If there is an error fetching
       return 'Contestant';
@@ -26,20 +22,25 @@ const checkUserRole = asyncHandler(async (req) => {
 // Create a new competition
 const createCompetition = asyncHandler(async (req, res) => {
     // Check the user's role
-    // const userRole = await checkUserRole(req);
-    // if (userRole !== 'Authorized') {
-    //   return res.status(403).json({ error: 'You are not authorized to create a new competition' });
-    // }
+    const userRole = await checkUserRole(req);
+    if (userRole !== 'Authorized') {
+      return res.status(403).json({ error: 'You are not authorized to create a new competition' });
+    }
   
-    const { name, date, time, duration } = req.body;
+    const { name, date, timeStarted, duration, memLimit, timeLimit, paused, extended, pausedTime, extendedTime, judgeConfig  } = req.body;
     const newCompetition = await Competition.create({
       name,
       date,
-      time,
+      timeStarted,
       duration,
+      memLimit,
+      timeLimit,
+      paused,
+      extended,
+      pausedTime,
+      extendedTime,
+      // judgeConfig,
     }).then;
-
-
 
     try {
       const savedCompetition = await newCompetition.save();
@@ -63,12 +64,12 @@ const getAllCompetitions = asyncHandler(async (req, res) => {
 // Update a specific competition
 // Update the first element in the database
 const updateCompetition = asyncHandler(async (req, res) => {
-    const { name, date, time, duration } = req.body;
+    const { name, date, timeStarted, duration, paused, extended, memLimit, timeLimit, pausedTime, extendedTime, judgeConfig} = req.body;
     // Check the user's role
-    // const userRole = await checkUserRole(req);
-    // if (userRole !== 'Authorized') {
-    //   return res.status(403).json({ error: 'You are not authorized to update this competition' });
-    // }
+    const userRole = await checkUserRole(req);
+    if (userRole !== 'Authorized') {
+      return res.status(403).json({ error: 'You are not authorized to update this competition' });
+    }
   
     try {
       const firstCompetition = await Competition.findOne();
@@ -79,9 +80,16 @@ const updateCompetition = asyncHandler(async (req, res) => {
   
       firstCompetition.name = name;
       firstCompetition.date = date;
-      firstCompetition.time = time;
+      firstCompetition.timeStarted = timeStarted;
       firstCompetition.duration = duration;
-      
+      firstCompetition.paused = paused || false;
+      firstCompetition.extended = extended || false;
+      firstCompetition.memLimit = memLimit;
+      firstCompetition.timeLimit = timeLimit;
+      firstCompetition.pausedTime = pausedTime || null;
+      firstCompetition.extendedTime = extendedTime || null;
+      // firstCompetition.judgeConfig = judgeConfig;
+
       const updatedCompetition = await firstCompetition.save();
       res.json(updatedCompetition);
     } catch (error) {
@@ -93,13 +101,12 @@ const updateCompetition = asyncHandler(async (req, res) => {
 // Currently not using but leave here for further implementation
 const deleteCompetition = asyncHandler(async (req, res) => {
     const { competitionId } = req.params;
-  
     // Check the user's role
-    // const userRole = await checkUserRole(req);
-    // if (userRole !== 'Authorized') {
-    //   return res.status(403).json({ error: 'You are not authorized to delete this competition' });
-    // }
-  
+    const userRole = await checkUserRole(req);
+    if (userRole !== 'Authorized') {
+      return res.status(403).json({ error: 'You are not authorized to delete this competition' });
+    }
+    
     try {
       const deletedCompetition = await Competition.findByIdAndDelete(competitionId);
       if (!deletedCompetition) {

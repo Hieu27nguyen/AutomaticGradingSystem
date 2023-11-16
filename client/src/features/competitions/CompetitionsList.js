@@ -12,7 +12,6 @@ import {
 
 const CompetitionsList = () => {
   const { roles } = useAuth();
-  const isAllowedToAddEvent = roles.includes('JUDGE') || roles.includes('ADMIN');
 
   const { data: competitionData } = useGetCompetitionsQuery();
   const [addNewCompetition] = useAddNewCompetitionMutation();
@@ -57,19 +56,30 @@ const CompetitionsList = () => {
         <CompetitionForm
           onSubmit={handleFormSubmit}
           initialData={contestData}
+          isJudge={roles.includes('JUDGE')}
         />
       ) : contestData && !editingContest ? (
         <div className="event-information-wrapper">
           <CompetitionInformation
             name={contestData.name}
-            time={contestData.time}
+            timeStarted={contestData.timeStarted}
             date={contestData.date}
             duration={contestData.duration}
+            paused={contestData.paused}
+            extended={contestData.extended}
+            pausedTime={contestData.pausedTime}
+            extendedTime={contestData.extendedTime}
+            memLimit={contestData.memLimit}
+            timeLimit={contestData.timeLimit}
+            isJudge={roles.includes('JUDGE')}
             onEdit={handleContestClick}
           />
         </div>
       ) : (
-        <CompetitionForm onSubmit={handleFormSubmit} />
+        <CompetitionForm 
+        onSubmit={handleFormSubmit} 
+        isJudge={roles.includes('JUDGE')}
+        />
       )}
     </div>
   );
