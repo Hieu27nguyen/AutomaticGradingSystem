@@ -1,11 +1,29 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
-    _id: {
-        type: String, 
-        required: true,
-        unique: true
+const judgeConfigSchema = new mongoose.Schema({
+    memory_limit: {
+        type: Number,
+        required: true
     },
+    cpu_time_limit: {
+        type: Number,
+        required: true
+    },
+    cpu_extra_time: {
+        type: Number,
+        required: true
+    },
+    // stack_limit: {
+    //     type: Number,
+    //     required: true
+    // },
+    // max_queue_size: {
+    //     type: Number,
+    //     required: true
+    // }
+}); //For JudgeO
+
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -15,13 +33,44 @@ const userSchema = new mongoose.Schema({
         default: Date.now,
         required: true
     },
-    time: {
+    timeStarted: {
         type: String,
         required: true
     },
     duration: {
-        type : String,
+        type : Number,
+        default: 5,
         required: true
+    },
+    paused: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    extended: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    pausedTime: {
+        type: String,
+        required: false
+    },
+    extendedTime: {
+        type: String,
+        required: false
+    },
+    memLimit:{
+        type : Number,
+        required: false
+    },
+    timeLimit:{
+        type : Number,
+        required: false
+    },
+    judgeConfig: {
+        type: judgeConfigSchema,
+        required: false
     }
 })
 

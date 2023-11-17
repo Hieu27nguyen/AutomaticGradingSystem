@@ -25,7 +25,6 @@ function App() {
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/home" element={<HomePage />} />
-      {/* <Route path="/competitions" element={<CompetitionsList />} /> */}
       {/* Protected Routes */}
       <Route element={<PersistLogin />}>
         <Route path="/login" element={<Login />} />
@@ -45,6 +44,7 @@ function App() {
                 <Route index element={<ProblemsList />} />
               </Route>
               <Route path="/newproblem" element={<NewProblem/>} />
+              <Route path="/competitions" element={<CompetitionsList />} />
             </Route>
             
 
