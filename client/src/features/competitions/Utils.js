@@ -12,6 +12,7 @@ export function getCurrentFormattedDate(date) {
     day: 'numeric',
   });
   }
+  
 //Format Time
 export function formatTimeTo12HourClock(time) {
   const eventTime = new Date(`1970-01-01T${time}`);
