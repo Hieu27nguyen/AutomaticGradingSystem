@@ -6,7 +6,7 @@ const competitionsAdapter = createEntityAdapter({});
 const initialState = competitionsAdapter.getInitialState();
 
 export const competitionsApiSlice = apiSlice.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: (builder) => ({ 
     // Fetch all competitions
     getCompetitions: builder.query({
       query: () => '/competitions',
