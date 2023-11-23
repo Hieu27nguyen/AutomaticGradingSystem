@@ -24,17 +24,16 @@ app.use(cookieParser())
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 
+//All the route lists
 app.use('/', require('./routes/root'))
 app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
-app.use('/problems',require('./routes/problemRoutes'))
+app.use('/problems', require('./routes/problemRoutes'))
 app.use('/competitions', require('./routes/competitionRoutes'))
-// app.use('/judge0', './routes/judgeORoutes');
+app.use('/submissions', require('./routes/submissionRoutes'))
+app.use('/translation', require('./routes/translationRoutes'))
 
-
-
-
-
+//404 not found
 app.all('*', (req, res) => {
     res.status(404)
     if (req.accepts('html')) {
