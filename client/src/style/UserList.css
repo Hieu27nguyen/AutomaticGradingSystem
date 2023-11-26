@@ -94,13 +94,9 @@
 
 .table-content {
   display: flex;
-  flex-direction: column; /* Stack items vertically */
+  flex-direction: column; 
 
 }
-
-
-
-
 
 
 

@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler')
 // const multer = require('multer');
 // const upload = multer(); // Set up multer for file uploads
 
-// Function to check the user's role
+
 const getAllProblems = asyncHandler(async (req, res) => {
   // Get all users from MongoDB
   const problems = await Problem.find().lean()
@@ -16,21 +16,18 @@ const getAllProblems = asyncHandler(async (req, res) => {
   res.json(problems)
 })
 
+// Function to check the user's role
 const checkUserRole = asyncHandler(async (req) => {
     try {
-      const userId = req.userId; // Assuming the user ID is stored in the "userId" property of the request object
-      const user = await user.findById(userId);
-      if (!user) {
-        // If the user is not found
-        return 'Contestant';
-      }
       // If the user is found, retrieve the roles from the "roles" array
-      const roles = user.roles;
+      const roles = req.roles.map(role => role.toLowerCase());
       // Check if the user has the "Admin" or "judge" role
-      if (roles.includes('Admin') || roles.includes('judge')) {
+      if (roles.includes('admin') || roles.includes('judge')) {
         return 'Authorized'; // Return a custom role to represent authorized access
       }
-      return 'Contestant'; //If the user doesn't have the required roles
+      else {
+        return 'Contestant';
+      }
     } catch (error) {
       // If there is an error fetching
       return 'Contestant';
@@ -62,16 +59,16 @@ const parseTestCases = async (testFile) => {
     try {
       // Check the user's role
       const userRole = await checkUserRole(req);
+      console.log(userRole)
       if (userRole !== 'Authorized') {
         return res.status(403).json({ error: 'You are not authorized to create a new problem' });
       }
+      const {name, description } = req.body;
+      console.log(req.body)
   
-      const {_id, name, description } = req.body;
-      let testCases;
-
       // Check if test cases are provided in a file
       const testFile = req.files?.testFile;
-  
+      let testCases;
       if (testFile) {
         // If a file is provided, parse the test cases from the file
         testCases = await parseTestCases(testFile);
@@ -79,10 +76,10 @@ const parseTestCases = async (testFile) => {
         // If no file is provided, use the test attribute provided in the request body
         const { test } = req.body;
         testCases = Array.isArray(test) ? test : [];
+       
       }
-  
+    
       const newProblem = new Problem({
-        _id,
         name,
         description,
         test: testCases,

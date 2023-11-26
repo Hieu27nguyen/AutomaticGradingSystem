@@ -81,3 +81,13 @@
     background-color: #0056b3;
   }
   
+  footer {
+    background-color: #3c284a;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  footer p {
+    font-size: 14px;
+  }
