@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
-    _id: {
-        type: String, 
-        required: true,
-        unique: true
-    },
+const competitionSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -15,14 +10,34 @@ const userSchema = new mongoose.Schema({
         default: Date.now,
         required: true
     },
-    time: {
+    timeStarted: {
         type: String,
         required: true
     },
     duration: {
-        type : String,
+        type : Number,
+        default: 5,
         required: true
-    }
+    },
+    paused: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    extended: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    pausedTime: {
+        type: String,
+        required: false
+    },
+    extendedTime: {
+        type: String,
+        required: false
+    },
+
 })
 
-module.exports = mongoose.model('competitions', userSchema)
+module.exports = mongoose.model('competitions', competitionSchema)

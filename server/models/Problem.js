@@ -23,7 +23,18 @@ const problemSchema = new mongoose.Schema({
             type: String,
             required: false
         }
-    }]
+    }],
+
+    memLimit:{
+        type : Number,
+        required: false,
+        default: 0,
+    },
+    timeLimit:{
+        type : Number,
+        required: false,
+        default: 0,
+    }
 })
 
 module.exports = mongoose.model('Problem', problemSchema)
