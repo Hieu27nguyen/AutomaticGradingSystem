@@ -154,7 +154,7 @@ const NewUserForm = () => {
                     onBlur={() => setPasswordFocus(false)}
                 />
                 <p id="pwdnote" className={passwordFocus && !validPassword ? "instructions" : "offscreen"}>
-                <i class="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
+                <i className="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
                     3 to 24 characters.<br>
                     </br>
                     Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
