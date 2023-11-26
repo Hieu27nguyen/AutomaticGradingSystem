@@ -3,7 +3,7 @@ import Problem from './Problem'
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import "../../style/ProblemList.css"
+
 const ProblemsList = () => {
     
     const {
@@ -78,8 +78,10 @@ const ProblemsList = () => {
                     <h2>Problem List</h2>
                     <h4>{} Total</h4>
                 </div>
+
                 <button className="add_button" onClick={() => navigate("/newproblem")}><i className="bi bi-file-earmark-code-fill"></i>Add Problem</button>
             </div>
+
             <div className="body">
                 {2 > 0 ? (
                     <div >
@@ -89,8 +91,8 @@ const ProblemsList = () => {
                                 <input type="checkbox" aria-label="Select All Problems" checked={isCheckedAll} onChange={handleCheckAll} ></input>
                             </div>
                             <div className="table-titles">
-                                <div className="problem-info-titles">
-                                    <h3>Problem Name</h3>
+                                <div className="user-info">
+                                    <h3 className="user">Problem Name</h3>
                                     <h3 >Description</h3>
                                 </div>
                                 <div className='user-action'>
@@ -107,7 +109,7 @@ const ProblemsList = () => {
                         </div>
                     </div>
                 ) : (
-                    <p className="no-problem">No problems found!</p>
+                    <p className="no-contestant">No problems found!</p>
                 )}
             </div>
 

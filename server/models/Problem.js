@@ -1,6 +1,11 @@
 const mongoose = require('mongoose')
 
-const problemSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
+    _id: {
+        type: String, 
+        required: true,
+        unique: true
+    },
     name: {
         type: String,
         required: true,
@@ -37,4 +42,4 @@ const problemSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('Problem', problemSchema)
+module.exports = mongoose.model('Problem', userSchema)
