@@ -25,15 +25,17 @@ const problemSchema = new mongoose.Schema({
         }
     }],
 
+    //In kilobytes 
     memLimit:{
         type : Number,
         required: false,
-        default: 0,
+        default: 128000,
     },
+    //in seconds
     timeLimit:{
         type : Number,
         required: false,
-        default: 0,
+        default: 2,
     }
 })
 
