@@ -1,4 +1,7 @@
 /*UserList css */
+.userList-container {
+  height: 100%;
+}
 
 .bi-person-plus-fill{
   margin-right: 10px;
@@ -49,12 +52,12 @@
 
 .check-and-titles {
   display: flex;
-  
+  align-items:last baseline;
 }
 
 .check-all {
-  margin-left: 1%;
-  margin-top: 25px ;
+ 
+  justify-items:center;
 }
 
 .table-titles {
@@ -71,7 +74,7 @@
 }
 
 .table-titles h3 {
-  font-size: 18px;
+  font-size: 15px;
   color: #104b99;
   
 }
