@@ -16,6 +16,8 @@ import EditUser from './features/users/EditUser'
 import NewUser from './features/users/NewUser'
 import ProblemsList from './features/problems/ProblemsList';
 import NewProblem from './features/problems/NewProblem';
+import SubmissionsList from './features/submissions/submissionList';
+import NewSubmission from './features/submissions/NewSubmission';
 
 
 function App() {
@@ -31,7 +33,21 @@ function App() {
 
         <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
           <Route element={<Prefetch />}>
-            {/* <Route path="/home" element={<HomePage />} /> */}
+          <Route path="users">
+                <Route index element={<UsersList />} />
+                <Route path=":id" element={<EditUser />}></Route>
+              </Route>
+              <Route path="/newuser" element={<NewUser />} />
+              
+              <Route path="problems">
+                <Route index element={<ProblemsList />} />
+              </Route>
+              <Route path="submissions">
+                <Route index element={<SubmissionsList />} />
+              </Route>
+              <Route path="/newsubmission" element={<NewSubmission/>} />
+              <Route path="/newproblem" element={<NewProblem/>} />
+              <Route path="/competitions" element={<CompetitionsList />} />
 
             <Route element={<RequireAuth allowedRoles={[ROLES.Judge, ROLES.Admin]} />}>
               <Route path="users">
@@ -40,9 +56,13 @@ function App() {
               </Route>
               <Route path="/newuser" element={<NewUser />} />
               
-               <Route path="problems">
+              <Route path="problems">
                 <Route index element={<ProblemsList />} />
               </Route>
+              <Route path="submissions">
+                <Route index element={<SubmissionsList />} />
+              </Route>
+              <Route path="/newsubmission" element={<NewSubmission/>} />
               <Route path="/newproblem" element={<NewProblem/>} />
               <Route path="/competitions" element={<CompetitionsList />} />
             </Route>

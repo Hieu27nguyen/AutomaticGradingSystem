@@ -100,39 +100,41 @@ const createSubmission = asyncHandler(async (req, res) => {
     }
 });
 
-// @desc Get a specific submission by ID
-// @route GET /submissions/:submissionId
+// @desc Get all submission
+// @route 
 // @access Public
-const getSubmissionById = asyncHandler(async (req, res) => {
-    const { submissionId } = req.params;
-
+const getAllSubmissions = asyncHandler(async (req, res) => {
     try {
-        const submission = await Submission.findById(submissionId).populate('user').populate('problem');
-        if (!submission) {
-            return res.status(404).json({ message: 'Submission not found' });
+        // Get all submissions from MongoDB
+        const submissions = await Submission.find().lean();
+    
+        // If no submissions
+        if (!submissions?.length) {
+          return res.status(400).json({ message: 'No submissions found' });
         }
-        res.json(submission);
-    } catch (error) {
-        res.status(500).json({ error: 'Error fetching submission' });
-    }
-});
+    
+        res.json(submissions);
+      } catch (error) {
+        res.status(500).json({ error: 'Error fetching submissions' });
+      }
+  })
 
 // @desc Update a specific submission by ID (only for admins)
 // @route PUT /submissions/:submissionId
 // @access Private (for admins)
 const updateSubmission = asyncHandler(async (req, res) => {
     try {
-        const { submissionId } = req.params;
+        const { id } = req.body;
         const { status } = req.body;
 
-        // Check the user's role
-        const userRole = await checkUserRole(req);
-        if (userRole !== 'Authorized') {
-            return res.status(403).json({ error: 'You are not authorized to update a this submission' });
-        }
+        // // Check the user's role
+        // const userRole = await checkUserRole(req);
+        // if (userRole !== 'Authorized') {
+        //     return res.status(403).json({ error: 'You are not authorized to update a this submission' });
+        // }
 
         // Find the submission by ID
-        const submission = await Submission.findById(submissionId);
+        const submission = await Submission.findById(id);
 
         if (!submission) {
             return res.status(404).json({ message: 'Submission not found' });
@@ -154,23 +156,22 @@ const updateSubmission = asyncHandler(async (req, res) => {
 // @access Private (for admins)
 const deleteSubmission = asyncHandler(async (req, res) => {
     try {
-        const { submissionId } = req.params;
-
-        // Check the user's role
-        const userRole = await checkUserRole(req);
-        if (userRole !== 'Authorized') {
-            return res.status(403).json({ error: 'You are not authorized to delete this submission' });
-        }
+        const { id } = req.body;
+        // // Check the user's role
+        // const userRole = await checkUserRole(req);
+        // if (userRole !== 'Authorized') {
+        //     return res.status(403).json({ error: 'You are not authorized to delete this submission' });
+        // }
 
         // Find the submission by ID
-        const submission = await Submission.findById(submissionId);
+        const submission = await Submission.findById(id);
 
         if (!submission) {
             return res.status(404).json({ message: 'Submission not found' });
         }
 
         // Delete the submission
-        await submission.delete();
+        await submission.deleteOne();
 
         res.json({ message: 'Submission deleted successfully' });
     } catch (error) {
@@ -180,7 +181,7 @@ const deleteSubmission = asyncHandler(async (req, res) => {
 
 module.exports = {
     createSubmission,
-    getSubmissionById,
+    getAllSubmissions,
     updateSubmission,
     deleteSubmission,
 };

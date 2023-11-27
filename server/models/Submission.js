@@ -7,7 +7,7 @@ const submissionSchema = new mongoose.Schema({
     unique: true
   },
   user: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     ref: 'Users',
     required: true,
   },

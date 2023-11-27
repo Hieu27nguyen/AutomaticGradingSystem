@@ -6,6 +6,7 @@ import UsersList from '../users/UserList';
 import ProblemsList from '../problems/ProblemsList';
 import '../../style/HomePage.css'
 import CompetitionsList from '../competitions/CompetitionsList';
+import SubmissionsList from '../submissions/submissionList';
 
 const HomePage = () => {
   const [sendLogout, {
@@ -44,6 +45,10 @@ const HomePage = () => {
         return <UsersList/>;
       case 'Problems Management':
         return <ProblemsList />;
+      case 'Submissions':
+        return <SubmissionsList />;
+      case 'Submissions Management':
+        return <SubmissionsList />;
       default:
         return null;
     }
@@ -58,6 +63,9 @@ const HomePage = () => {
           </li>
           <li className={activeTab === 'Problems' ? 'active' : ''}>
             <button className='home-button' onClick={() => handleTabClick('Problems')}>Problems</button>
+          </li>
+          <li className={activeTab === 'Submissions' ? 'active' : ''}>
+            <button className='home-button' onClick={() => handleTabClick('Submissions')}>Submissions</button>
           </li>
           <li className={activeTab === 'Scoreboards' ? 'active' : ''}>
             <button className='home-button' onClick={() => handleTabClick('Scoreboards')}>Scoreboards</button>
@@ -81,6 +89,9 @@ const HomePage = () => {
           </li>
           <li className={activeTab === 'Problems Management' ? 'active' : ''}>
             <button className='home-button' onClick={() => handleTabClick('Problems Management')}>Problems Management</button>
+          </li>
+          <li className={activeTab === 'Submission Management' ? 'active' : ''}>
+            <button className='home-button' onClick={() => handleTabClick('Submissions Management')}>Submission Management</button>
           </li>
         </ul>
       );
