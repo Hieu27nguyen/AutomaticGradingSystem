@@ -2,7 +2,7 @@ const Translation = require('../models/Translation');
 const asyncHandler = require('express-async-handler');
 const ObjectId = require('mongodb').ObjectId;
 
-const projectId = 'agstranslate';
+const projectId = process.env.TRANSLATE_PROJECT_ID;
 const location = 'global';
 
 // Instantiates a client
