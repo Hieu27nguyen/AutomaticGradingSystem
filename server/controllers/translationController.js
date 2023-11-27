@@ -1,5 +1,6 @@
 const Translation = require('../models/Translation');
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
+const ObjectId = require('mongodb').ObjectId;
 
 const projectId = 'agstranslate';
 const location = 'global';
@@ -54,20 +55,58 @@ const getAllLanguages = asyncHandler(async (req, res) => {
     getLanguages();
 });
 
-//Getting all the translation requested by all users
+//Getting all the translation requested by ALL users
+// Required field in request body:
 const getAllTranslations = asyncHandler(async (req, res) => {
-    // Get all users from MongoDB
-    // const users = await User.find().select('-password').lean()
+    //Get all translation records from MongoDB
+    const translationRecords = await Translation.find().select().lean()
 
-    // // If no users 
-    // if (!users?.length) {
-    //     return res.status(400).json({ message: 'No users found' })
-    // }
+    // If no records 
+    if (!translationRecords?.length) {
+        return res.status(400).json({ message: 'No translation records found' })
+    }
 
-    // res.json(users)
+    res.json(translationRecords)
+    
+})
+//  const duplicate = await User.findOne({ username }).lean().exec()
+
+//Getting all the translation requested by a user
+// Required field in rest url:
+//      'username': username of the user requesting translation
+const getTranslationsByUsername = asyncHandler(async (req, res) => {
+    const username = req.params.username;
+    
+    //Get all translation records from MongoDB
+    const translationRecords = await Translation.find({username}).select().lean()
+    
+    // If no records 
+    if (!translationRecords?.length) {
+        return res.status(200).json({ message: 'No translation records found' })
+    }
+
+    res.status(200).json(translationRecords);
+    
 })
 
+//Getting a specific translation by id
+// Required field in rest url:
+//      'id': id of the record
+const getTranslationsByID = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+ 
+    //Get all translation records from MongoDB
+    const translationRecords = await Translation.find({"_id": id})
+    
+    // If no records 
+    if (!translationRecords?.length) {
+        return res.status(200).json({ message: 'No translation records found' })
+    }
 
+    res.status(200).json(translationRecords);
+})
+
+// Create a new translation record
 // Required field in request body:
 //      'username': username of the user requesting translation
 //      'text': Text to be translated, 
@@ -75,6 +114,11 @@ const getAllTranslations = asyncHandler(async (req, res) => {
 //      'target': Language ID to translate to
 const createTranslation = asyncHandler(async (req, res) => {
     let { username, text, source, target } = req.body;
+
+    // Confirm data
+    if (!username || !text || !source || !target) {
+        return res.status(400).json({ message: 'Missing all required fields.' })
+    }
 
     //Make a request to google API to translate
     let translationResult;
@@ -88,18 +132,46 @@ const createTranslation = asyncHandler(async (req, res) => {
 
     await axios.get(url).then((data) => {
         translationResult = data.data.data.translations[0];
-
-
     }).catch((err) => {
         res.status(500).json({ message: 'Cannot connect to Google API to translate, please try again later.' });
     });
 
+    //Server cannot reach Google API
+    if (!translationResult){
+        res.status(500).json({ message: 'Cannot connect to Google API to translate, please try again later.' });
+    }
+
+    //Created new translation record
+    const translationObject = { 
+        username, 
+        "languageFrom": source, 
+        "languageTo": target, 
+        "requestedText": text, 
+        "translatedText": translationResult.translatedText,  
+    };
     //Add to the database
-    res.status(200).json(translationResult);
+
+    // Create and store new translation record 
+    const translationRecord = await Translation.create(translationObject)
+
+    if (translationRecord) { //created 
+        res.status(201).json({
+            message: `New translation record for the user ${username} created`,
+            translation: translationResult.translatedText,
+    })
+    } else {
+        res.status(400).json({ message: 'Invalid data received' })
+    }
+
+    // 
+    // res.status(200).json(translationResult);
 })
 
 module.exports = {
     getAllLanguages,
+    getAllTranslations,
+    getTranslationsByUsername,
+    getTranslationsByID,
     createTranslation,
 
 }
