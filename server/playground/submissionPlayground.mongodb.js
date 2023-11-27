@@ -45,8 +45,8 @@ const submissionsData = [
   //Test 00
   //Testing duplicate submission id
   {
-    _id: ObjectID("Sub1"),
-    user: '1', 
+    _id: "1",
+    user: 'kokinh11', 
     problem: '1', 
     sourcecode: 'console.log("Hello, World!");',
     status: 'Pending',
@@ -54,8 +54,8 @@ const submissionsData = [
     timeSubmitted: new Date('2023-08-02T00:22:09.247Z')
   },
   {
-    _id: ObjectID("Sub1"),
-    user: '1', 
+    _id: "1",
+    user: 'kokinh11', 
     problem: '1', 
     sourcecode: 'print("Hello, World!")',
     status: 'Accepted',
@@ -65,8 +65,8 @@ const submissionsData = [
   //Test 01
   //Testing allow user to submit mutiple submissions
   {
-    _id: ObjectID("Sub2"),
-    user: '1', 
+    _id: "2",
+    user: 'kokinh11', 
     problem: '3', 
     sourcecode: 'console.log("Hello, World!");',
     status: 'Pending',
@@ -74,8 +74,8 @@ const submissionsData = [
     timeSubmitted: new Date('2023-09-02T04:23:09.247Z')
   },
   {
-    _id: ObjectID("Sub3"),
-    user: '1', 
+    _id: "3",
+    user: 'kokinh11', 
     problem: '2', 
     sourcecode: 'console.log("Hello, World!");',
     status: 'Pending',
@@ -85,8 +85,8 @@ const submissionsData = [
   //Test 02
   //Testing allow duplicate problem_id
   {
-    _id: ObjectID("Sub4"),
-    user: '4', 
+    _id: "4",
+    user: 'kokinh11', 
     problem: '1', 
     sourcecode: 'console.log("Hello, World!");',
     status: 'Pending',
@@ -94,8 +94,8 @@ const submissionsData = [
     timeSubmitted: new Date('2023-11-02T04:23:09.247Z')
   },
   {
-    _id: ObjectID("Sub5"),
-    user: '3', 
+    _id: "4",
+    user: 'kokinh11', 
     problem: '1', 
     sourcecode: 'console.log("Hello, World!");',
     status: 'Compilation error',
@@ -105,8 +105,8 @@ const submissionsData = [
   //Test 03
   //Testing allow empty code
   {
-    _id: ObjectID("Sub6"),
-    user: '4', 
+    _id: "5",
+    user: 'kokinh11', 
     problem: '1', 
     sourcecode: '',
     status: 'Failed test',
@@ -114,8 +114,8 @@ const submissionsData = [
     timeSubmitted: new Date('2023-11-02T04:23:09.247Z')
   },
   {
-    _id: ObjectID("Sub7"),
-    user: '3', 
+    _id: "6",
+    user: 'kokinh12', 
     problem: '1', 
     sourcecode: '',
     status: 'Runtime error',
@@ -125,8 +125,8 @@ const submissionsData = [
   //Test 04
   //Testing negative score
   {
-    _id: ObjectID("Sub8"),
-    user: '4', 
+    _id: "7",
+    user: 'kokinh12', 
     problem: '1', 
     sourcecode: 'console.log("Hello, World!");',
     status: 'Accepted',
@@ -134,8 +134,8 @@ const submissionsData = [
     timeSubmitted: new Date('2022-11-02T04:05:09.247Z')
   },
   {
-    _id: ObjectID("Sub9"),
-    user: '3', 
+    _id: "8",
+    user: 'kokinh12', 
     problem: '1', 
     sourcecode: 'console.log("Hello, World!");',
     status: 'Pending',

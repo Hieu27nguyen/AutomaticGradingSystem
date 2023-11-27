@@ -10,8 +10,7 @@ const translationSchema = new mongoose.Schema({
         required: true
     },
     languageTo: {//Language would like to translate to
-        type: Boolean,
-        default:false,
+        type: String,
         required: true
     },
     requestedText:{//Text needed to translate

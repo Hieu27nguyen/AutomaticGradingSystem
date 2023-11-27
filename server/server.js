@@ -31,6 +31,8 @@ app.use('/users', require('./routes/userRoutes'))
 app.use('/problems', require('./routes/problemRoutes'))
 app.use('/competitions', require('./routes/competitionRoutes'))
 app.use('/translation', require('./routes/translationRoutes'))
+app.use('/submissions', require('./routes/submissionRoutes'))
+app.use('/announcement', require('./routes/announcementRoutes'))
 
 //404 not found
 app.all('*', (req, res) => {
