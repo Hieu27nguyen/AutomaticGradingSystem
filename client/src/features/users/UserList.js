@@ -94,14 +94,15 @@ const UsersList = () => {
 
 
         content = (
-            <div>
+            
+            <div className="userList-container">
                 <div className="header">
                     <div className="titles">
                         <h2>Manage Contestants</h2>
                         <h4>{contestants.length} Total</h4>
                     </div>
 
-                    <button className="add_button" onClick={() => navigate("/newuser")}><i className="bi-person-plus-fill"></i>Add User</button>
+                    <button className="add_button" onClick={() => navigate("/home/users/new")}><i className="bi-person-plus-fill"></i>Add User</button>
                 </div>
 
                 <div className="body">

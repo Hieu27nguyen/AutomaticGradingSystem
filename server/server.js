@@ -30,7 +30,6 @@ app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/problems', require('./routes/problemRoutes'))
 app.use('/competitions', require('./routes/competitionRoutes'))
-app.use('/submissions', require('./routes/submissionRoutes'))
 app.use('/translation', require('./routes/translationRoutes'))
 
 //404 not found

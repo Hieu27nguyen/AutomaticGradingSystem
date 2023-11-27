@@ -1,15 +1,12 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import '../style/HomePage.css'
 const DashFooter = () => {
-    const navigate = useNavigate();
-    const handleLogout = () => {
-        navigate('/');
-    };
     return (
-        <nav>
-            <button onClick={handleLogout}>Logout</button>
-        </nav>
+        <footer >   
+            <p>&copy; 2023 AutoGradingSystem Developers Team. </p>
+           
+            <p>Meet the Team:  Toan Nguyen , Tommy Diep , Aaron Tran  |  All rights reserved</p>
+	    </footer>
     );
 };
 

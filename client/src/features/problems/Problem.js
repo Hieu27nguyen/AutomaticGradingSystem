@@ -13,7 +13,7 @@ const Problem = ({ problemId, isChecked= false, setIsChecked }) => {
     
     if (problem) {
         
-        const handleEdit = () => navigate(`/problems/${problemId}`)
+        const handleEdit = () => navigate(`home/problems/${problemId}`)
         
 
         const handleDelete = async () => {

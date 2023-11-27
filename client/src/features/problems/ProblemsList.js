@@ -1,8 +1,8 @@
-import { useGetProblemsQuery, useDeleteUserMutation, useDeleteProblemMutation } from "./problemsApiSlice"
+import { useGetProblemsQuery, useDeleteProblemMutation } from "./problemsApiSlice"
 import Problem from './Problem'
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "../../style/ProblemList.css"
 const ProblemsList = () => {
     
@@ -72,13 +72,13 @@ const ProblemsList = () => {
             : null
 
         content = (
-            <div>
+            <div problemList-container>
             <div className="header">
                 <div className="titles">
                     <h2>Problem List</h2>
                     <h4>{} Total</h4>
                 </div>
-                <button className="add_button" onClick={() => navigate("/newproblem")}><i className="bi bi-file-earmark-code-fill"></i>Add Problem</button>
+                <button className="add_button" onClick={() => navigate("/home/problems/new")}><i className="bi bi-file-earmark-code-fill"></i>Add Problem</button>
             </div>
             <div className="body">
                 {2 > 0 ? (
