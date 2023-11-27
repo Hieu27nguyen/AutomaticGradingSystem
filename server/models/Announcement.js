@@ -5,7 +5,7 @@ const announcementSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    announceInformation: {//who announces this
+    announceInformation: {//Announcement content
         type: String,
         required: true
     },

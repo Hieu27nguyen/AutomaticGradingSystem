@@ -90,12 +90,12 @@ const getTranslationsByUsername = asyncHandler(async (req, res) => {
 })
 
 //Getting a specific translation by id
-// Required field in rest url:
+// Required field in url param:
 //      'id': id of the record
 const getTranslationsByID = asyncHandler(async (req, res) => {
     const id = req.params.id;
  
-    //Get all translation records from MongoDB
+    //Get the translation record from MongoDB
     const translationRecords = await Translation.find({"_id": id})
     
     // If no records 
