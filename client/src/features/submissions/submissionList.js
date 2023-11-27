@@ -79,7 +79,7 @@ const SubmissionsList = () => {
                         {/* <h4>{ids.length} Total</h4> */}
                     </div>
                     {!isJudge && !isAdmin && (
-                    <button className="add_button" onClick={() => navigate("/newsubmission")}><i className="bi bi-file-earmark-code-fill"></i>Add Submission</button>
+                    <button className="add_button" onClick={() => navigate("/home/submissions/new")}><i className="bi bi-file-earmark-code-fill"></i>Add Submission</button>
                     )}
                 </div>
 

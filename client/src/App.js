@@ -17,6 +17,9 @@ import ProblemsList from './features/problems/ProblemsList';
 import NewProblem from './features/problems/NewProblem';
 import WelcomePage from './features/home/WelcomePage';
 import EditProblemForm from './features/problems/EditProblemForm';
+import SubmissionList from './features/submissions/submissionList';
+import NewSubbmision from './features/submissions/NewSubmission';
+
 import Layout from './components/Layout';
 import DashLayout from './components/DashLayout'
 function App() {
@@ -36,7 +39,10 @@ function App() {
             <Route element={<Prefetch />}>
               <Route path="home" element={<DashLayout />}>
                 <Route index element={<WelcomePage />} />
-
+                <Route path="submissions">
+                    <Route index element={<SubmissionList />} />
+                    <Route path="new" element={<NewSubbmision />} />
+                  </Route>
                 <Route element={<RequireAuth allowedRoles={[ROLES.Judge, ROLES.Admin]} />}>
                   <Route path="users">
                     <Route index element={<UsersList />} />
@@ -48,6 +54,11 @@ function App() {
                     <Route index element={<ProblemsList />} />
                     <Route path=":id" element={<EditProblemForm />} />
                     <Route path="new" element={<NewProblem />} />
+                  </Route>
+
+                  <Route path="submissions">
+                    <Route index element={<SubmissionList />} />
+                    <Route path="new" element={<NewSubbmision />} />
                   </Route>
 
                   <Route path="competitions">
