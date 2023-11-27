@@ -179,9 +179,25 @@ const deleteSubmission = asyncHandler(async (req, res) => {
     }
 });
 
+const getSupportedLanguage = (req, res) =>{
+    let languages;
+    
+    submissionRunner.GET_SUPPORTED_LANGUAGES().then((data) => {
+        languages = data;
+        
+        res.status(200).json(languages);
+    })
+    .catch((err) => {
+        res.status(500).json({
+            message: "Error connecting with judging server"
+        })
+    });
+}
+
 module.exports = {
     createSubmission,
     getAllSubmissions,
     updateSubmission,
     deleteSubmission,
+    getSupportedLanguage,
 };
