@@ -25,13 +25,13 @@ const JudgeWelcomePage = () => {
         <div className="feature-item">
           <h3>Manage Contestants</h3>
           <p>
-            Easily oversee and manage the list of contestants participating in your competitions.
+            Easily manage the list of contestants participating in your competitions.
           </p>
         </div>
         <div className="feature-item">
           <h3>Prepare Problem Sets</h3>
           <p>
-            Curate and organize challenging problem sets to test the skills of the participating coders.
+            Create and organize challenging problem sets to test the skills of the participating coders.
           </p>
         </div>
         
