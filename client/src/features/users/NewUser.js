@@ -66,7 +66,7 @@ const NewUserForm = () => {
             setUsername('')
             setPassword('')
             setRoles([])
-            navigate('/home')
+            navigate('/home/users')
         }
     }, [isSuccess, navigate])
 

@@ -32,6 +32,7 @@ const NewProblem = () => {
         error
     }] = useAddNewProblemMutation()
 
+    const navigate = useNavigate();
     useEffect(() => {
         if (isSuccess) {
             setProblemName('')
@@ -39,9 +40,9 @@ const NewProblem = () => {
             setProblemTest('')
             setJudgeProgram('')
             setStoreTestCase([])
-            
+            navigate('/home/users')
         }
-    }, [isSuccess])
+    }, [isSuccess],navigate)
 
     const handleFileChosen = (file) => {
         reader = new FileReader();
