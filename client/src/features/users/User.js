@@ -25,7 +25,7 @@ const User = ({ userId, isChecked = false, setIsChecked }) => {
         await deleteUser({ id: userId })
     }
 
-    const handleEdit = () => navigate(`home/users/${userId}`)
+    const handleEdit = () => navigate(`/home/users/${userId}`)
 
     const handleCheckBox = () => {  
         setIsChecked(!isChecked)

@@ -144,3 +144,17 @@ margin-top: 1rem;
     
     margin-top: 8px;
   }
+
+  .testCases {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  .testCases th,td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  .testCases th{
+    background-color: #f2f2f2;
+  }

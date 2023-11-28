@@ -10,10 +10,10 @@ const NewProblem = () => {
     const [problemName, setProblemName] = useState('')
     const [problemDescription, setProblemDescription] = useState('')
     const [problemTest, setProblemTest] = useState('')
-    const [judgeProgram,setJudgeProgram] = useState('')
+    const [judgeProgram, setJudgeProgram] = useState('')
     const problemRef = useRef();
-    const [file, setFile] = useState(null);
-    const [testCase, setTestCase] = useState('');
+
+
 
     const [storeTestCase, setStoreTestCase] = useState([]);
     const [input, setInput] = useState('')
@@ -21,15 +21,15 @@ const NewProblem = () => {
 
     const [isSwitchChecked, setIsSwitchChecked] = useState(false);
 
-    
+
 
 
     let reader;
+    let inputReader;
     const [addNewProblem, {
         isLoading,
         isSuccess,
-        isError,
-        error
+
     }] = useAddNewProblemMutation()
 
     const navigate = useNavigate();
@@ -40,10 +40,9 @@ const NewProblem = () => {
             setProblemTest('')
             setJudgeProgram('')
             setStoreTestCase([])
-            navigate('/home/users')
+            navigate('/home/problems')
         }
-    }, [isSuccess],navigate)
-
+    }, [isSuccess], navigate)
     const handleFileChosen = (file) => {
         reader = new FileReader();
         reader.onloadend = handleFileRead;
@@ -51,24 +50,58 @@ const NewProblem = () => {
     }
     const handleFileRead = (e) => {
         const content = JSON.parse(reader.result);
-        console.log(content)
         setProblemName(content.name);
         setProblemDescription(content.description);
         const testCasesString = JSON.stringify(content.test);
         setProblemTest(testCasesString);
+        if (content.judgeProgram) {
+            setJudgeProgram(content.judgeProgram);
+        }
     }
-
     const handleSwitchChange = () => {
         setIsSwitchChecked(!isSwitchChecked);
-      };
-
+    };
     const uploadProblem = async (e) => {
         e.preventDefault();
         if (!isLoading) {
-            await addNewProblem({ problemName, problemDescription });
+            const problemData = {
+                name: problemName,
+                description: problemDescription,
+                test: problemTest,
+            };
+            if (judgeProgram) {
+                problemData.judgeProgram = judgeProgram;
+            }
+
+            await addNewProblem(problemData);
         }
 
     };
+    const handleTestCaseFile = (file) => {
+        inputReader = new FileReader();
+        inputReader.onloadend = handleInputRead;
+        inputReader.readAsText(file);
+    }
+
+    const handleInputRead = (e) => {
+        try {
+            const content = JSON.parse(inputReader.result);
+
+            if (Array.isArray(content)) {
+                setStoreTestCase([...storeTestCase, ...content]);
+            } else {
+                setStoreTestCase([...storeTestCase, content]);
+            }
+
+        } catch (error) {
+            console.error("Error parsing JSON file", error);
+
+        }
+    }
+
+
+
+
 
     const handleAddTestCase = () => {
         if (input.trim() !== '' && output.trim() !== '') {
@@ -76,21 +109,20 @@ const NewProblem = () => {
             setInput('');
             setOutput('');
         }
-
     };
     const onSaveProblemManual = async (e) => {
         e.preventDefault();
         if (!isLoading) {
             const problemData = {
-              name: problemName,
-              description: problemDescription,
-              test: storeTestCase,
+                name: problemName,
+                description: problemDescription,
+                test: storeTestCase,
             };
             if (judgeProgram) {
                 problemData.judgeProgram = judgeProgram;
-              }
-              console.log(problemData);
-        await addNewProblem(problemData);
+            }
+
+            await addNewProblem(problemData);
         }
     };
 
@@ -129,12 +161,12 @@ const NewProblem = () => {
                         required
                     ></textarea>
 
-                    <div class="form-check form-switch">
-                        <input className="form-check-input" type="checkbox" role="switch" onChange={handleSwitchChange} id="flexSwitchCheckDefault"/>
-                        <label className="form-check-label" for="flexSwitchCheckDefault" style={{ display: 'inline' }}>Judge Program</label>
-                        
-                        <input className="judgeProgram" type="text" placeholder="Judge Program Details" value={judgeProgram} onChange={(e) => setJudgeProgram(e.target.value)} disabled={!isSwitchChecked}/>
-                      
+                    <div className="form-check form-switch">
+                        <input className="form-check-input" type="checkbox" role="switch" onChange={handleSwitchChange} id="flexSwitchCheckDefault" />
+                        <label className="form-check-label" for="flexSwitchCheckDefault" style={{ display: 'inline' }}>  Judge Program</label>
+
+                        <input className="judgeProgram" type="text" placeholder="Judge Program Details" value={judgeProgram} onChange={(e) => setJudgeProgram(e.target.value)} disabled={!isSwitchChecked} />
+
                     </div>
 
                     <div className="input-cases">
@@ -164,18 +196,30 @@ const NewProblem = () => {
                         </div>
                         {/* Display added test cases */}
                         {storeTestCase.length > 0 && (
-                            <div className="added-test-cases">
-                                <h3>Added Test Cases:</h3>
-                                <ul>
-                                    {storeTestCase.map((testCase, index) => (
-                                        <li key={index}>{testCase.input}, {testCase.output}</li>
-                                    ))}
-                                </ul>
-                            </div>
+                           <table className="testCases">
+                           <thead>
+                               <tr>
+                                   <th>Test Case</th>
+                                   <th>Input</th>
+                                   <th>Output</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               {storeTestCase.map((testCase, index) => (
+                                   <tr key={index}>
+                                       <td>{index + 1}</td>
+                                       <td>{testCase.input}</td>
+                                       <td>{testCase.output}</td>
+                                   </tr>
+                               ))}
+                           </tbody>
+                       </table>
                         )}
 
-                        <label htmlFor="fileInput">Upload Test Cases File:</label>
-                        <input type="file" id="fileInput" name="problems" onChange={(e) => handleFileChosen(e.target.files)} />
+                        <label htmlFor="fileInput">Upload Test Case File:</label>
+                        <form >
+                            <input type="file" id="fileInput" name="problems" onChange={e => handleTestCaseFile(e.target.files[0])} />
+                        </form>
                     </div>
 
                     <button className="problem-button">Confirm</button>

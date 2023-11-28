@@ -59,12 +59,12 @@ const createProblem = asyncHandler(async (req, res) => {
     try {
         // Check the user's role
         const userRole = await checkUserRole(req);
-        console.log(userRole)
         if (userRole !== 'Authorized') {
             return res.status(403).json({ error: 'You are not authorized to create a new problem' });
         }
         const { name, description } = req.body;
-        console.log(req.body)
+        const {judgeProgram} = req.body;
+     
 
         // Check if test cases are provided in a file
         const testFile = req.files?.testFile;
@@ -78,12 +78,17 @@ const createProblem = asyncHandler(async (req, res) => {
             testCases = Array.isArray(test) ? test : [];
 
         }
+        
 
         const newProblem = new Problem({
             name,
             description,
             test: testCases,
         });
+        if (judgeProgram) {
+            newProblem.judgeProgram = judgeProgram;
+        }
+        
         const savedProblem = await newProblem.save();
         res.status(201).json(savedProblem);
     } catch (error) {
@@ -116,9 +121,8 @@ const getProblemById = asyncHandler(async (req, res) => {
 // @access Private
 const updateProblem = asyncHandler(async (req, res) => {
     try {
-        const { problemId } = req.params;
+        const { id } = req.body;
         const { name, description } = req.body;
-
         // Check the user's role before allowing the update
         const userRole = await checkUserRole(req);
         if (userRole !== 'Authorized') {
@@ -140,7 +144,7 @@ const updateProblem = asyncHandler(async (req, res) => {
         }
 
         const updatedProblem = await Problem.findByIdAndUpdate(
-            problemId,
+            id,
             { name, description, test: testCases }, // Use the test from the form or file upload
             { new: true }
         );
@@ -158,7 +162,7 @@ const updateProblem = asyncHandler(async (req, res) => {
 // @access Private
 const deleteProblem = asyncHandler(async (req, res) => {
     try {
-        const { problemId } = req.params;
+        const { id } = req.body;
 
         // Check the user's role before allowing the deletion
         const userRole = await checkUserRole(req);
@@ -166,7 +170,7 @@ const deleteProblem = asyncHandler(async (req, res) => {
             return res.status(403).json({ error: 'You are not authorized to delete this problem' });
         }
 
-        const deletedProblem = await Problem.findByIdAndDelete(problemId);
+        const deletedProblem = await Problem.findByIdAndDelete(id);
         if (!deletedProblem) {
             return res.status(404).json({ message: 'Problem not found' });
         }
