@@ -2,7 +2,7 @@ const Translation = require('../models/Translation');
 const asyncHandler = require('express-async-handler');
 const ObjectId = require('mongodb').ObjectId;
 
-const projectId = 'agstranslate';
+const projectId = process.env.TRANSLATE_PROJECT_ID;
 const location = 'global';
 
 // Instantiates a client
@@ -69,7 +69,6 @@ const getAllTranslations = asyncHandler(async (req, res) => {
     res.json(translationRecords)
     
 })
-//  const duplicate = await User.findOne({ username }).lean().exec()
 
 //Getting all the translation requested by a user
 // Required field in rest url:

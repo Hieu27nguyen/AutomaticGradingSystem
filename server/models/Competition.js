@@ -14,6 +14,11 @@ const competitionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    processTimeStart: {
+        type: Date,
+        default: Date.now,
+        required: true
+    },
     duration: {
         type : Number,
         default: 5,
