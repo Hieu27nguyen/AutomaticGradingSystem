@@ -178,14 +178,14 @@ const getAllSubmissions = asyncHandler(async (req, res) => {
 // Required field in rest url:
 //      'username': username of the user requesting translation
 const getSubmissionByUsername = asyncHandler(async (req, res) => {
-    const username = req.params.username;
+    const user = req.params.username;
 
     //Get all submission records from MongoDB
-    const submissionRecords = await Submission.find({ username }).select().lean()
+    const submissionRecords = await Submission.find({ user }).select().lean()
 
     // If no records 
     if (!submissionRecords?.length) {
-        return res.status(200).json({ message: `No submission records found matching with the username ${username}` })
+        return res.status(200).json({ message: `No submission records found matching with the username ${user}` })
     }
 
     res.status(200).json(submissionRecords);
