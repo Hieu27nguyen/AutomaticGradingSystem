@@ -69,7 +69,6 @@ const getAllTranslations = asyncHandler(async (req, res) => {
     res.json(translationRecords)
     
 })
-//  const duplicate = await User.findOne({ username }).lean().exec()
 
 //Getting all the translation requested by a user
 // Required field in rest url:
