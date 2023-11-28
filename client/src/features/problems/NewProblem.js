@@ -49,14 +49,28 @@ const NewProblem = () => {
         reader.readAsText(file);
     }
     const handleFileRead = (e) => {
+        try {
         const content = JSON.parse(reader.result);
         setProblemName(content.name);
         setProblemDescription(content.description);
-        const testCasesString = JSON.stringify(content.test);
-        setProblemTest(testCasesString);
-        if (content.judgeProgram) {
-            setJudgeProgram(content.judgeProgram);
+
+        //parse test cases
+        if (Array.isArray(content.test)) {
+            setStoreTestCase([...storeTestCase, ...content.test]);
+        } else {
+            setStoreTestCase([...storeTestCase, content.test]);
         }
+
+
+        if (content.judgeProgram) {
+            setIsSwitchChecked(!isSwitchChecked);
+            setJudgeProgram(content.judgeProgram);
+            
+        }
+    } catch (error) {
+        console.error("Error parsing JSON file", error);
+        alert('File is not valid. Please make sure to use JSON file and the format is correct!')
+    }
     }
     const handleSwitchChange = () => {
         setIsSwitchChecked(!isSwitchChecked);
@@ -86,7 +100,7 @@ const NewProblem = () => {
     const handleInputRead = (e) => {
         try {
             const content = JSON.parse(inputReader.result);
-
+            console.log(content);
             if (Array.isArray(content)) {
                 setStoreTestCase([...storeTestCase, ...content]);
             } else {
@@ -95,14 +109,10 @@ const NewProblem = () => {
 
         } catch (error) {
             console.error("Error parsing JSON file", error);
+            alert('File is not valid. Please make sure to use JSON file and the format is correct!')
 
         }
     }
-
-
-
-
-
     const handleAddTestCase = () => {
         if (input.trim() !== '' && output.trim() !== '') {
             setStoreTestCase([...storeTestCase, { input, output }]);
@@ -163,7 +173,7 @@ const NewProblem = () => {
 
                     <div className="form-check form-switch">
                         <input className="form-check-input" type="checkbox" role="switch" onChange={handleSwitchChange} id="flexSwitchCheckDefault" />
-                        <label className="form-check-label" for="flexSwitchCheckDefault" style={{ display: 'inline' }}>  Judge Program</label>
+                        <label className="form-check-label" htmlFor="flexSwitchCheckDefault" style={{ display: 'inline' }}>  Judge Program</label>
 
                         <input className="judgeProgram" type="text" placeholder="Judge Program Details" value={judgeProgram} onChange={(e) => setJudgeProgram(e.target.value)} disabled={!isSwitchChecked} />
 
