@@ -28,15 +28,17 @@ const submissionRunner = require('../middleware/submissionRunner')
 //     }
 // });
 
+// Function to check the user's role
 const checkUserRole = asyncHandler(async (req) => {
     try {
         // If the user is found, retrieve the roles from the "roles" array
-        const roles = req.roles.map(roles => roles.toLowerCase());
-        // Check if the user has the "admin" or "judge" role
+        const roles = req.roles.map(role => role.toLowerCase());
+        // Check if the user has the "Admin" or "judge" role
         if (roles.includes('admin') || roles.includes('judge')) {
-            return 'Administrative'; // Return a custom role to represent authorized access
-        } else {
-            return 'Contestant'; //If the user doesn't have the required roles
+            return 'Authorized'; // Return a custom role to represent authorized access
+        }
+        else {
+            return 'Contestant';
         }
     } catch (error) {
         // If there is an error fetching

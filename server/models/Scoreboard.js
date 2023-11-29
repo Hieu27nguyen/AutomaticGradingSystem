@@ -1,14 +1,27 @@
 const mongoose = require('mongoose')
 
-const clarificationSchema = new mongoose.Schema({
-    username: {//who request this clarification
+const scoreboardSchema = new mongoose.Schema({
+    username: {//username of the contestant
         type: String,
         required: true
     },
-    rank:{
-        type: Number,
-        
-    }
+    problemSolved: {
+
+    },
+    totalScore:{//Total score achieved
+
+    },
+
+    problemStatistic: [{//Containing detail submission records
+        problemID: String,
+        ref: 'Problem',
+        required: true,
+        submissionRecord: { //Keep track of submission attempts, penalty and score for each problem
+
+
+        }
+    }],
+
 })
 
-module.exports = mongoose.model('clarifications', clarificationSchema)
+module.exports = mongoose.model('scoreboard', scoreboardSchema)

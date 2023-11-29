@@ -11,7 +11,7 @@ const problemSchema = new mongoose.Schema({
         required: true
     },
     judgeProgram: {
-        type: String, // Can be a text or PDF link
+        type: String, 
         required: false
     },
     test: [{
@@ -36,6 +36,13 @@ const problemSchema = new mongoose.Schema({
         type : Number,
         required: false,
         default: 2,
+    },
+    //Penalty in minute which will incur if user attemped this problem but get this wrong.
+    //Penalty only applied when the user solved this problem.
+    penaltyMinute:{
+        type : Number,
+        required: false,
+        default: 20,//20 minutes penalty as default
     }
 })
 
