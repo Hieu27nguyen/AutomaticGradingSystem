@@ -58,16 +58,17 @@ const getAnnouncementsByID = asyncHandler(async (req, res) => {
 // Full URI: http://localhost:port/announcement/
 // Required field in request body:
 //      'username': username of the user given the announcement translation
+//      'title': Title of the announcement
 //      'announceInformation': The content of the announcement 
 const createNewAnnouncement = asyncHandler(async (req, res) => {
-    const { username, announceInformation } = req.body
+    const { username, title, announceInformation } = req.body
 
     // Confirm data
-    if (!username || !announceInformation) {
+    if (!username || !announceInformation || !title) {
         return res.status(400).json({ message: 'Missing required fields' })
     }
 
-    const announcementObj = { username, announceInformation }
+    const announcementObj = { username, title, announceInformation }
 
     // Create and store new announcement 
     const announcement = await Announcement.create(announcementObj)
