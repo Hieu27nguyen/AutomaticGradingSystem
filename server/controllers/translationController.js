@@ -49,6 +49,7 @@ const getAllLanguages = asyncHandler(async (req, res) => {
             res.status(200).json(data.data.data.languages);
 
         }).catch((err) => {
+            console.log(err);
             res.status(500).json({ message: 'Cannot connect to Google API, please try again later.' });
         });
     }

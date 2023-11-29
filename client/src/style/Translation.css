@@ -1,0 +1,243 @@
+.translation-form {
+  margin-top: 0.5%;
+  max-width: 100%;
+  margin: flex;
+  margin-bottom: 10px;
+  padding: 20px;
+  border: 1px solid #3e0481f8;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.translation-form h2 {
+  font-family: 'Courier New', monospace;
+  align-self: flex-start;
+  border: 1px solid #ccc;
+  background-color: #40085a;
+  border-radius: 10px;
+  color: #ececec;
+  margin-bottom: 10px;
+  text-align: center;
+  padding: 5px;
+}
+
+.translation-form h2 span {
+  margin-right: 1px;
+}
+
+.language-dropdowns {
+  display: flex;
+  gap: 16px;
+}
+
+.language-dropdowns div {
+  text-align: center;
+  flex-grow: 1;
+  margin-bottom: 10px;
+}
+
+.text-areas {
+  display: flex;
+  gap: 16px;
+}
+
+.text-areas div {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.language-dropdowns select,
+.text-areas textarea {
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  width: 100%;
+}
+
+.language-dropdowns select {
+  cursor: pointer;
+}
+
+.translation {
+  display: flex;
+  flex-direction: row;
+}
+
+.translation-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #104b99;
+  border-radius: 4px;
+  padding: 3px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: 10px;
+  max-width: 95%;
+}
+
+.translation-card:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.translation-card.highlight {
+  background-color: #d7e1f5;
+  transition: background-color 0.2s ease;
+}
+
+.translation-info {
+  display: flex;
+  align-items: center;
+  flex-grow: 2;
+}
+
+.translationDescription-label_1 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  height: 150px;
+  vertical-align: text-top;
+  margin-bottom: 10px;
+}
+
+.translationDescription-label_2 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 20px;
+  height: 150px;
+  background-color: #e9e9e9;
+  vertical-align: text-top;
+  margin-bottom: 10px;
+}
+
+.translation-button {
+  padding: 15px 10px;
+  border: 0;
+  background: linear-gradient(to right, #40085a 0%, #180133 100%);
+  border-radius: 3px;
+  margin-top: 10px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-family: 'Rubik', sans-serif;
+  cursor: pointer;
+}
+
+.translation-info {
+  display: flex;
+  align-items: center;
+  flex-grow: 2;
+}
+
+.translation-info-item {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.translation-info-item:nth-child(1) {
+  flex: 0.7;
+}
+
+.translation-info-item:nth-child(2) {
+  flex: 0.85;
+}
+
+.translation-info-item:nth-child(3) {
+  flex: 0.8;
+}
+
+.translation-info-item:nth-child(4) {
+  flex: 1;
+}
+
+.translation-info-item:nth-child(5) {
+  flex: 1;
+}
+
+.translation-table-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.translation-table-titles {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: 10px;
+  max-width: 95%;
+  border: 1px solid #ffffff;
+  border-left: 4px solid #ffffff;
+  border-radius: 4px;
+  padding: 3px;
+
+}
+
+.translation-table-titles h3 {
+  font-size: 18px;
+  color: #104b99;
+}
+
+.translation-table-titles h3:nth-child(1) {
+  flex: 0.7;
+}
+
+.translation-table-titles h3:nth-child(2) {
+  flex: 0.85;
+}
+
+.translation-table-titles h3:nth-child(3) {
+  flex: 0.8;
+}
+
+.translation-table-titles h3:nth-child(4) {
+  flex: 1;
+}
+
+.translation-table-titles h3:nth-child(5) {
+  flex: 1;
+}
+
+.main-container {
+  flex: 1;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
+.translation-list-container {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.toggle-list-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d1d1;
+  margin: auto;
+  background-color: #ffffff;
+  border-radius: 40%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.toggle-list-button:hover {
+  background-color: #d1d1d1;
+}
+
+.toggle-list-button.untoggle {
+  background-color: #40085a;
+}
+
+.toggle-list-button i {
+  font-size: 25px;
+  color: #6b6b6b;
+}
+
+.toggle-list-button.untoggle i {
+  color: rgb(255, 255, 255);
+}

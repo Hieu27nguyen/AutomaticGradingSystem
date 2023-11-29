@@ -19,6 +19,8 @@ import WelcomePage from './features/home/WelcomePage';
 import EditProblemForm from './features/problems/EditProblemForm';
 import SubmissionList from './features/submissions/submissionList';
 import NewSubbmision from './features/submissions/NewSubmission';
+import TranslatePage from './features/translations/TranslationPage';
+
 
 import Layout from './components/Layout';
 import DashLayout from './components/DashLayout'
@@ -43,6 +45,10 @@ function App() {
                     <Route index element={<SubmissionList />} />
                     <Route path="new" element={<NewSubbmision />} />
                   </Route>
+                  <Route path="translations">
+                    <Route index element={<TranslatePage />} />
+                  </Route>
+                  
                 <Route element={<RequireAuth allowedRoles={[ROLES.Judge, ROLES.Admin]} />}>
                   <Route path="users">
                     <Route index element={<UsersList />} />
@@ -63,6 +69,10 @@ function App() {
 
                   <Route path="competitions">
                     <Route index element={<CompetitionsList />} />
+                  </Route>
+
+                  <Route path="translations">
+                    <Route index element={<TranslatePage />} />
                   </Route>
                 </Route>
 

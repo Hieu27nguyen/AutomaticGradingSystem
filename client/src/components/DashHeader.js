@@ -43,6 +43,9 @@ const DashHeader = () => {
           <li className={activeTab === '/home/submissions' ? 'active' : ''}>
             <Link to="/home/submissions" onClick={() => handleTabClick('/home/submissions')}> Submissions </Link>
           </li>
+          <li className={activeTab === '/home/translations' ? 'active' : ''}>
+            <Link to="/home/translations" onClick={() => handleTabClick('/home/translations')}> Translate </Link>
+          </li>
         </ul>
       );
     } else {
@@ -66,6 +69,10 @@ const DashHeader = () => {
 
           <li className={activeTab === '/home/submissions' ? 'active' : ''}>
             <Link to="/home/submissions" onClick={() => handleTabClick('/home/submissions')}> Submissions Management </Link>
+          </li>
+
+          <li className={activeTab === '/home/translations' ? 'active' : ''}>
+            <Link to="/home/translations" onClick={() => handleTabClick('/home/translations')}> Translate </Link>
           </li>
         </ul>
       );
