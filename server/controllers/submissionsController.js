@@ -47,6 +47,12 @@ const checkUserRole = asyncHandler(async (req) => {
     }
 });
 
+//Util function
+//Support judging program
+const runJudgeProgram = async (judgeCode, userOutput, problemInput) => {
+
+}
+
 //Create a new submission
 //Required field in rest's body:
 //  user (username: String): username of the contestant that submit
@@ -98,6 +104,8 @@ const createSubmission = asyncHandler(async (req, res) => {
     let testProcessed = 0;
     let testPassed = 0;
     let testResults = [];
+
+    const runningJudgeProgram = false;
     //Running each test cases
     await Promise.all(problemObj.test.map(async (test) => {
         const simplifyProblem = {
@@ -116,13 +124,25 @@ const createSubmission = asyncHandler(async (req, res) => {
                     time: result.time,
                     stderr: result.stderr,
                 })
-               
-                if (result.status.id === 3) {
-                    testPassed++;
-                    return 'accepted';
+                if (!runningJudgeProgram) {
+                    if (result.status.id === 3) {
+                        testPassed++;
+                        return 'accepted';
+                    }
+                    else if (result.status.id !== 4) {//Encounter compile or runtime error
+                        status = result.status.description;
+                    }
                 }
-                else if (result.status.id !== 4) {//Encounter compile or runtime error
-                    status = result.status.description;
+                else{//Using judge program
+                   
+                    //  Submission has compile or runtime error
+                    if (result.status.id != 3 && result.status.id != 4){
+                        status = result.status.description;
+                    }
+                    else{
+                    //  Submisison is runnable
+                         //Run judgeProgram here
+                    }
                 }
             }
         )
@@ -131,11 +151,11 @@ const createSubmission = asyncHandler(async (req, res) => {
 
     }, 0));
 
-    if (status === ""){
+    if (status === "") {
         if (testPassed === problemObj.test.length) {
             status = "Accepted";
         }
-        else if (testPassed <= problemObj.test.length){
+        else if (testPassed <= problemObj.test.length) {
             status = "Wrong Answer";
         }
     }
@@ -143,15 +163,15 @@ const createSubmission = asyncHandler(async (req, res) => {
     let score
 
     //Check whether a student has created a submission record or not
-    let submissionRecord = await Scoreboard.find({"username": user });
-   
+    let submissionRecord = await Scoreboard.find({ "username": user });
+
     if (!submissionRecord || submissionRecord.length == 0) {
         //Create an empty record for the user
         submissionRecord = await scoreboardController.createEmptyRecord(user);
     }
 
     //Update submission records
-    submissionRecord = await Scoreboard.findOne({"username": user });
+    submissionRecord = await Scoreboard.findOne({ "username": user });
 
     submissionRecord.problemStatistic.map(problemStat => {
         if (problemStat.problemID === problem) {
@@ -161,16 +181,16 @@ const createSubmission = asyncHandler(async (req, res) => {
                 //Increase the penalty
                 if (problemObj.penaltyMinute)
                     problemStat.penalty += problemObj.penaltyMinute;
-            } else  if (problemStat.accepted != true){
+            } else if (problemStat.accepted != true) {
                 score = (timeSubmittedInMili - contestStartTime) / 1000 / 60 + problemStat.penalty;//Calculation based on minutes
                 submissionRecord.totalScore += score;
                 problemStat.score = score;
-                submissionRecord.problemSolved++;  
-                problemStat.accepted = true;          
+                submissionRecord.problemSolved++;
+                problemStat.accepted = true;
             }
 
         }
-       
+
         return problemStat;
     })
     //Save into the db
