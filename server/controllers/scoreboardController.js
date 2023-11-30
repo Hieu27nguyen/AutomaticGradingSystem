@@ -60,8 +60,31 @@ const FillRecordForNonSubmittingUsers = async () => {
 }
 
 
+//Return a Sorted version of the scoreboard with ranking
+const sortScoreboard = async () =>{
+    const scoreboard = await Scoreboard.find().sort({
+        problemSolved: -1,//Sort descedning based on problem solved
+        totalScore: 1,//Sort ascending based on total score (penalty)
+    }).lean();
+    console.log(scoreboard)
+    let finalScoreboard = []
+    let rank = 1;
+    for (let i = 0 ; i < scoreboard.length; i++){
+        if (i != 0){
+            if (scoreboard[i].problemSolved != scoreboard[i - 1].problemSolved || scoreboard[i].totalScore != scoreboard[i - 1].totalScore){
+                rank++;
+            }
+        }
+        const data = { 
+            rank: rank,
+            ...scoreboard[i],
+        }
+        finalScoreboard.push(data);
+        // console.log(finalScoreboard[i]);
+    }
 
-
+    return finalScoreboard;
+}
 
 //Getting the competition scoreboard
 //Required field in rest's body:
@@ -69,9 +92,16 @@ const getScoreboard = asyncHandler(async (req, res) => {
     //Create record for user that does not submit anything
     await FillRecordForNonSubmittingUsers();
 
-    const scoreboard = await Scoreboard.find();
+    const finalScoreboard = await sortScoreboard();
     res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
-    res.status(200).json(scoreboard);
+    if (finalScoreboard){
+        res.status(200).json(finalScoreboard);
+    }
+    else{
+        res.status(500).json({message: "Error when getting scoreboard. Please try again later"});
+    }
+    
+  
 })
 
 module.exports = {
