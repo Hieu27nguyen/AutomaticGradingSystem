@@ -5,6 +5,7 @@ const Competition = require('../models/Competition');
 const User = require('../models/User')
 const asyncHandler = require('express-async-handler');
 const submissionRunner = require('../middleware/submissionRunner')
+const scoreboardController = require('./scoreboardController')
 
 // Function to check the user's role
 // const checkUserRole = asyncHandler(async (req) => {
@@ -72,7 +73,7 @@ const createSubmission = asyncHandler(async (req, res) => {
     //Check contest start time
     let competitionObj = await Competition.find().lean();
     competitionObj = competitionObj[0];
-    
+
     if (!competitionObj) {
         return res.status(500).json({ message: 'Competition has not been correctly configured' });
     }
@@ -82,7 +83,7 @@ const createSubmission = asyncHandler(async (req, res) => {
     let contestEndTime = contestStartTime + competitionObj.duration * 3600000; //Convert duratio in hour to miliseconds
     let timeSubmittedInMili = new Date(timeSubmitted).getTime();
 
-    if (timeSubmittedInMili < contestStartTime || timeSubmittedInMili > contestEndTime){
+    if (timeSubmittedInMili < contestStartTime || timeSubmittedInMili > contestEndTime) {
         return res.status(400).json({ message: 'Competition has ended or not yet started' });
     }
 
@@ -101,20 +102,21 @@ const createSubmission = asyncHandler(async (req, res) => {
     await Promise.all(problemObj.test.map(async (test) => {
         const simplifyProblem = {
             stdin: test.input,
-            expectedOutput: test.output,
+            expected_output: test.output,
         };
-  
+
         let res = await submissionRunner.runSubmission(code, language_id, simplifyProblem).then(
             result => {
                 testProcessed++;
                 //Test passed, result returns accepted
-        
+
                 //Record detail of the submissions
                 testResults.push({
-                    stdout: result.stdout, 
-                    time: result.time, 
+                    stdout: result.stdout,
+                    time: result.time,
                     stderr: result.stderr,
                 })
+               
                 if (result.status.id === 3) {
                     testPassed++;
                     return 'accepted';
@@ -129,12 +131,51 @@ const createSubmission = asyncHandler(async (req, res) => {
 
     }, 0));
 
-    if (status === "" && testPassed === problemObj.test.length) {
-        status = "Accepted";
+    if (status === ""){
+        if (testPassed === problemObj.test.length) {
+            status = "Accepted";
+        }
+        else if (testPassed <= problemObj.test.length){
+            status = "Wrong Answer";
+        }
     }
-    //Log into the database
-  
-    let score = (timeSubmittedInMili - contestStartTime) / 1000 / 60;//Convert to minutes
+
+    let score
+
+    //Check whether a student has created a submission record or not
+    let submissionRecord = await Scoreboard.find({"username": user });
+   
+    if (!submissionRecord || submissionRecord.length == 0) {
+        //Create an empty record for the user
+        submissionRecord = await scoreboardController.createEmptyRecord(user);
+    }
+
+    //Update submission records
+    submissionRecord = await Scoreboard.findOne({"username": user });
+
+    submissionRecord.problemStatistic.map(problemStat => {
+        if (problemStat.problemID === problem) {
+            problemStat.attempts++;
+
+            if (status !== "Accepted") {
+                //Increase the penalty
+                if (problemObj.penaltyMinute)
+                    problemStat.penalty += problemObj.penaltyMinute;
+            } else  if (problemStat.accepted != true){
+                score = (timeSubmittedInMili - contestStartTime) / 1000 / 60 + problemStat.penalty;//Calculation based on minutes
+                submissionRecord.totalScore += score;
+                problemStat.score = score;
+                submissionRecord.problemSolved++;  
+                problemStat.accepted = true;          
+            }
+
+        }
+       
+        return problemStat;
+    })
+    //Save into the db
+    submissionRecord.save();
+    //Log result into the database
 
     let newSubmission = {
         user: user,
@@ -151,7 +192,7 @@ const createSubmission = asyncHandler(async (req, res) => {
     const submission = await Submission.create(newSubmission);
 
     if (submission) {
-        res.status(201).json({ message: 'Submission created successfully', status, testResults});
+        res.status(201).json({ message: 'Submission created successfully', status, testResults });
     } else {
         res.status(400).json({ message: 'Invalid submission data received' });
     }
@@ -181,7 +222,7 @@ const getAllSubmissions = asyncHandler(async (req, res) => {
 // Required field in rest url:
 //      'username': username of the user requesting translation
 const getSubmissionByUsername = asyncHandler(async (req, res) => {
-    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
+    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
     const user = req.params.username;
 
     //Get all submission records from MongoDB
@@ -200,7 +241,7 @@ const getSubmissionByUsername = asyncHandler(async (req, res) => {
 // Required field in url param:
 //      'id': id of the record
 const getSubmissionByID = asyncHandler(async (req, res) => {
-    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
+    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
     const id = req.params.id;
 
     //Get the translation record from MongoDB
@@ -275,7 +316,7 @@ const getSubmissionByID = asyncHandler(async (req, res) => {
 // });
 
 const getSupportedLanguage = (req, res) => {
-    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
+    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
     let languages;
 
     submissionRunner.GET_SUPPORTED_LANGUAGES()

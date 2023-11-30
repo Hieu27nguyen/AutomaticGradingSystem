@@ -34,6 +34,11 @@ const scoreboardSchema = new mongoose.Schema({
             type: Number,
             required: true,
         },
+        accepted: {
+            type: Boolean,
+            required: true,
+            default: false,
+        }
        
     }],
 

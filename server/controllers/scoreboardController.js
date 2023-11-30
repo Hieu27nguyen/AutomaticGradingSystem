@@ -14,6 +14,7 @@ const createEmptyRecord = async (username) => {
             attempts: 0,
             penalty: 0,
             score: 0,
+            accepted: false,
         });
     })
 
@@ -23,10 +24,10 @@ const createEmptyRecord = async (username) => {
         problemSolved: 0,
         problemStatistic: problemStat,
     };
-
+    let newRecord
     //Create a new record
     try {
-        const newRecord = await Scoreboard.create(newData);
+        newRecord = await Scoreboard.create(newData);
         if (newRecord) {
             return newRecord;//Create susccessfully
         }else{
@@ -37,7 +38,6 @@ const createEmptyRecord = async (username) => {
         //Log the error
         console.log(e);
     }
-
 };
 const FillRecordForNonSubmittingUsers = async () => {
     //Go ovoer the user contestant list
@@ -66,7 +66,7 @@ const sortScoreboard = async () =>{
         problemSolved: -1,//Sort descedning based on problem solved
         totalScore: 1,//Sort ascending based on total score (penalty)
     }).lean();
-    console.log(scoreboard)
+
     let finalScoreboard = []
     let rank = 1;
     for (let i = 0 ; i < scoreboard.length; i++){
@@ -80,7 +80,6 @@ const sortScoreboard = async () =>{
             ...scoreboard[i],
         }
         finalScoreboard.push(data);
-        // console.log(finalScoreboard[i]);
     }
 
     return finalScoreboard;

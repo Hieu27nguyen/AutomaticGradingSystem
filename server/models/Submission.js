@@ -17,7 +17,6 @@ const submissionSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Pending', 'Accepted', 'Failed test', 'Runtime error', 'Compilation error'],
         default: 'Pending',
     },
     language_id: {
