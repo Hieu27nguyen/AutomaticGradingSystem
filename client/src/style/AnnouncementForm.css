@@ -1,0 +1,82 @@
+
+#newAnnouncement {
+    margin-top: 20px;
+    text-align: center;
+    color: #0c37ad;
+}
+.announcement-form {
+    max-width: 800px;
+    margin:50px auto;
+    padding: 150px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+   
+  }
+  
+.announcement-label,
+.announcement-content-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box; 
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.announcement-content-input {
+    height: 200px;
+    
+}
+.button-container {
+    text-align: center; 
+  }
+
+  
+  .announcement-submit-button {
+    padding: 12px 50px;
+    border: 0;
+    background: linear-gradient(to right, #0c37ad 0%, #033e66 100%);
+    border-radius: 3px;
+    margin-top: 10px;
+    color: #fff;
+    letter-spacing: 1px;
+    font-family: 'Rubik', sans-serif;
+    cursor:pointer;
+  }
+  
+  
+  
+ /* AnnouncementForm.css */
+
+
+
+
+.full-announcement-container {
+  max-width: 90%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.full-announcement-container h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.full-announcement-container p {
+  font-size: 18px;
+  white-space: pre-line;
+}
+
+.go-back-announcements {
+  margin-left: 30px;
+  font-size: 30px;
+}
+
+
+
+  

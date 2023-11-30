@@ -8,8 +8,7 @@ const DashHeader = () => {
   const [sendLogout] = useSendLogoutMutation();
 
   const { roles } = useAuth();
-  console.log(roles);
-  
+
   const navigate = useNavigate();
 
   const [activeTab, setActiveTab] = useState('/home');
@@ -64,7 +63,7 @@ const DashHeader = () => {
           </li>
 
           <li className={activeTab === '/home/problems' ? 'active' : ''}>
-            <Link to="/home/problems" onClick={() => handleTabClick('/home/problems')}> Problems Management </Link>
+            <Link to="/home/problems" onClick={() => handleTabClick('/home/problems')}>Problems Management </Link>
           </li>
 
           <li className={activeTab === '/home/submissions' ? 'active' : ''}>
@@ -73,6 +72,9 @@ const DashHeader = () => {
 
           <li className={activeTab === '/home/translations' ? 'active' : ''}>
             <Link to="/home/translations" onClick={() => handleTabClick('/home/translations')}> Translate </Link>
+          </li>
+          <li className={activeTab === '/home/announcements' ? 'active' : ''}>
+            <Link to="/home/announcements" onClick={() => handleTabClick('/home/announcements')}> Announcements </Link>
           </li>
         </ul>
       );
@@ -84,7 +86,7 @@ const DashHeader = () => {
       <nav>
         {renderNavItems()}
         <div className="profile-dropdown">
-        <Link to="/" onClick={loggingOut}>   Logout </Link>
+        <Link to="/" onClick={loggingOut}>Logout </Link>
         </div>
       </nav>
     </div>

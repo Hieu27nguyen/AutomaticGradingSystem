@@ -32,7 +32,7 @@ app.use('/problems', require('./routes/problemRoutes'))
 app.use('/competitions', require('./routes/competitionRoutes'))
 app.use('/translation', require('./routes/translationRoutes'))
 app.use('/submissions', require('./routes/submissionRoutes'))
-app.use('/announcement', require('./routes/announcementRoutes'))
+app.use('/announcements', require('./routes/announcementRoutes'))
 app.use('/scoreboard', require('./routes/scoreboardRoutes'))
 
 //404 not found

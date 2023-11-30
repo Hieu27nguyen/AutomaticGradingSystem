@@ -210,8 +210,9 @@
   
   
   
-  
-  
+  .hidden {
+    display: none;
+}
   
   
   
