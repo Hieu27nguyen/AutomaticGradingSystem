@@ -63,8 +63,8 @@ const createProblem = asyncHandler(async (req, res) => {
             return res.status(403).json({ error: 'You are not authorized to create a new problem' });
         }
         const { name, description } = req.body;
-        const {judgeProgram} = req.body;
-     
+        const { judgeProgram } = req.body;
+
 
         // Check if test cases are provided in a file
         const testFile = req.files?.testFile;
@@ -78,7 +78,7 @@ const createProblem = asyncHandler(async (req, res) => {
             testCases = Array.isArray(test) ? test : [];
 
         }
-        
+
 
         const newProblem = new Problem({
             name,
@@ -88,7 +88,7 @@ const createProblem = asyncHandler(async (req, res) => {
         if (judgeProgram) {
             newProblem.judgeProgram = judgeProgram;
         }
-        
+
         const savedProblem = await newProblem.save();
         res.status(201).json(savedProblem);
     } catch (error) {
@@ -180,9 +180,18 @@ const deleteProblem = asyncHandler(async (req, res) => {
     }
 });
 
+//Util function
+//Get all problems and extract their id
+//return a list of problem ID as String
+const extractProblemID = async () => {
+    const problemIDs = (await Problem.find()).map(problem => problem._id.toString());
+    return problemIDs;
+}
+
 module.exports = {
     getAllProblems,
     createProblem,
     updateProblem,
-    deleteProblem
+    deleteProblem,
+    extractProblemID,
 };
