@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 const announcementController = require('../controllers/announcementController')
 
+const verifyJWT = require('../middleware/verifyJWT'); 
+router.use(verifyJWT);
+
 router.route('/')
     // Get all translation
     // Full URI: http://localhost:port/announcement/

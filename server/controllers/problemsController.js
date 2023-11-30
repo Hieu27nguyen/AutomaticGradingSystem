@@ -5,6 +5,7 @@ const asyncHandler = require('express-async-handler')
 
 
 const getAllProblems = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     // Get all users from MongoDB
     const problems = await Problem.find().lean()
 
@@ -56,6 +57,7 @@ const parseTestCases = async (testFile) => {
 // @route POST /problems
 // @access Private
 const createProblem = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     try {
         // Check the user's role
         const userRole = await checkUserRole(req);
@@ -102,6 +104,7 @@ const createProblem = asyncHandler(async (req, res) => {
 // @route GET /problems/:problemId
 // @access Public
 const getProblemById = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     try {
         const { problemId } = req.params;
         const problem = await Problem.findById(problemId);
@@ -120,6 +123,7 @@ const getProblemById = asyncHandler(async (req, res) => {
 // @route PUT /problems/:problemId
 // @access Private
 const updateProblem = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     try {
         const { id } = req.body;
         const { name, description } = req.body;
@@ -161,6 +165,7 @@ const updateProblem = asyncHandler(async (req, res) => {
 // @route DELETE /problems/:problemId
 // @access Private
 const deleteProblem = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     try {
         const { id } = req.body;
 

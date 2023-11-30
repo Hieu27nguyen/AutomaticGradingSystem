@@ -30,7 +30,7 @@ const axios = require('axios');
 
 //Getting all languages supported by Google Cloud API Translation
 const getAllLanguages = asyncHandler(async (req, res) => {
-
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     //Implementation to be used when getting the supported language when the server starts
     // //Supported languages not initialized
     // if (!SUPPORTED_LANGUAGES){
@@ -59,6 +59,7 @@ const getAllLanguages = asyncHandler(async (req, res) => {
 //Getting all the translation requested by ALL users
 // Required field in request body:
 const getAllTranslations = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     //Get all translation records from MongoDB
     const translationRecords = await Translation.find().select().lean()
 
@@ -75,6 +76,7 @@ const getAllTranslations = asyncHandler(async (req, res) => {
 // Required field in rest url:
 //      'username': username of the user requesting translation
 const getTranslationsByUsername = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     const username = req.params.username;
     
     //Get all translation records from MongoDB
@@ -93,6 +95,7 @@ const getTranslationsByUsername = asyncHandler(async (req, res) => {
 // Required field in url param:
 //      'id': id of the record
 const getTranslationsByID = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     const id = req.params.id;
  
     //Get the translation record from MongoDB
@@ -113,6 +116,7 @@ const getTranslationsByID = asyncHandler(async (req, res) => {
 //      'source': Language ID to translate from, 
 //      'target': Language ID to translate to
 const createTranslation = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     let { username, text, source, target } = req.body;
 
     // Confirm data

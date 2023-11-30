@@ -19,6 +19,7 @@ const checkUserRole = asyncHandler(async (req) => {
 
 // Create a new competition
 const createCompetition = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     // Check the user's role
     const userRole = await checkUserRole(req);
     if (userRole !== 'Authorized') {
@@ -63,6 +64,7 @@ const createCompetition = asyncHandler(async (req, res) => {
 
 // Get all competitions
 const getAllCompetitions = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     try {
         const competitions = await Competition.find().lean();
         res.json(competitions);
@@ -74,6 +76,7 @@ const getAllCompetitions = asyncHandler(async (req, res) => {
 // Update a specific competition
 // Update the first element in the database
 const updateCompetition = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     const { name, date, timeStarted, duration, paused, extended, memLimit, timeLimit, pausedTime, extendedTime, judgeConfig } = req.body;
     // Check the user's role
 
@@ -125,6 +128,7 @@ const updateCompetition = asyncHandler(async (req, res) => {
 // Delete a specific competition by ID
 // Currently not using but leave here for further implementation
 const deleteCompetition = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     const { competitionId } = req.params;
     // Check the user's role
     const userRole = await checkUserRole(req);

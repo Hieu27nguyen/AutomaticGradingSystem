@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 // @route GET /users
 // @access Private
 const getAllUsers = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     // Get all users from MongoDB
     const users = await User.find().select('-password').lean()
 
@@ -21,6 +22,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 // @route POST /users
 // @access Private
 const createNewUser = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     const { username, password, roles } = req.body
 
     // Confirm data
@@ -54,6 +56,7 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     const { id, username, roles, online, password } = req.body
 
     // Confirm data 
@@ -94,6 +97,7 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route DELETE /users
 // @access Private
 const deleteUser = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     const { id } = req.body
 
     // Confirm data

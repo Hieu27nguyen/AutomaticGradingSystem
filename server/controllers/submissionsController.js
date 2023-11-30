@@ -160,6 +160,7 @@ const createSubmission = asyncHandler(async (req, res) => {
 //Getting all the submission
 // Required field in rest url:
 const getAllSubmissions = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     try {
         // Get all submissions from MongoDB
         const submissions = await Submission.find().lean();
@@ -180,6 +181,7 @@ const getAllSubmissions = asyncHandler(async (req, res) => {
 // Required field in rest url:
 //      'username': username of the user requesting translation
 const getSubmissionByUsername = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     const user = req.params.username;
 
     //Get all submission records from MongoDB
@@ -198,6 +200,7 @@ const getSubmissionByUsername = asyncHandler(async (req, res) => {
 // Required field in url param:
 //      'id': id of the record
 const getSubmissionByID = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     const id = req.params.id;
 
     //Get the translation record from MongoDB
@@ -272,6 +275,7 @@ const getSubmissionByID = asyncHandler(async (req, res) => {
 // });
 
 const getSupportedLanguage = (req, res) => {
+    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     let languages;
 
     submissionRunner.GET_SUPPORTED_LANGUAGES()

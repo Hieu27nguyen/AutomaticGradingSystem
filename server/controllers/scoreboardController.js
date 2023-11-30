@@ -43,7 +43,6 @@ const FillRecordForNonSubmittingUsers = async () => {
     //Go ovoer the user contestant list
     const users = await User.find({ roles: { $in: [["CONTESTANT"], "CONTESTANT"] } }).select('-password').lean()
 
-
     //Compare the user contestant list to see who does have any submission records
     const scoreboard = await Scoreboard.find();
     //Extract users who already has records
@@ -71,7 +70,7 @@ const getScoreboard = asyncHandler(async (req, res) => {
     await FillRecordForNonSubmittingUsers();
 
     const scoreboard = await Scoreboard.find();
-
+    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
     res.status(200).json(scoreboard);
 })
 
