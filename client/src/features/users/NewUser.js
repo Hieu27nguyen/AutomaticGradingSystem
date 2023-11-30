@@ -106,7 +106,7 @@ const NewUserForm = () => {
     const content = (
         <>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Add Contestant</h1>
+            <h1 id="add-contestant-h1">Add Contestant</h1>
 
             <form className="register-form" onSubmit={onSaveUserClicked}>
                 <label htmlFor="username">

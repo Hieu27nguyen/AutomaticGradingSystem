@@ -2,7 +2,7 @@
 import { Routes, Route } from 'react-router-dom';
 import './style/App.css';
 import Login from './features/auth/Login';
-import HomePage from './features/home/HomePage';
+
 import CompetitionsList from './features/competitions/CompetitionsList';
 import PersistLogin from './features/auth/PersistLogin';
 import RequireAuth from './features/auth/RequireAuth';
@@ -15,15 +15,16 @@ import EditUser from './features/users/EditUser'
 import NewUser from './features/users/NewUser'
 import ProblemsList from './features/problems/ProblemsList';
 import NewProblem from './features/problems/NewProblem';
-import WelcomePage from './features/home/WelcomePage';
+import WelcomePageJudge from './features/home/WelcomePageJudge';
 import EditProblemForm from './features/problems/EditProblemForm';
 import SubmissionList from './features/submissions/submissionList';
 import NewSubbmision from './features/submissions/NewSubmission';
 import TranslatePage from './features/translations/TranslationPage';
-
-
 import Layout from './components/Layout';
 import DashLayout from './components/DashLayout'
+import AnnouncementList from './features/announcement/AnnouncementList';
+import NewAnnouncement from './features/announcement/NewAnnouncement';
+import FullAnnouncement from './features/announcement/FullAnnouncement';
 function App() {
 
   useTitle('Automatic Grading Contest')
@@ -33,14 +34,15 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* Public Routes */}
         <Route index element={<Login />} />
-         <Route path='/test' element={<HomePage/>}></Route>
+        
         <Route element={<PersistLogin />}>
           <Route path="/login" element={<Login />} />
 
           <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />} >
             <Route element={<Prefetch />}>
               <Route path="home" element={<DashLayout />}>
-                <Route index element={<WelcomePage />} />
+                <Route index element={<WelcomePageJudge />} />
+
                 <Route path="submissions">
                     <Route index element={<SubmissionList />} />
                     <Route path="new" element={<NewSubbmision />} />
@@ -73,6 +75,11 @@ function App() {
 
                   <Route path="translations">
                     <Route index element={<TranslatePage />} />
+                  </Route>
+                  <Route path="announcements">
+                    <Route index element={<AnnouncementList/>} />
+                    <Route path=":id" element={<FullAnnouncement/>} />
+                    <Route path="new" element={<NewAnnouncement />} />
                   </Route>
                 </Route>
 

@@ -1,9 +1,9 @@
 /*Home Page css
   */
 
-
+ 
   
-  nav {
+  .home-page nav {
     background-color: #270141;
     display: flex;
     justify-content: space-between;
@@ -11,7 +11,7 @@
     padding: 7px;
   }
   
-  ul {
+  .home-page ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -21,7 +21,7 @@
   
  
   
-  a {
+  .home-page a {
     text-decoration: none;
     color: #fff;
     padding: 10px 15px;
@@ -32,7 +32,7 @@
     font-size: 92%;
   }
 
-  a:hover {
+  .home-page a:hover {
     background-color: rgb(92, 5, 173);
   }
   a:focus {
@@ -84,6 +84,11 @@
   
   
   footer {
+    position: fixed;
+    bottom:0;
+    left: 0;
+    width: 100%;
+    z-index:1;
     background-color: #3c284a;
     color: #fff;
     text-align: center;
