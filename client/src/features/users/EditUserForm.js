@@ -37,13 +37,17 @@ const EditUserForm = ({ user }) => {
             setUsername('')
             setPassword('')
             setRoles([])
-            navigate('/home')
+            navigate('/home/users')
         }
     }, [isSuccess, navigate])
 
 
     const onUsernameChanged = e => setUsername(e.target.value)
     const onPasswordChanged = e => setPassword(e.target.value)
+
+    const goBack = (e) => {
+        navigate("/home/users");
+    }
 
     const onSaveUserClicked = async (e) => {
         if (password) {
@@ -83,11 +87,11 @@ const EditUserForm = ({ user }) => {
     const content = (
         <>
             <p className={errClass}>{errContent}</p>
-
+            <button onClick={goBack} class="go-back-announcements"> <i class="bi bi-arrow-left"></i></button>
+            
             <form className="register-form" onSubmit={e => e.preventDefault()}>
                 <div className="form__title-row">
                     <h2>Edit User</h2>
-                   
                 </div>
                 <label className="form__label" htmlFor="username">
                     Username: <span className="nowrap">[3-24 letters]</span></label>

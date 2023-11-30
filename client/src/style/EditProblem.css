@@ -2,8 +2,8 @@
   */
 
   .edit-problem-form {
-    max-width: 100%;
-    margin: auto;
+    max-width: 90%;
+    margin: 50px auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -23,7 +23,7 @@
   }
   
   .form__input {
-    width: 100%;
+    
     padding: 8px;
     margin-bottom: 10px;
     box-sizing:content-box;
@@ -68,7 +68,7 @@
   }
   
   .test_info {
-    width: 130%;
+    width: 50%;
     padding: 8px;
     box-sizing: border-box;
     border: 1px solid #ccc;

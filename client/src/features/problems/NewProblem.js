@@ -29,7 +29,8 @@ const NewProblem = () => {
     const [addNewProblem, {
         isLoading,
         isSuccess,
-
+        isError,
+        error
     }] = useAddNewProblemMutation()
 
     const navigate = useNavigate();
@@ -131,11 +132,12 @@ const NewProblem = () => {
             if (judgeProgram) {
                 problemData.judgeProgram = judgeProgram;
             }
-
+       
             await addNewProblem(problemData);
         }
     };
-
+    const errClass = (isError ) ? "errmsg" : "offscreen";
+    const errContent = (error?.data?.message) ?? '' ; 
     return (
         <div className="form-body">
             <div className="upload">
@@ -230,6 +232,7 @@ const NewProblem = () => {
                         <form >
                             <input type="file" id="fileInput" name="problems" onChange={e => handleTestCaseFile(e.target.files[0])} />
                         </form>
+                        <p className={errClass}>{errContent}</p>
                     </div>
 
                     <button className="problem-button">Confirm</button>

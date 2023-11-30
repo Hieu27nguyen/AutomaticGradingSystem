@@ -32,6 +32,10 @@ const EditProblemForm = ({problem}) => {
   const errClass = (isError ) ? "errmsg" : "offscreen"
   const errContent = (error?.data?.message) ?? ''
 
+  const goBack = (e) => {
+    navigate("/home/problems");
+}
+
   const onTestInputChange = (index, value) => {
     setTest((prevTest) => prevTest.map((item, i) => (i === index ? { ...item, input: value } : item))
     );
@@ -53,7 +57,7 @@ const EditProblemForm = ({problem}) => {
   const content = (
     <>
         <p className={errClass}>{errContent}</p>
-
+        <button onClick={goBack} class="go-back-announcements"> <i class="bi bi-arrow-left"></i></button>
         <form className="edit-problem-form" onSubmit={e => e.preventDefault()}>
             <div className="form__title-row">
                 <h2>Edit Problem</h2>

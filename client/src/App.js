@@ -16,7 +16,7 @@ import NewUser from './features/users/NewUser'
 import ProblemsList from './features/problems/ProblemsList';
 import NewProblem from './features/problems/NewProblem';
 import WelcomePageJudge from './features/home/WelcomePageJudge';
-import EditProblemForm from './features/problems/EditProblemForm';
+import EditProblem from './features/problems/EditProblem';
 import SubmissionList from './features/submissions/submissionList';
 import NewSubbmision from './features/submissions/NewSubmission';
 import TranslatePage from './features/translations/TranslationPage';
@@ -60,7 +60,7 @@ function App() {
 
                   <Route path="problems">
                     <Route index element={<ProblemsList />} />
-                    <Route path=":id" element={<EditProblemForm />} />
+                    <Route path=":id" element={<EditProblem/>} />
                     <Route path="new" element={<NewProblem />} />
                   </Route>
 

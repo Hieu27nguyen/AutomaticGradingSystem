@@ -84,11 +84,8 @@
   
   
   footer {
-    position: fixed;
-    bottom:0;
-    left: 0;
+    height: 5vh;
     width: 100%;
-    z-index:1;
     background-color: #3c284a;
     color: #fff;
     text-align: center;

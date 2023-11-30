@@ -4,8 +4,7 @@
   box-sizing: border-box;
 }
 #root {
-  /* React root div */
-  max-height: 100vh;
+  
   display: flex;
   flex-flow: column nowrap;
 }
@@ -30,5 +29,5 @@ code {
 .dash-container {
  
   flex-grow: 1;
-  height: 100vh;
+  min-height: 89.3vh;
 }
