@@ -17,25 +17,24 @@ const scoreboardSchema = new mongoose.Schema({
 
     problemStatistic: [{//Containing detail submission records
         problemID: {
-            type: Number,
+            type: String,
             ref: 'Problem',
             required: true,
         },
+        //Keep track of submission attempts, penalty and score for each problem
+        attempts: {
+            type: Number,
+            required: true,
+        },
+        penalty: {
+            type: Number,
+            required: true,
+        },
+        score: {
+            type: Number,
+            required: true,
+        },
        
-        submissionRecord: { //Keep track of submission attempts, penalty and score for each problem
-            attempts: {
-                type: Number,
-                required: true,
-            },
-            penalty: {
-                type: Number,
-                required: true,
-            },
-            score: {
-                type: Number,
-                required: true,
-            },
-        }
     }],
 
 })
