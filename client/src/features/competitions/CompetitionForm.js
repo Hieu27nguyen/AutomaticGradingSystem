@@ -1,33 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import "../../style/Event.css";
-import { getCurrentDate } from './Utils';
-
-const getCurrentTime = () => {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const amOrPm = hours >= 12 ? 'PM' : 'AM';
-
-    // Format hours and minutes to 2 digits each
-    const formattedHours = hours.toString().padStart(2, '0');
-    const formattedMinutes = minutes.toString().padStart(2, '0');
-
-    return `${formattedHours}:${formattedMinutes} ${amOrPm}`;
-};
 
 const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
-    const currentDate = getCurrentDate();
-    const currentTime = getCurrentTime();
+    // const currentDate = getCurrentDate();
+    // const currentTime = getCurrentTime();
     const [name, setName] = useState('');
-    const [date, setDate] = useState(currentDate);
-    const [timeStarted, setTime] = useState(currentTime);
     const [duration, setDuration] = useState(5);
-    const [memLimit, setMemLimit] = useState();
-    const [timeLimit, setTimeLimit] = useState();
-    const [paused, setPaused] = useState(false);
-    const [extended, setExtended] = useState(false);
-    const [pausedTime, setPausedTime] = useState('');
-    const [extendedTime, setExtendedTime] = useState('');
+    // const [memLimit, setMemLimit] = useState();
+    // const [timeLimit, setTimeLimit] = useState();
+    // const [paused, setPaused] = useState(false);
+    // const [extended, setExtended] = useState(false);
+    // const [pausedTime, setPausedTime] = useState('');
+    // const [extendedTime, setExtendedTime] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [formErrors, setFormErrors] = useState({});
     const [processTimeStart, setProcessTimeStart] = useState('');
@@ -36,18 +20,16 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
         // Pre-fill form with initialData if available
         if (initialData) {
             setName(initialData.name || 'a');
-            setDate(initialData.date || currentDate);
-            setTime(initialData.timeStarted || currentTime);
             setDuration(initialData.duration || 5);
-            setMemLimit(initialData.memLimit || 0);
-            setTimeLimit(initialData.timeLimit || 0);
-            setPaused(initialData.paused || false);
-            setExtended(initialData.extended || false);
-            setPausedTime(initialData.pausedTime || '');
-            setExtendedTime(initialData.extendedTime || '');
+            // setMemLimit(initialData.memLimit || 0);
+            // setTimeLimit(initialData.timeLimit || 0);
+            // setPaused(initialData.paused || false);
+            // setExtended(initialData.extended || false);
+            // setPausedTime(initialData.pausedTime || '');
+            // setExtendedTime(initialData.extendedTime || '');
             setProcessTimeStart(initialData.processTimeStart || '');
         }
-    }, [initialData, currentDate, currentTime]);
+    }, [initialData]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -55,12 +37,6 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
         const errors = {};
         if (!name.trim()) {
             errors.name = 'Event name is required.';
-        }
-        if (!date) {
-            errors.date = 'Event date is required.';
-        }
-        if (!timeStarted) {
-            errors.timeStarted = 'Event time is required';
         }
         if (!duration) {
             errors.duration = 'Event duration is required';
@@ -71,15 +47,13 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
 
             const event = {
                 name,
-                date,
-                timeStarted,
                 duration,
-                memLimit,
-                timeLimit,
-                paused,
-                extended,
-                pausedTime,
-                extendedTime,
+                // memLimit,
+                // timeLimit,
+                // paused,
+                // extended,
+                // pausedTime,
+                // extendedTime,
                 processTimeStart,
             };
             onSubmit(event);
@@ -104,37 +78,14 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
                     />
                     {formErrors.name && <p className="form-error">{formErrors.name}</p>}
                 </div>
-                {/* <div className="form-group">
-                    <label htmlFor="Date" className="form-label"> Date:</label>
-                    <input
-                        type="date"
-                        id="Date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        className="form-input"
-                    />
-                    {formErrors.date && <p className="form-error">{formErrors.date}</p>}
-                </div> */}
-                {/* <div className="form-group">
-                    <label htmlFor="Time" className="form-label"> Time:</label>
-                    <input
-                        type="time"
-                        id="Time"
-                        value={timeStarted}
-                        onChange={(e) => setTime(e.target.value)}
-                        className="form-input"
-                    />
-                    {formErrors.time && <p className="form-error">{formErrors.time}</p>}
-                </div> */}
                 <div className="form-group">
                     <label htmlFor="processedTime" className="form-label"> Contest Start Time:</label>
                     <input type="datetime-local" id="processedCompetitionTime"
-                        value={processTimeStart}
+                        value={processTimeStart.toString().slice(0, 16)}
                         onChange={(e) => {
                             setProcessTimeStart(e.target.value)
                         }}
-                        defaultValue={processTimeStart}
-                        placeholder={"Enter the start time here"}
+                        className="form-input"
                     />
                 </div>
 

@@ -93,15 +93,13 @@ const CompetitionsList = () => {
                 <div className="event-information-wrapper">
                     <CompetitionInformation
                         name={contestData.name}
-                        timeStarted={contestData.timeStarted}
-                        date={contestData.date}
                         duration={contestData.duration}
-                        paused={contestData.paused}
-                        extended={contestData.extended}
-                        pausedTime={contestData.pausedTime}
-                        extendedTime={contestData.extendedTime}
-                        memLimit={contestData.memLimit}
-                        timeLimit={contestData.timeLimit}
+                        // paused={contestData.paused}
+                        // extended={contestData.extended}
+                        // pausedTime={contestData.pausedTime}
+                        // extendedTime={contestData.extendedTime}
+                        // memLimit={contestData.memLimit}
+                        // timeLimit={contestData.timeLimit}
                         isJudge={roles.includes('JUDGE')}
                         processTimeStart={contestData.processTimeStart}
                         onEdit={handleContestClick}

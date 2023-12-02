@@ -51,7 +51,18 @@ const SubmissionsList = () => {
     if (isLoading) content = <p>Loading...</p>;
 
     if (isError) {
-        content = <p className="errmsg">{error?.data?.message}</p>;
+        content = (
+            <div>
+                <div className="header">
+                    <div className="titles">
+                        <h2>Submission List</h2>
+                    </div>
+                    {!isJudge && !isAdmin && (
+                        <button className="add_button" onClick={() => navigate("/home/submissions/new")}><i className="bi bi-file-earmark-code-fill"></i>Add Submission</button>
+                    )}
+                </div>
+                <p className="errmsg">{"No Submission Found!"}</p>
+            </div>);
     }
 
     if (isSuccess) {
@@ -78,7 +89,7 @@ const SubmissionsList = () => {
                         <h2>Submission List</h2>
                     </div>
                     {!isJudge && !isAdmin && (
-                    <button className="add_button" onClick={() => navigate("/home/submissions/new")}><i className="bi bi-file-earmark-code-fill"></i>Add Submission</button>
+                        <button className="add_button" onClick={() => navigate("/home/submissions/new")}><i className="bi bi-file-earmark-code-fill"></i>Add Submission</button>
                     )}
                 </div>
 
@@ -93,7 +104,7 @@ const SubmissionsList = () => {
                                 )}
                                 <div className="stable-titles">
                                     <div className="submission-info">
-                                        <h3 className="problem">Problem ID</h3>
+                                        <h3 className="problem">Problem Name</h3>
                                         <h3>Contestant</h3>
                                         <h3>Status</h3>
                                         <h3>Time Submitted</h3>

@@ -1,16 +1,15 @@
 import { useAddNewSubmissionMutation } from "./submissionsApiSlice";
 import { useGetProblemsQuery } from "../problems/problemsApiSlice";
 import { useState, useRef, useEffect  } from "react";
+import useAuth from '../../hooks/useAuth';
 import '../../style/SubmissionForm.css';
 
 const NewSubmission = () => {
-    const [userId, setUserId] = useState('');
-    const [userName, setUsername] = useState('');
+    const { username } = useAuth();
     const [problemId, setProblemId] = useState('');
     const [submissionCode, setSubmissionCode] = useState('');
     const [languageId, setLanguageId] = useState(0);
     const [problemsData, setProblemsData] = useState({ ids: [], entities: {} });
-    const submissionRef = useRef();
 
     const [addNewSubmission] = useAddNewSubmissionMutation();
     const { data: initialProblemsData } = useGetProblemsQuery();
@@ -21,17 +20,16 @@ const NewSubmission = () => {
         }
     }, [initialProblemsData]);
 
-    const onSaveSubmissionManual = () => {
-    }
     const onSaveSubmission = async (e) => {
         e.preventDefault();
-
+        const time = new Date (Date.now());
+        const timeSubmitted = time;
         const newSubmissionData = {
-            _id: userId,
-            user: userName,
+            user: username, 
             problem: problemId,
             code: submissionCode,
             language_id: languageId,
+            timeSubmitted: timeSubmitted, 
         };
 
         try {
@@ -40,13 +38,12 @@ const NewSubmission = () => {
             if (response.data) {
                 alert("Submission added successfully");
                 // Clear form fields after successful submission
-                setUserId('');
-                setUsername('');
                 setProblemId('');
                 setSubmissionCode('');
                 setLanguageId(0);
             } else {
                 console.error("Some error occurred");
+                console.log(response);
             }
         } catch (error) {
             console.error(error.message);
@@ -65,30 +62,11 @@ const NewSubmission = () => {
 
             <div className="manual">
                 <h2>ADD A SUBMISSION</h2>
-                <form className="submission-form" onSubmit={onSaveSubmissionManual}>
-                    <label htmlFor="userId">Contestant ID:</label>
-                    <input
-                        type="number"
-                        id="userId"
-                        ref={submissionRef}
-                        autoComplete="off"
-                        onChange={(e) => setUserId(e.target.value)}
-                        value={userId}
-                        required
-                    />
-
+                <form className="submission-form" onSubmit={onSaveSubmission}>
                     <label htmlFor="userName">Contestant Username:</label>
-                    <input
-                        type="text"
-                        id="userName"
-                        ref={submissionRef}
-                        autoComplete="off"
-                        onChange={(e) => setUsername(e.target.value)}
-                        value={userName}
-                        required
-                    />
+                    <input type="text" id="userName" value={username} readOnly />
 
-                    <label htmlFor="problemId">Problem ID:</label>
+                    <label htmlFor="problemId">Problem Name:</label>
                     <select
                         id="problemId"
                         value={problemId}
@@ -98,7 +76,7 @@ const NewSubmission = () => {
                         <option value="">Select a Problem</option>
                         {problemsData.ids.map((id) => (
                             <option key={id} value={id}>
-                                {`${id} - ${problemsData.entities[id]?.name}`}
+                                {`${problemsData.entities[id]?.name}`}
                             </option>
                         ))}
                     </select>
@@ -107,10 +85,8 @@ const NewSubmission = () => {
                     <textarea
                         className="submissionCode-label"
                         id="submissionCode"
-                        ref={submissionRef}
-                        autoComplete="off"
-                        onChange={(e) => setSubmissionCode(e.target.value)}
                         value={submissionCode}
+                        onChange={(e) => setSubmissionCode(e.target.value)}
                         required
                     ></textarea>
 
@@ -118,13 +94,11 @@ const NewSubmission = () => {
                     <input
                         type="number"
                         id="languageId"
-                        ref={submissionRef}
-                        autoComplete="off"
-                        onChange={(e) => setLanguageId(e.target.value)}
                         value={languageId}
+                        onChange={(e) => setLanguageId(e.target.value)}
                         required
                     />
-                    <button className="submission-button">Confirm</button>
+                    <button className="submission-button" type="submit">Confirm</button>
                 </form>
             </div>
         </div>

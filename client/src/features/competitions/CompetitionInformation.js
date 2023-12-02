@@ -1,11 +1,9 @@
 import React from 'react';
 import "../../style/Event.css"
-import { getCurrentFormattedDate, formatTimeTo12HourClock } from './Utils';
+// import { getCurrentFormattedDate, formatTimeTo12HourClock } from './Utils';
 
 const CompetitionInformation = ({
     name,
-    timeStarted,
-    date,
     duration,
     paused,
     extended,
@@ -17,10 +15,10 @@ const CompetitionInformation = ({
     onEdit,
     processTimeStart
 }) => {
-    const formattedDate = getCurrentFormattedDate(date);
-    const formattedTime = formatTimeTo12HourClock(timeStarted);
-    const formattedPTime = formatTimeTo12HourClock(pausedTime);
-    const formattedETime = formatTimeTo12HourClock(extendedTime);
+    // const formattedDate = getCurrentFormattedDate(date);
+    // const formattedTime = formatTimeTo12HourClock(timeStarted);
+    // const formattedPTime = formatTimeTo12HourClock(pausedTime);
+    // const formattedETime = formatTimeTo12HourClock(extendedTime);
     
     const formatStartTime = new Date(processTimeStart);
 
@@ -28,8 +26,6 @@ const CompetitionInformation = ({
         <div className="white-box">
             <h3>Contest Information</h3>
             <p><strong>Contest Name:</strong><br /> {name}</p>
-            {/* <p><strong>Date:</strong><br /> {formattedDate}</p>
-            <p><strong>Time:</strong><br /> {formattedTime}</p> */}
              <p><strong>Contest Start Time:</strong><br /> {formatStartTime.toString()}</p>
             <p><strong>Duration(hour):</strong><br /> {duration}</p>
             

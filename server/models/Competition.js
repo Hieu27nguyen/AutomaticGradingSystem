@@ -5,15 +5,6 @@ const competitionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    date: {
-        type: Date,
-        default: Date.now,
-        required: true
-    },
-    timeStarted: {
-        type: String,
-        required: true
-    },
     processTimeStart: {
         type: Date,
         default: Date.now,
@@ -24,24 +15,24 @@ const competitionSchema = new mongoose.Schema({
         default: 5,
         required: true
     },
-    paused: {
-        type: Boolean,
-        default: false,
-        required: true
-    },
-    extended: {
-        type: Boolean,
-        default: false,
-        required: true
-    },
-    pausedTime: {
-        type: String,
-        required: false
-    },
-    extendedTime: {
-        type: String,
-        required: false
-    },
+    // paused: {
+    //     type: Boolean,
+    //     default: false,
+    //     required: true
+    // },
+    // extended: {
+    //     type: Boolean,
+    //     default: false,
+    //     required: true
+    // },
+    // pausedTime: {
+    //     type: String,
+    //     required: false
+    // },
+    // extendedTime: {
+    //     type: String,
+    //     required: false
+    // },
 
 })
 
