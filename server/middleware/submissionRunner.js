@@ -2,7 +2,7 @@ const axios = require('axios')
 
 const submissionConnection = axios.create({
     baseURL: process.env.JUDGE_URL,
-    timeout: 1000,
+    timeout: 10000,
 });
 
 const GET_STATUSES = async () => {

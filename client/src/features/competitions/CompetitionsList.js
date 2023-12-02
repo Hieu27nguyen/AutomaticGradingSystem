@@ -25,12 +25,34 @@ const CompetitionsList = () => {
     };
 
     const handleFormSubmit = (contestData) => {
+        //Convert to UTC
+        var hm = contestData.timeStarted;   // your input string
+        var a = hm.split(':'); // split it at the colons
+        // minutes are worth 60 seconds. Hours are worth 60 minutes.
+        var milisec = ((+a[0]) * 60 * 60 + (+a[1]) * 60) * 1000;
+        var offset = new Date().getTimezoneOffset() * 60 * 1000;
+   
+        let date = new Date(contestData.date).getTime() + offset ;
+        let newDate = new Date(date);
+        newDate = new Date(newDate.getTime() + milisec);
+ 
+        newDate = new Date(newDate.getTime());
+
+        let toUTCTimeStarted = newDate.getHours() + ':' + newDate.getMinutes();
+
+       
+        const convertedToUTCData = {
+            ...contestData,
+            date: newDate,
+            timeStarted: toUTCTimeStarted,
+        }
+
         if (editingContest) {
             // Update contest if already exists
-            updateCompetition({ ...contestData });
+            updateCompetition({ ...convertedToUTCData });
         } else {
             // Create a new contest
-            addNewCompetition(contestData);
+            addNewCompetition(convertedToUTCData);
         }
         setEditingContest(false);
     };
