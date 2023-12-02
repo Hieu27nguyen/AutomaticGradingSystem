@@ -15,24 +15,6 @@ const competitionSchema = new mongoose.Schema({
         default: 5,
         required: true
     },
-    // paused: {
-    //     type: Boolean,
-    //     default: false,
-    //     required: true
-    // },
-    // extended: {
-    //     type: Boolean,
-    //     default: false,
-    //     required: true
-    // },
-    // pausedTime: {
-    //     type: String,
-    //     required: false
-    // },
-    // extendedTime: {
-    //     type: String,
-    //     required: false
-    // },
 
 })
 
