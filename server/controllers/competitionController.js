@@ -26,7 +26,7 @@ const createCompetition = asyncHandler(async (req, res) => {
         return res.status(403).json({ error: 'You are not authorized to create or modify a new competition' });
     }
 
-    const { name, date, timeStarted, duration, paused, extended, pausedTime, extendedTime, judgeConfig } = req.body;
+    const { name, date, timeStarted, duration, paused, extended, pausedTime, extendedTime, judgeConfig, processTimeStart } = req.body;
 
     let newDate = new Date(date);
 
@@ -45,7 +45,7 @@ const createCompetition = asyncHandler(async (req, res) => {
         name,
         "date": date,
         timeStarted,
-        "processTimeStart": newDate,
+        "processTimeStart": processTimeStart,
         duration,
         paused,
         extended,
@@ -77,7 +77,7 @@ const getAllCompetitions = asyncHandler(async (req, res) => {
 // Update the first element in the database
 const updateCompetition = asyncHandler(async (req, res) => {
     res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
-    const { name, date, timeStarted, duration, paused, extended, memLimit, timeLimit, pausedTime, extendedTime, judgeConfig } = req.body;
+    const { name, date, timeStarted, duration, paused, extended, memLimit, timeLimit, pausedTime, extendedTime, judgeConfig, processTimeStart } = req.body;
     // Check the user's role
 
     const userRole = await checkUserRole(req);
@@ -108,7 +108,7 @@ const updateCompetition = asyncHandler(async (req, res) => {
         catch (error) {
             console.log("Error", error.essage);
         }
-        firstCompetition.processTimeStart = newDate;
+        firstCompetition.processTimeStart = processTimeStart;
         firstCompetition.duration = duration;
         firstCompetition.paused = paused || false;
         firstCompetition.extended = extended || false;

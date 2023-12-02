@@ -25,34 +25,43 @@ const CompetitionsList = () => {
     };
 
     const handleFormSubmit = (contestData) => {
-        //Convert to UTC
-        var hm = contestData.timeStarted;   // your input string
-        var a = hm.split(':'); // split it at the colons
-        // minutes are worth 60 seconds. Hours are worth 60 minutes.
-        var milisec = ((+a[0]) * 60 * 60 + (+a[1]) * 60) * 1000;
-        var offset = new Date().getTimezoneOffset() * 60 * 1000;
-   
-        let date = new Date(contestData.date).getTime() + offset ;
-        let newDate = new Date(date);
-        newDate = new Date(newDate.getTime() + milisec);
- 
-        newDate = new Date(newDate.getTime());
+        // console.log("Form", contestData.processTimeStart);
+        // //Convert to UTC
+        // var hm = contestData.timeStarted;   // your input string
+        // var a = hm.split(':'); // split it at the colons
+        // // minutes are worth 60 seconds. Hours are worth 60 minutes.
+        // var milisec = ((+a[0]) * 60 * 60 + (+a[1]) * 60) * 1000;
+        // var offset = new Date().getTimezoneOffset() * 60 * 1000;
 
-        let toUTCTimeStarted = newDate.getHours() + ':' + newDate.getMinutes();
+        // let date = new Date(contestData.date).getTime() + offset ;
+        // let newDate = new Date(date);
+        // newDate = new Date(newDate.getTime() + milisec);
 
-       
-        const convertedToUTCData = {
-            ...contestData,
-            date: newDate,
-            timeStarted: toUTCTimeStarted,
-        }
+        // newDate = new Date(newDate.getTime());
+
+        // let toUTCTimeStarted = newDate.getHours() + ':' + newDate.getMinutes();
+        // let newDate = new Date(contestData.processTimeStart).toUTCString();
+        // newDate = new Date(newDate);
+
+        // let minute = newDate.getMinutes();
+        // if (minute < 10) {
+        //     minute += '0' + newDate.getMinutes();
+        // }
+        // let toUTCTimeStarted = newDate.getHours() + ':' + newDate.getMinutes();
+        // console.log(newDate, toUTCTimeStarted);
+
+        // const convertedToUTCData = {
+        //     ...contestData,
+        //     date: newDate,
+        //     timeStarted: toUTCTimeStarted,
+        // }
 
         if (editingContest) {
             // Update contest if already exists
-            updateCompetition({ ...convertedToUTCData });
+            updateCompetition({ ...contestData });
         } else {
             // Create a new contest
-            addNewCompetition(convertedToUTCData);
+            addNewCompetition(contestData);
         }
         setEditingContest(false);
     };
@@ -94,6 +103,7 @@ const CompetitionsList = () => {
                         memLimit={contestData.memLimit}
                         timeLimit={contestData.timeLimit}
                         isJudge={roles.includes('JUDGE')}
+                        processTimeStart={contestData.processTimeStart}
                         onEdit={handleContestClick}
                     />
                 </div>

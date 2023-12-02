@@ -14,20 +14,26 @@ const CompetitionInformation = ({
     memLimit,
     timeLimit,
     isJudge,
-    onEdit }) => {
+    onEdit,
+    processTimeStart
+}) => {
     const formattedDate = getCurrentFormattedDate(date);
     const formattedTime = formatTimeTo12HourClock(timeStarted);
     const formattedPTime = formatTimeTo12HourClock(pausedTime);
     const formattedETime = formatTimeTo12HourClock(extendedTime);
+    
+    const formatStartTime = new Date(processTimeStart);
 
     return (
         <div className="white-box">
             <h3>Contest Information</h3>
             <p><strong>Contest Name:</strong><br /> {name}</p>
-            <p><strong>Date:</strong><br /> {formattedDate}</p>
-            <p><strong>Time:</strong><br /> {formattedTime}</p>
+            {/* <p><strong>Date:</strong><br /> {formattedDate}</p>
+            <p><strong>Time:</strong><br /> {formattedTime}</p> */}
+             <p><strong>Contest Start Time:</strong><br /> {formatStartTime.toString()}</p>
             <p><strong>Duration(hour):</strong><br /> {duration}</p>
-            {paused && (
+            
+            {/* {paused && (
                 <div>
                     <p><strong>Paused Time:</strong><br /> {formattedPTime}</p>
                 </div>
@@ -42,7 +48,7 @@ const CompetitionInformation = ({
                     <p><strong>Judge0 Memory Limit (KB):</strong><br /> {memLimit}</p>
                     <p><strong>Judge0 Time Limit (s):</strong><br /> {timeLimit}</p>
                 </>
-            )}
+            )} */}
             <button onClick={onEdit} className="custom-button">Edit</button>
         </div>
     );

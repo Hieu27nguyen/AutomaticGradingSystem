@@ -30,6 +30,7 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
     const [extendedTime, setExtendedTime] = useState('');
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [formErrors, setFormErrors] = useState({});
+    const [processTimeStart, setProcessTimeStart] = useState('');
 
     useEffect(() => {
         // Pre-fill form with initialData if available
@@ -44,6 +45,7 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
             setExtended(initialData.extended || false);
             setPausedTime(initialData.pausedTime || '');
             setExtendedTime(initialData.extendedTime || '');
+            setProcessTimeStart(initialData.processTimeStart || '');
         }
     }, [initialData, currentDate, currentTime]);
 
@@ -78,6 +80,7 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
                 extended,
                 pausedTime,
                 extendedTime,
+                processTimeStart,
             };
             onSubmit(event);
         } else {
@@ -101,7 +104,7 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
                     />
                     {formErrors.name && <p className="form-error">{formErrors.name}</p>}
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label htmlFor="Date" className="form-label"> Date:</label>
                     <input
                         type="date"
@@ -111,8 +114,8 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
                         className="form-input"
                     />
                     {formErrors.date && <p className="form-error">{formErrors.date}</p>}
-                </div>
-                <div className="form-group">
+                </div> */}
+                {/* <div className="form-group">
                     <label htmlFor="Time" className="form-label"> Time:</label>
                     <input
                         type="time"
@@ -122,7 +125,19 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
                         className="form-input"
                     />
                     {formErrors.time && <p className="form-error">{formErrors.time}</p>}
+                </div> */}
+                <div className="form-group">
+                    <label htmlFor="processedTime" className="form-label"> Contest Start Time:</label>
+                    <input type="datetime-local" id="processedCompetitionTime"
+                        value={processTimeStart}
+                        onChange={(e) => {
+                            setProcessTimeStart(e.target.value)
+                        }}
+                        defaultValue={processTimeStart}
+                        placeholder={"Enter the start time here"}
+                    />
                 </div>
+
                 <div className="form-group">
                     <label htmlFor="Duration" className="form-label"> Duration(hour):</label>
                     <input
@@ -134,7 +149,8 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
                     />
                     {formErrors.duration && <p className="form-error">{formErrors.duration}</p>}
                 </div>
-                {isJudge && (
+
+                {/* {isJudge && (
                     <>
                         <div className="form-group">
                             <label htmlFor="Paused" className="form-label">Paused:</label>
@@ -204,7 +220,7 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
                             />
                         </div>
                     </>
-                )}
+                )} */}
                 <button type="submit" className="custom-button">Submit</button>
             </form>
         </div>
