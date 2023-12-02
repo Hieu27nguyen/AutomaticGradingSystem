@@ -15,6 +15,17 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [formErrors, setFormErrors] = useState({});
     const [processTimeStart, setProcessTimeStart] = useState('');
+    const [localTime, setLocalTime] = useState('');
+    //A function to convert to local time
+    const convertToLocalTime = (UTCtime) => {
+        if (!UTCtime) {
+            return '';
+        }
+        const res = new Date(UTCtime);
+        res.setMinutes(res.getMinutes() - res.getTimezoneOffset());
+
+        return res.toISOString();
+    }
 
     useEffect(() => {
         // Pre-fill form with initialData if available
@@ -28,8 +39,12 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
             // setPausedTime(initialData.pausedTime || '');
             // setExtendedTime(initialData.extendedTime || '');
             setProcessTimeStart(initialData.processTimeStart || '');
+            setLocalTime(convertToLocalTime(initialData.processTimeStart || ''));
         }
     }, [initialData]);
+
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -81,9 +96,10 @@ const CompetitionForm = ({ onSubmit, initialData, isJudge }) => {
                 <div className="form-group">
                     <label htmlFor="processedTime" className="form-label"> Contest Start Time:</label>
                     <input type="datetime-local" id="processedCompetitionTime"
-                        value={processTimeStart.toString().slice(0, 16)}
+                        value={localTime.slice(0, 16)}
                         onChange={(e) => {
-                            setProcessTimeStart(e.target.value)
+                            setLocalTime(convertToLocalTime(e.target.value));
+                            setProcessTimeStart(e.target.value);
                         }}
                         className="form-input"
                     />
