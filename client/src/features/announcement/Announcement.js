@@ -7,7 +7,6 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const Announcement = ({ announcementId }) => {
 
     const announcement = useSelector(state => selectAnnouncementById(state, announcementId))
-    console.log(announcement);
     const formattedDate = new Date(announcement.announcementTime).toLocaleString('en-US', {
         month: 'short',
         day: 'numeric',

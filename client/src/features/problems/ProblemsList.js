@@ -102,7 +102,7 @@ const ProblemsList = () => {
                         <div >
                             <div className="check-and-titles">
 
-                                <div className="check-all">
+                                <div className={`check-all ${status === 'CONTESTANT' ? 'hidden' : ''}`} >
                                     <input type="checkbox" aria-label="Select All Problems" checked={isCheckedAll} onChange={handleCheckAll} ></input>
                                 </div>
                                 <div className="table-titles">
@@ -115,7 +115,7 @@ const ProblemsList = () => {
                                         <button className='edit-button' disabled style={{ color: 'transparent', backgroundColor: 'transparent', border: 'none', cursor: 'default' }}><i className="bi bi-pencil-fill"></i></button>
                                         {/*Ignore this edit-button */}
 
-                                        <button className={`delete-button ${selectedCheckboxes}`} onClick={handleDeleteAll} ><i className="bi bi-trash3"></i></button>
+                                        <button className={`delete-button ${status === 'CONTESTANT' ? 'hidden' : ''}  ${selectedCheckboxes} `} onClick={handleDeleteAll} ><i className="bi bi-trash3"></i></button>
                                     </div>
                                 </div>
                             </div>

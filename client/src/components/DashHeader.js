@@ -26,18 +26,17 @@ const DashHeader = () => {
     if (roles.includes('CONTESTANT')) {
       return (
         <ul>
-          <li className={activeTab === 'Home' ? 'active' : ''}>
-            <button className='home-button'><Link to="/dash">Home</Link></button>
-
+          <li className={activeTab === '/home' ? 'active' : ''}>
+            <Link to="/home" onClick={() => handleTabClick('/home')}> Home </Link>
           </li>
-          <li className={activeTab === 'Problems' ? 'active' : ''}>
-            <button className='home-button' >Problems</button>
+          <li className={activeTab === '/home/problems' ? 'active' : ''}>
+            <Link to="/home/problems" onClick={() => handleTabClick('/home/problems')}>Problems</Link>
           </li>
           <li className={activeTab === 'Scoreboards' ? 'active' : ''}>
-            <button className='home-button' >Scoreboards</button>
+            <Link to="/home/scoreboards" onClick={() => handleTabClick('/home/scoreboards')}>  Scoreboards </Link>
           </li>
           <li className={activeTab === 'Competitions' ? 'active' : ''}>
-            <button className='home-button' >Competition</button>
+            <Link to="/home/competitions" onClick={() => handleTabClick('/home/competitions')}> Competition </Link>
           </li>
           <li className={activeTab === '/home/submissions' ? 'active' : ''}>
             <Link to="/home/submissions" onClick={() => handleTabClick('/home/submissions')}> Submissions </Link>

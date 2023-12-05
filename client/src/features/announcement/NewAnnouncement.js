@@ -38,7 +38,7 @@ const NewUserForm = () => {
     const saveAnnouncement = async (e) => {
         e.preventDefault()
         if (!isLoading) {
-           await addNewAnnouncement({username:username , title:title, announceInformation: announcement , announcementTime: Date.now } )
+           await addNewAnnouncement({username:username , title:title, announceInformation: announcement , announcementTime: Date.now() } )
         }
     }
 

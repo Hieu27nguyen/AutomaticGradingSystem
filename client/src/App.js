@@ -15,7 +15,7 @@ import EditUser from './features/users/EditUser'
 import NewUser from './features/users/NewUser'
 import ProblemsList from './features/problems/ProblemsList';
 import NewProblem from './features/problems/NewProblem';
-import WelcomePageJudge from './features/home/WelcomePageJudge';
+import WelcomePage from './features/home/WelcomePage';
 import EditProblem from './features/problems/EditProblem';
 import SubmissionList from './features/submissions/submissionList';
 import NewSubbmision from './features/submissions/NewSubmission';
@@ -34,54 +34,53 @@ function App() {
       <Route path="/" element={<Layout />}>
         {/* Public Routes */}
         <Route index element={<Login />} />
-        
+
         <Route element={<PersistLogin />}>
           <Route path="/login" element={<Login />} />
 
           <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />} >
             <Route element={<Prefetch />}>
               <Route path="home" element={<DashLayout />}>
-                <Route index element={<WelcomePageJudge />} />
+                <Route index element={<WelcomePage />} />
 
                 <Route path="submissions">
-                    <Route index element={<SubmissionList />} />
-                    <Route path="new" element={<NewSubbmision />} />
-                  </Route>
-                  <Route path="translations">
-                    <Route index element={<TranslatePage />} />
-                  </Route>
-                  
-                <Route element={<RequireAuth allowedRoles={[ROLES.Judge, ROLES.Admin]} />}>
-                  <Route path="users">
-                    <Route index element={<UsersList />} />
-                    <Route path=":id" element={<EditUser />} />
-                    <Route path="new" element={<NewUser />} />
-                  </Route>
-
-                  <Route path="problems">
-                    <Route index element={<ProblemsList />} />
-                    <Route path=":id" element={<EditProblem/>} />
-                    <Route path="new" element={<NewProblem />} />
-                  </Route>
-
-                  <Route path="submissions">
-                    <Route index element={<SubmissionList />} />
-                    <Route path="new" element={<NewSubbmision />} />
-                  </Route>
-
-                  <Route path="competitions">
-                    <Route index element={<CompetitionsList />} />
-                  </Route>
-
-                  <Route path="translations">
-                    <Route index element={<TranslatePage />} />
-                  </Route>
-                  <Route path="announcements">
-                    <Route index element={<AnnouncementList/>} />
-                    <Route path=":id" element={<FullAnnouncement/>} />
-                    <Route path="new" element={<NewAnnouncement />} />
-                  </Route>
+                  <Route index element={<SubmissionList />} />
+                  <Route path="new" element={<NewSubbmision />} />
                 </Route>
+                <Route path="translations">
+                  <Route index element={<TranslatePage />} />
+                </Route>
+
+                <Route path="users">
+                  <Route index element={<UsersList />} />
+                  <Route path=":id" element={<EditUser />} />
+                  <Route path="new" element={<NewUser />} />
+                </Route>
+
+                <Route path="problems">
+                  <Route index element={<ProblemsList />} />
+                  <Route path=":id" element={<EditProblem />} />
+                  <Route path="new" element={<NewProblem />} />
+                </Route>
+
+                <Route path="submissions">
+                  <Route index element={<SubmissionList />} />
+                  <Route path="new" element={<NewSubbmision />} />
+                </Route>
+
+                <Route path="competitions">
+                  <Route index element={<CompetitionsList />} />
+                </Route>
+
+                <Route path="translations">
+                  <Route index element={<TranslatePage />} />
+                </Route>
+                <Route path="announcements">
+                  <Route index element={<AnnouncementList />} />
+                  <Route path=":id" element={<FullAnnouncement />} />
+                  <Route path="new" element={<NewAnnouncement />} />
+                </Route>
+
 
               </Route>
             </Route>
@@ -97,44 +96,6 @@ function App() {
 
 
 
-
-    // <Routes>
-    //   <Route path="/" element={<Login />} />
-    //   <Route path="/home" element={<HomePage />} />
-    //   <Route path="/welcome" element={<WelcomePage/>}></Route>
-    //   {/* Protected Routes */}
-    //   <Route element={<PersistLogin />}>
-    //     <Route path="/login" element={<Login />} />
-
-    //     <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
-    //       <Route element={<Prefetch />}>
-
-
-    //         <Route element={<RequireAuth allowedRoles={[ROLES.Judge, ROLES.Admin]} />}>
-    //           <Route path="users">
-    //             <Route index element={<UsersList />} />
-    //             <Route path=":id" element={<EditUser />}></Route>
-    //           </Route>
-    //           <Route path="/newuser" element={<NewUser />} />
-
-    //            <Route path="problems">
-    //             <Route index element={<ProblemsList />} />
-    //           </Route>
-    //           <Route path="/newproblem" element={<NewProblem/>} />
-    //           <Route path="/competitions" element={<CompetitionsList />} />
-    //         </Route>
-
-
-
-
-    //       </Route>
-    //     </Route>
-
-
-    //   </Route> {/* End Protected Routes */}
-
-    //   <Route path="*" element={<Missing404 />} />
-    // </Routes>
 
   )
 }

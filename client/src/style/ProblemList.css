@@ -119,8 +119,9 @@
   
   .problem-info-titles {
     display : grid;
-    grid-template-columns: auto auto;
-    grid-column-gap: 680px;
+    grid-template-columns: 200px 200px;
+    grid-column-gap: 780px;
+    text-align: center;
   }
   
   .problem {
@@ -158,9 +159,9 @@
   
   .problem-info {
     display: grid;
-    grid-template-columns: 100px 500px;
+    grid-template-columns: 200px 650px;
     grid-column-gap: 500px;
-    text-align: center;
+    text-align:center;
   }
   
   
@@ -207,12 +208,49 @@
     background-color: #e9e8e8;
     border-color: transparent;
   }
+
+  .submit-button {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+  }
+  .submit-button:hover::after {
+    content: "Do this problem"; /* Content to be displayed */
+    position: absolute;
+    background-color: #333; /* Background color of the field */
+    color: white; /* Text color of the field */
+    padding: 5px; /* Padding of the field */
+    border-radius: 5px; /* Rounded corners */
+    margin-top: -40px; /* Adjust the position as needed */
+    margin-left: -101px; /* Adjust the position as needed */
+    z-index: 1; /* Ensure it's above the button */
+  }
   
   
   
   .hidden {
     display: none;
 }
+
+  .contestant-mode {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid #104b99;
+    border-radius: 4px;
+    padding: 3px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    width: 98%;
+    margin-left: 10px;
+  }
+
+  .contestant-mode:hover {
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  }
+  
   
   
   
