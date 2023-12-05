@@ -1,0 +1,80 @@
+html{
+  height: 100%;
+}
+ 
+  .welcome-container {
+    height: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .judge-welcome header { 
+    padding: 10px;
+    color: #fff;
+  }
+  
+  .welcome-container h1 {
+    margin: 0;
+    color: rgb(73, 7, 134);
+  }
+  .introduction {
+    padding: 20px;
+    
+    border-radius: 8px;
+   
+  }
+  
+  .introduction p {
+    font-size: large;
+    margin-bottom: 30px;
+    line-height: 1.5;
+    color: #333;
+  }
+  
+  
+  section {
+    margin-top: 20px;
+  }
+  
+  .judge-features {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 15px;
+    align-items: center;
+  }
+  
+  .feature-item {
+    width: 50%;
+    padding: 30px;
+    border: 1px solid #ddd;
+  
+  }
+  
+  .team-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.team-section h2 {
+  color: #333;
+}
+
+.team-section ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.team-section li {
+  margin-bottom: 5px;
+}
+
+.team-section p {
+  color: #666;
+}
+ 

@@ -1,11 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
-    _id: {
-        type: String, 
-        required: true,
-        unique: true
-    },
+const problemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
@@ -16,7 +11,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     judgeProgram: {
-        type: String, // Can be a text or PDF link
+        type: String, 
         required: false
     },
     test: [{
@@ -28,7 +23,27 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: false
         }
-    }]
+    }],
+
+    //In kilobytes 
+    memLimit:{
+        type : Number,
+        required: false,
+        default: 128000,
+    },
+    //in seconds
+    timeLimit:{
+        type : Number,
+        required: false,
+        default: 2,
+    },
+    //Penalty in minute which will incur if user attemped this problem but get this wrong.
+    //Penalty only applied when the user solved this problem.
+    penaltyMinute:{
+        type : Number,
+        required: false,
+        default: 20,//20 minutes penalty as default
+    }
 })
 
-module.exports = mongoose.model('Problem', userSchema)
+module.exports = mongoose.model('Problem', problemSchema)

@@ -66,7 +66,7 @@ const NewUserForm = () => {
             setUsername('')
             setPassword('')
             setRoles([])
-            navigate('/users')
+            navigate('/home/users')
         }
     }, [isSuccess, navigate])
 
@@ -106,7 +106,7 @@ const NewUserForm = () => {
     const content = (
         <>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <h1>Add Contestant</h1>
+            <h1 id="add-contestant-h1">Add Contestant</h1>
 
             <form className="register-form" onSubmit={onSaveUserClicked}>
                 <label htmlFor="username">
@@ -129,7 +129,7 @@ const NewUserForm = () => {
                     onBlur={() => setUserFocus(false)}
                 />
                 <p id="uidnote" className={userFocus && username && !validUsername ? "instructions" : "offscreen"}>
-                <i class="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
+                <i className="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
                     4 to 24 characters.<br />
                     Must begin with a letter.<br />
                     Letters, numbers, underscores, hyphens allowed.
@@ -154,7 +154,7 @@ const NewUserForm = () => {
                     onBlur={() => setPasswordFocus(false)}
                 />
                 <p id="pwdnote" className={passwordFocus && !validPassword ? "instructions" : "offscreen"}>
-                <i class="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
+                <i className="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
                     3 to 24 characters.<br>
                     </br>
                     Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
@@ -179,7 +179,7 @@ const NewUserForm = () => {
                     onBlur={() => setConfirmPasswordFocus(false)}
                 />
                 <p id="confirmnote" className={confirmPasswordFocus && !validConfirmPassword ? "instructions" : "offscreen"}>
-                <i class="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
+                <i className="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
                           Must match the first password input field.
                 </p>
                

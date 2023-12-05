@@ -1,0 +1,76 @@
+/* AnnouncementList.css */
+
+/* General Styles */
+.announcementList-container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  .announcementList-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .titles {
+    flex-grow: 1;
+  }
+  
+  
+  .announcementList-body {
+ 
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(190, 21, 21, 0.1);
+  }
+  
+  
+  .no-announcement {
+    text-align: center;
+    color: rgb(247, 7, 7);
+  }
+  
+  /* Announcement.css */
+
+
+  
+  .announcement-card {
+    border-top: 2px solid #ccc;
+    padding-top: 10px;
+  }
+  
+  .announcement-info {
+    padding: 10px;
+  }
+  
+
+  .announcement-info a {
+    text-decoration: none;
+    color: #0a8ff5;
+    font-weight: bold;
+    font-size: 25px;
+  }
+  
+  .announcement-info a:hover {
+    text-decoration: underline;
+  }
+  .announcement-content-container {
+    display: flex;
+    justify-content: space-between;
+    
+  }
+  .announcement-content {
+    margin-top: 10px;
+    max-height: 100px;
+    overflow: hidden;
+  }
+  
+  .time {
+    
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #000000;
+  }
+  

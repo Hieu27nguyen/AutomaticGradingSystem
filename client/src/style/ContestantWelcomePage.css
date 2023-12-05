@@ -1,0 +1,38 @@
+.welcome-page-contestant {
+  max-width: 80%;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.welcome-page-contestant h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.welcome-page-contestant p {
+  width: 100%;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.welcome-page-contestant h2 {
+  margin-top: 40px;
+  color: #333;
+}
+
+ .previous-contests {
+  max-width: 80%; 
+  margin: auto; 
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.previous-contests img {
+  width: 50%; 
+  height: auto;
+  margin: 0 10px;
+  border-radius: 8px;
+}

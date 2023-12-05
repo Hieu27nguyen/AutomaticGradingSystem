@@ -1,0 +1,200 @@
+.form-body {
+  display: flex;
+  justify-content: space-around;
+}
+
+.upload {
+  flex-grow: 0.2;
+}
+
+.manual {
+  flex-grow: 0.5;
+  margin-right: 1rem;
+}
+
+.manual h2 {
+  border: 1px solid #ccc;
+  background-color: #40085a;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+}
+
+.submission-form {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #3e0481f8;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.submissionName-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  height: auto;
+}
+
+.submissionDescription-label,
+.submissionCode-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  height: 150px;
+  vertical-align: text-top;
+}
+
+label,
+button {
+  margin-top: 1rem;
+}
+
+.submission-button {
+  padding: 12px 10px;
+  border: 0;
+  background: linear-gradient(to right, #40085a 0%, #180133 100%);
+  border-radius: 3px;
+  margin-top: 10px;
+  color: #fff;
+  letter-spacing: 1px;
+  font-family: 'Rubik', sans-serif;
+  cursor: pointer;
+}
+
+.submission-info {
+  display: flex;
+  align-items: center;
+  flex-grow: 2;
+}
+
+.info-item {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+.info-item:nth-child(1) {
+  flex: 0.7;
+}
+
+.info-item:nth-child(2) {
+  flex: 0.85;
+}
+
+.info-item:nth-child(3) {
+  flex: 0.8;
+}
+
+.info-item:nth-child(4) {
+  flex: 1;
+}
+.stable-titles {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: 10px;
+  max-width: 95%;
+  border: 1px solid #ffffff;
+  border-left: 4px solid #ffffff;
+  border-radius: 4px;
+  padding: 3px;
+
+}
+
+.stable-titles h3 {
+  font-size: 18px;
+  color: #104b99;
+}
+
+.stable-titles h3:nth-child(1) {
+  flex: 0.7;
+}
+
+.stable-titles h3:nth-child(2) {
+  flex: 0.85;
+}
+
+.stable-titles h3:nth-child(3) {
+  flex: 0.8;
+}
+
+.stable-titles h3:nth-child(4) {
+  flex: 1;
+}
+
+.stable-titles button {
+  margin-left: auto;
+
+}
+
+.stable-content {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.submissionCode-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  height: 150px;
+  vertical-align: text-top;
+}
+
+.submission {
+  display: flex;
+  flex-direction: row;
+}
+
+.submission-checkbox {
+  margin-left: 1%;
+  margin-top: 20px;
+}
+
+.submission-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-left: 4px solid #104b99;
+  border-radius: 4px;
+  padding: 3px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  margin-left: 10px;
+  max-width: 95%;
+}
+
+.submission-card:hover {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submission-card.highlight {
+  background-color: #d7e1f5;
+  transition: background-color 0.2s ease;
+}
+
+.submission-action {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.submission-info {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.delete-button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  color: #000000;
+}
+
+.delete-button:hover {
+  background-color: #e9e8e8;
+  border-color: transparent;
+}

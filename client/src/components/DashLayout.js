@@ -1,17 +1,19 @@
-// DashLayout.js
-import React from 'react';
+
 import DashHeader from './DashHeader';
 import DashFooter from './DashFooter';
-
+import { Outlet } from 'react-router-dom'
+import '../style/WelcomePage.css'
 const DashLayout = ({ activeTab, handleTabClick, renderTabContent, loggingOut }) => {
   return (
-    <div className="home-page">
-      <DashHeader activeTab={activeTab} handleTabClick={handleTabClick} />
-      <div className="tab-content">
-        {renderTabContent()}
-      </div>
-      <DashFooter loggingOut={loggingOut} />
+  <>
+   <DashHeader  />
+   <div className="dash-container">
+    <Outlet />
     </div>
+    <DashFooter/>
+  </>
+     
+
   );
 };
 

@@ -1,38 +1,57 @@
 /*Home Page css
   */
-  .nav-bar {
-    margin: auto;
-    padding: 20px;
-  }
+
+ 
   
-  nav {
+  .home-page nav {
     background-color: #270141;
-    padding: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: stretch;
+    padding: 7px;
   }
   
-  ul {
+  .home-page ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     display: flex;
+    gap:10px;
   }
   
-  li {
-    margin-right: 10px;
-  }
+ 
   
-  li:last-child {
-    margin-right: 0;
+  .home-page a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 15px;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 92%;
   }
+
+  .home-page a:hover {
+    background-color: rgb(92, 5, 173);
+  }
+  a:focus {
+    outline: none;
+  }
+
   
+
+   /* Active Tab */
+   .active {
+   
+    border-bottom: 2px solid #fff;
+  }
+
   .home-button {
     background-color: transparent;
     border: none;
-    color: #fff;
-    cursor: pointer;
-    padding: 10px 15px;
+   
+    align-items: center;
   }
   
   .home-button:focus {
@@ -41,43 +60,38 @@
   
   .home-button:hover {
     background-color: rgb(92, 5, 173);
-    box-shadow: 0 0 30px rgb(134, 130, 130);
   }
   
-  /* Active Tab */
-  .active {
-    border-bottom: 2px solid #fff;
-  }
+ 
   
   /* Profile Dropdown */
   .profile-dropdown {
-    position: relative;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
   }
-  
-  .dropdown-content {
-    position: absolute;
-    top: 40px;
-    right: 0;
-    background-color: #6b8eb3;
-    border-radius: 4px;
-    display: none;
-  }
-  
-  .profile-dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  .dropdown-content button {
-    display: block;
-    padding: 10px 15px;
-    width: 100%;
-    text-align: left;
+  .logout-button {
     color: #fff;
-    border: none;
-    background-color: transparent;
+    cursor: pointer;
+    padding: 10px 15px;
   }
   
-  .dropdown-content button:hover {
-    background-color: #0056b3;
+  
+  
+
+  
+  
+  
+  footer {
+    height: 5vh;
+    width: 100%;
+    background-color: #3c284a;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
   }
   
+  footer p {
+    font-size: 14px;
+  }

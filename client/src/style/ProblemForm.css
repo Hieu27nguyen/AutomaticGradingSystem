@@ -1,0 +1,164 @@
+
+
+.form-body {
+    display: flex;
+   
+    justify-content:space-around;
+}
+
+.upload {
+    flex-grow: 0.2;
+}
+.manual {
+    flex-grow: 0.5;
+    margin-right: 1rem;
+}
+
+
+.manual h2 {
+    border: 1px solid #ccc;
+    background-color: #40085a;
+    border-radius: 10px;
+    color: #fff;
+    text-align: center;
+}
+
+.problem-form {
+  max-width: 100%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #3e0481f8;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+.problemname-label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    height: auto;
+  }
+  .problemDescription-label,
+  .problemTest-label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    height: 150px;
+    vertical-align: text-top;
+    margin-bottom: 10px;
+  }
+
+label,
+button {
+margin-top: 1rem;
+}
+
+.problem-button {
+    padding: 12px 10px;
+    border: 0;
+    background: linear-gradient(to right, #40085a 0%, #180133 100%);
+    border-radius: 3px;
+    margin-top: 10px;
+    color: #fff;
+    letter-spacing: 1px;
+    font-family: 'Rubik', sans-serif;
+    cursor:pointer;
+  }
+
+  .input-cases {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-cases label {
+    margin-bottom: 8px;
+  }
+  
+
+  .input-output-pair {
+    display: flex;
+    
+  }
+
+  .input-output-pair input{
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    height: 50px;
+  }
+  
+  
+  
+  .test-case-input button {
+    background-color: #31157e;
+    color: white;
+    padding: 10px;
+    border: none;
+    margin: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 100%;
+    margin-left: 15px; 
+    margin-top: 8px;
+  
+  }
+  
+  .input-cases button:hover {
+    background-color: rgb(74, 4, 92);
+  }
+
+  .form-check1{
+    margin-top: 10px;
+    display: block;
+    min-height: 1.5rem;
+    margin-bottom: 0.125rem;
+  }
+
+  .judgeProgram {
+    margin-top: 10px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #f8f9fa; 
+    color: #495057; 
+    width: 100%;
+  }
+  
+  .judgeProgram:disabled {
+    background-color: #e9ecef; 
+    color: #6c757d; 
+  }
+
+  
+  .judge-button {
+    background-color: #31157e;
+    color: white;
+    padding: 10px;
+    border: none;
+    margin: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 100%;
+    
+    margin-top: 8px;
+  }
+
+  .testCases {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  .testCases th,td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  .testCases th{
+    background-color: #f2f2f2;
+  }
+
+  #fileInput {
+    margin-bottom: 20px;
+  }

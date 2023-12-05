@@ -2,7 +2,7 @@ const axios = require('axios')
 
 const submissionConnection = axios.create({
     baseURL: process.env.JUDGE_URL,
-    timeout: 1000,
+    timeout: 10000,
 });
 
 const GET_STATUSES = async () => {
@@ -37,4 +37,4 @@ const runSubmission = async (sourcecode = '', languageID = 0, problem = null) =>
     return submissionStatus.data;
 };
 
-module.exports = { submissionConnection, GET_SUPPORTED_LANGUAGES, createSubmission, runSubmission }
+module.exports = { submissionConnection, GET_SUPPORTED_LANGUAGES, GET_STATUSES, runSubmission }

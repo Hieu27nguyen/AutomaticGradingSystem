@@ -10,7 +10,12 @@
 </head>
 
 <body>
-    <h1>Welcome</h1>
+    <h1>Automatic Grading System</h1>
+    <h2>Server is listenning on host <span id='host'> </span> </h2>
+    <script>
+        let host = location.host;
+        document.getElementById('host').innerHTML = host; 
+    </script>
 </body>
 
 </html>
