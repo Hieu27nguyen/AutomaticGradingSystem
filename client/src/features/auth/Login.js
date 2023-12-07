@@ -11,7 +11,7 @@ import useAuth from '../../hooks/useAuth';
 import contestImage from "../../img/Photo_Contest_2022.jpg";
 
 const Login = () => {
-    useTitle('Login')
+    useTitle('Automatic Grading System')
     const userRef = useRef();
     const errRef = useRef();
     const [username, setUsername] = useState('');

@@ -22,14 +22,11 @@ const NewSubmission = () => {
 
     const onSaveSubmission = async (e) => {
         e.preventDefault();
-        const time = new Date (Date.now());
-        const timeSubmitted = time;
         const newSubmissionData = {
             user: username, 
             problem: problemId,
             code: submissionCode,
             language_id: languageId,
-            timeSubmitted: timeSubmitted, 
         };
 
         try {

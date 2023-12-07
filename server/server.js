@@ -9,7 +9,10 @@ const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const corsOptions = require('./config/corsOptions')
 const connectDB = require('./config/dbConn')
+const {jsdocConfig} = require('./config/jsdocConfig')
 const mongoose = require('mongoose')
+const swaggerUI = require("swagger-ui-express")
+
 const PORT = process.env.PORT || 3500
 
 connectDB()
@@ -21,6 +24,7 @@ app.use(cors(corsOptions))
 app.use(express.json())
 
 app.use(cookieParser())
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(jsdocConfig));
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 

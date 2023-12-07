@@ -5,13 +5,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    online: {
-        type: Boolean,
-        default:false,
-        required: true
-    },
     roles: [{
         type: String,
+        required: true,
         default: "contestant"
     }],
     password: {

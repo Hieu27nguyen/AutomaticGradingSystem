@@ -72,8 +72,8 @@ const createSubmission = asyncHandler(async (req, res) => {
 
     //  score: total obtained score calculated based on the time submitted and the contest start time
     //  status: status of the submittion
-
-    const { user, problem, code, language_id, timeSubmitted } = req.body;
+    const timeSubmitted = req.headers.timeSubmitted;//Extract timeSubmitted from headers
+    const { user, problem, code, language_id } = req.body;
     res.setHeader('allowedRoles', ['Contestant'])
 
     //Check contest start time

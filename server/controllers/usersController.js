@@ -2,6 +2,36 @@ const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - username
+ *         - roles
+ *         - password
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: the user name of the user
+ *         username:
+ *           type: string
+ *           description: the user name of the user
+ *         roles:
+ *           type: Array
+ *           description: The roles of this user
+ *         password:
+ *           type: string
+ *           description: The encrypted password
+ *       example:
+ *         id: 1
+ *         username: theJudge
+ *         roles: [Judge]
+ *         password: $2b$10$YDFbyT9uvl36oc8OdI1c5.NBsI71fI5yhV3eOXrbPP6wMQ4QVsySS
+ */
+
 // @desc Get all users
 // @route GET /users
 // @access Private
@@ -56,7 +86,7 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @route PATCH /users
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
-    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
+    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
     const { id, username, roles, online, password } = req.body
 
     // Confirm data 
@@ -97,7 +127,7 @@ const updateUser = asyncHandler(async (req, res) => {
 // @route DELETE /users
 // @access Private
 const deleteUser = asyncHandler(async (req, res) => {
-    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
+    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
     const { id } = req.body
 
     // Confirm data

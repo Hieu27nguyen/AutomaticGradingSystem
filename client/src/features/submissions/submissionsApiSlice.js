@@ -32,6 +32,9 @@ export const submissionsApiSlice = apiSlice.injectEndpoints({
             query: (initialSubmissionData) => ({
                 url: '/submissions',
                 method: 'POST',
+                headers:{
+                    timeSubmitted: new Date (Date.now()),
+                },
                 body: {
                     ...initialSubmissionData,
                 },
