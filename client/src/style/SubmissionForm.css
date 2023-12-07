@@ -20,6 +20,13 @@
   text-align: center;
 }
 
+.titles{
+  font-family:'Segoe UI';
+  display: flex;
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
 .submission-form {
   max-width: 100%;
   margin: auto;

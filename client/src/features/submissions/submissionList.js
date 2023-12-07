@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useGetSubmissionsQuery, useDeleteSubmissionMutation } from "./submissionsApiSlice";
+import { useGetSubmissionsQuery } from "./submissionsApiSlice";
 import Submission from './Submission';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useNavigate } from "react-router-dom";
@@ -15,36 +14,9 @@ const SubmissionsList = () => {
         error
     } = useGetSubmissionsQuery();
     const navigate = useNavigate();
-    const [deleteSubmission] = useDeleteSubmissionMutation();
-    const [isCheckedAll, setIsCheckedAll] = useState(false);
-    const [selectedCheckboxes, setSelectedCheckboxes] = useState({});
     const { roles } = useAuth();
     const isJudge = roles.includes('JUDGE');
     const isAdmin = roles.includes('ADMIN');
-
-
-    const handleCheckAll = () => {
-        const { ids } = submissions;
-        console.log(submissions)
-        const updatedCheckboxes = {};
-        const areAllChecked = !isCheckedAll;
-
-        ids?.forEach(submissionId => {
-            updatedCheckboxes[submissionId] = areAllChecked;
-        });
-        setSelectedCheckboxes(updatedCheckboxes);
-        setIsCheckedAll(!isCheckedAll);
-    };
-
-    const handleDeleteAll = () => {
-        const { ids } = submissions;
-
-        ids?.forEach(submissionId => {
-            if (selectedCheckboxes[submissionId] === true) {
-                deleteSubmission({ id: submissionId });
-            }
-        });
-    };
 
     let content;
 
@@ -73,12 +45,6 @@ const SubmissionsList = () => {
                 <Submission
                     key={submissionId}
                     submissionId={submissionId}
-                    isChecked={selectedCheckboxes[submissionId] || false}
-                    setIsChecked={(newState) => {
-                        const updatedSelectedCheckboxes = { ...selectedCheckboxes };
-                        updatedSelectedCheckboxes[submissionId] = newState;
-                        setSelectedCheckboxes(updatedSelectedCheckboxes);
-                    }}
                 />)
             : null;
 
@@ -97,11 +63,6 @@ const SubmissionsList = () => {
                     {ids.length >= 0 ? (
                         <div>
                             <div className="check-and-titles">
-                                {isJudge && (
-                                    <div className="check-all">
-                                        <input type="checkbox" aria-label="Select All Submissions" checked={isCheckedAll} onChange={handleCheckAll}></input>
-                                    </div>
-                                )}
                                 <div className="stable-titles">
                                     <div className="submission-info">
                                         <h3 className="problem">Problem Name</h3>
@@ -109,12 +70,6 @@ const SubmissionsList = () => {
                                         <h3>Status</h3>
                                         <h3>Time Submitted</h3>
                                     </div>
-                                    {isJudge && (
-                                        <div className='submission-action'>
-                                            {/* Ignore this edit-button */}
-                                            <button className={`delete-button ${selectedCheckboxes}`} onClick={handleDeleteAll} ><i className="bi bi-trash3"></i></button>
-                                        </div>
-                                    )}
                                 </div>
                             </div>
                             <div className="stable-content">

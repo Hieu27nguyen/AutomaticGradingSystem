@@ -1,54 +1,54 @@
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectSubmissionById, useDeleteSubmissionMutation } from './submissionsApiSlice';
-import { selectProblemById } from '../problems/problemsApiSlice'; 
+import { selectSubmissionById } from './submissionsApiSlice';
+import { selectProblemById } from '../problems/problemsApiSlice';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import '../../style/SubmissionForm.css';
 import useAuth from '../../hooks/useAuth';
 
-const Submission = ({ submissionId, isChecked = false, setIsChecked }) => {
+const useFetchSubmissionData = (submissionId) => {
     const submission = useSelector(state => selectSubmissionById(state, submissionId));
-    const problem = useSelector(state => selectProblemById(state, submission.problem)); 
-    const [deleteSubmission] = useDeleteSubmissionMutation();
+    const problemId = submission.problem;
+    const problem = useSelector(state => selectProblemById(state, problemId));
+    return { submission, problem };
+};
+
+const Submission = ({ submissionId }) => {
+    const [submissionData, setSubmissionData] = useState(null);
+    const [problemName, setProblemName] = useState(null);
     const { roles, username } = useAuth();
     const isJudge = roles.includes('JUDGE');
+    const { submission, problem } = useFetchSubmissionData(submissionId);
 
-    if (submission) {
-        const handleDelete = async () => {
-            await deleteSubmission({ id: submissionId });
-        };
+    useEffect(() => {
+        setSubmissionData(submission);
+        setProblemName(problem?.name);
+    }, [submission, problem]);
 
-        const handleCheckBox = () => {
-            setIsChecked(!isChecked);
-        };
+    if (!submissionData) {
+        return null;
+    }
 
-        if (isJudge || submission.user === username) {
+    if (submissionData) {
+
+        if (isJudge || submissionData.user === username) {
             return (
                 <div className='submission'>
-                    {isJudge && (
-                        <div className='submission-checkbox'>
-                            <input type='checkbox' checked={isChecked} onChange={handleCheckBox}></input>
-                        </div>
-                    )}
-                    <div className={`submission-card ${isChecked ? 'highlight' : ''}`}>
+                    <div className='submission-card'>
                         <div className='submission-info'>
                             <div className='info-item'>
-                                <p className='ProblemID'>{problem.name}</p>
+                                <p className='ProblemID'>{problemName}</p>
                             </div>
                             <div className='info-item'>
-                                <p className='contestantUser'>{submission.user}</p>
+                                <p className='contestantUser'>{submissionData.user}</p>
                             </div>
                             <div className='info-item'>
-                                <p className='status'>{submission.status}</p>
+                                <p className='status'>{submissionData.status}</p>
                             </div>
                             <div className='info-item'>
-                                <p className='time'>{new Date (submission.timeSubmitted).toUTCString()}</p>
+                                <p className='time'>{new Date(submission.timeSubmitted).toUTCString()}</p>
                             </div>
                         </div>
-                        {isJudge && (
-                            <div className='submission-action'>
-                                <button className='delete-button' onClick={handleDelete}><i className="bi bi-trash3"></i></button>
-                            </div>
-                        )}
                     </div>
                 </div>
             );
