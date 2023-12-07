@@ -45,7 +45,7 @@ const CompetitionInformation = ({
                     <p><strong>Judge0 Time Limit (s):</strong><br /> {timeLimit}</p>
                 </>
             )} */}
-            <button onClick={onEdit} className="custom-button">Edit</button>
+            {isJudge && <button onClick={onEdit} className="custom-button">Edit</button>}
         </div>
     );
 };
