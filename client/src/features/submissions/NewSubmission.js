@@ -1,6 +1,7 @@
 import { useAddNewSubmissionMutation } from "./submissionsApiSlice";
 import { useGetProblemsQuery } from "../problems/problemsApiSlice";
-import { useState, useRef, useEffect  } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from '../../hooks/useAuth';
 import '../../style/SubmissionForm.css';
 
@@ -10,6 +11,7 @@ const NewSubmission = () => {
     const [submissionCode, setSubmissionCode] = useState('');
     const [languageId, setLanguageId] = useState(0);
     const [problemsData, setProblemsData] = useState({ ids: [], entities: {} });
+    const navigate = useNavigate();
 
     const [addNewSubmission] = useAddNewSubmissionMutation();
     const { data: initialProblemsData } = useGetProblemsQuery();
@@ -23,7 +25,7 @@ const NewSubmission = () => {
     const onSaveSubmission = async (e) => {
         e.preventDefault();
         const newSubmissionData = {
-            user: username, 
+            user: username,
             problem: problemId,
             code: submissionCode,
             language_id: languageId,
@@ -33,12 +35,16 @@ const NewSubmission = () => {
             const response = await addNewSubmission(newSubmissionData);
 
             if (response.data) {
+                navigate('/home/submissions/');
                 alert("Submission added successfully");
                 // Clear form fields after successful submission
                 setProblemId('');
                 setSubmissionCode('');
                 setLanguageId(0);
             } else {
+                navigate('/home/submissions/');
+                alert("Submission added unsuccessfully.\n" +
+                    "The competition has ended or not yet started!.");
                 console.error("Some error occurred");
                 console.log(response);
             }
