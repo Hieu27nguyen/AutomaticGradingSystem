@@ -11,7 +11,6 @@ export const submissionsApiSlice = apiSlice.injectEndpoints({
             query: () => '/submissions',
             validateStatus: (response, result) => response.status === 200 && !result.isError,
             transformResponse: (responseData) => {
-                console.log(responseData);
                 const loadedSubmissions = responseData.map((submission) => {
                     submission.id = submission._id;
                     return submission;
@@ -25,6 +24,24 @@ export const submissionsApiSlice = apiSlice.injectEndpoints({
                         ...result.ids.map((id) => ({ type: 'Submission', id })),
                     ];
                 } else return [{ type: 'Submission', id: 'LIST' }];
+            },
+        }),
+        getSubmissionLanguages: builder.query({
+            query: () => '/submissions/languages',
+            validateStatus: (response, result) => response.status === 200 && !result.isError,
+            transformResponse: (responseData) => {
+                const loadedSubmissionLanguages = responseData.map((language) => {
+                    return language;
+                });
+                return submissionsAdapter.setAll(initialState, loadedSubmissionLanguages);
+            },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'SubmissionLanguages', id: 'LIST' },
+                        ...result.ids.map((id) => ({ type: 'SubmissionLanguages', id })),
+                    ];
+                } else return [{ type: 'SubmissionLanguages', id: 'LIST' }];
             },
         }),
 
@@ -70,6 +87,7 @@ export const submissionsApiSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetSubmissionsQuery,
+    useGetSubmissionLanguagesQuery,
     useAddNewSubmissionMutation,
     useUpdateSubmissionMutation,
     useDeleteSubmissionMutation,

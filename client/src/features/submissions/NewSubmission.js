@@ -1,26 +1,37 @@
-import { useAddNewSubmissionMutation } from "./submissionsApiSlice";
+import { useAddNewSubmissionMutation, useGetSubmissionLanguagesQuery } from "./submissionsApiSlice";
 import { useGetProblemsQuery } from "../problems/problemsApiSlice";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect  } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import useAuth from '../../hooks/useAuth';
 import '../../style/SubmissionForm.css';
 
 const NewSubmission = () => {
+    const chosenProblemID = useParams().problemID;
+    
     const { username } = useAuth();
-    const [problemId, setProblemId] = useState('');
+    const [problemId, setProblemId] = useState(chosenProblemID ? chosenProblemID : '');
     const [submissionCode, setSubmissionCode] = useState('');
-    const [languageId, setLanguageId] = useState(0);
+    const [languageId, setLanguageId] = useState(62);
     const [problemsData, setProblemsData] = useState({ ids: [], entities: {} });
+    const [submissionLanguages, setSubmissionLanguages] = useState([]);
     const navigate = useNavigate();
 
     const [addNewSubmission] = useAddNewSubmissionMutation();
     const { data: initialProblemsData } = useGetProblemsQuery();
-
+    const { data: initialSubmissionLanguages } = useGetSubmissionLanguagesQuery();
     useEffect(() => {
         if (initialProblemsData) {
             setProblemsData(initialProblemsData);
         }
     }, [initialProblemsData]);
+
+    useEffect(() => {
+        if (initialSubmissionLanguages) {
+            setSubmissionLanguages(initialSubmissionLanguages.entities);
+        }
+    }, [initialSubmissionLanguages]);
+
+
 
     const onSaveSubmission = async (e) => {
         e.preventDefault();
@@ -66,8 +77,8 @@ const NewSubmission = () => {
             <div className="manual">
                 <h2>ADD A SUBMISSION</h2>
                 <form className="submission-form" onSubmit={onSaveSubmission}>
-                    <label htmlFor="userName">Contestant Username:</label>
-                    <input type="text" id="userName" value={username} readOnly />
+                    {/* <label htmlFor="userName">Contestant Username:</label> */}
+                    {/* <input type="text" id="userName" value={username} readOnly /> */}
 
                     <label htmlFor="problemId">Problem Name:</label>
                     <select
@@ -93,14 +104,21 @@ const NewSubmission = () => {
                         required
                     ></textarea>
 
-                    <label htmlFor="languageId">Language ID:</label>
-                    <input
+                    <label htmlFor="languageId">Language:</label>
+                    {/* <input
                         type="number"
                         id="languageId"
                         value={languageId}
                         onChange={(e) => setLanguageId(e.target.value)}
                         required
-                    />
+                    /> */}
+                    {/* Only display language list when fetched the supported list */}
+                    {submissionLanguages && <select id="languageId" value={languageId} onChange={(e) => {setLanguageId(e.target.value)}} >
+                        {Object.entries(submissionLanguages).map(language => {
+                            return <option key={language[1].id} value={language[1].id}>{language[1].name}</option>
+                        })
+                        }
+                    </select>}
                     <button className="submission-button" type="submit">Confirm</button>
                 </form>
             </div>

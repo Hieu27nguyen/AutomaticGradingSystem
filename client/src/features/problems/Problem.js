@@ -21,7 +21,8 @@ const Problem = ({ problemId, isChecked = false, setIsChecked }) => {
             await deleteProlem({ id: problemId })
         }
         const handleSubmit = () => {
-            navigate(`/home/submissions/new`)
+            console.log(`/home/submissions/new/${problemId}` )
+            navigate(`/home/submissions/new/${problemId}` )
         }
         const handleCheckBox = () => {
             setIsChecked(!isChecked)

@@ -43,10 +43,10 @@ function App() {
               <Route path="home" element={<DashLayout />}>
                 <Route index element={<WelcomePage />} />
 
-                <Route path="submissions">
+                {/* <Route path="submissions">
                   <Route index element={<SubmissionList />} />
                   <Route path="new" element={<NewSubbmision />} />
-                </Route>
+                </Route> */}
                 <Route path="translations">
                   <Route index element={<TranslatePage />} />
                 </Route>
@@ -65,7 +65,9 @@ function App() {
 
                 <Route path="submissions">
                   <Route index element={<SubmissionList />} />
+                  <Route path="new/:problemID" element={<NewSubbmision />} />
                   <Route path="new" element={<NewSubbmision />} />
+            
                 </Route>
 
                 <Route path="competitions">

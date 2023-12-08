@@ -166,7 +166,7 @@ const createSubmission = asyncHandler(async (req, res) => {
         }
     }
 
-    let score
+    let score = 0
 
     //Check whether a student has created a submission record or not
     let submissionRecord = await Scoreboard.find({ "username": user });
