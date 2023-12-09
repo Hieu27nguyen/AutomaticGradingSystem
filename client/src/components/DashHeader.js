@@ -53,6 +53,10 @@ const DashHeader = () => {
             <Link to="/home" onClick={() => handleTabClick('/home')}> Home </Link>
           </li>
 
+          <li className={activeTab === '/home/scoreboards' ? 'active' : ''}>
+            <Link to="/home/scoreboards" onClick={() => handleTabClick('/home/scoreboards')}> Scoreboard </Link>
+          </li>
+
           <li className={activeTab === '/home/competitions' ? 'active' : ''}>
             <Link to="/home/competitions" onClick={() => handleTabClick('/home/competitions')}> Competition </Link>
           </li>
@@ -72,6 +76,7 @@ const DashHeader = () => {
           <li className={activeTab === '/home/translations' ? 'active' : ''}>
             <Link to="/home/translations" onClick={() => handleTabClick('/home/translations')}> Translate </Link>
           </li>
+
           <li className={activeTab === '/home/announcements' ? 'active' : ''}>
             <Link to="/home/announcements" onClick={() => handleTabClick('/home/announcements')}> Announcements </Link>
           </li>

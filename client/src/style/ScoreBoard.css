@@ -1,0 +1,51 @@
+  .vertical-scoreboard-table {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .scoreboard-entry {
+    margin-bottom: 20px;
+  }
+  
+  .scoreboard-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .scoreboard-info-item {
+    margin-bottom: 5px;
+  }
+  
+  .scoreboard-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .scoreboard-table th,
+  .scoreboard-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .scoreboard-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .rejected-attempts-cell {
+    background-color: red;
+    color: white;
+  }
+
+  .accepted-attempts-cell {
+    background-color: green;
+    color: white;
+  } 
+
+  .scoreboard h2{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  

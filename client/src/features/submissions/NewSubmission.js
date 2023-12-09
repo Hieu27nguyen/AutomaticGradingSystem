@@ -54,7 +54,7 @@ const NewSubmission = () => {
                 setLanguageId(0);
             } else {
                 navigate('/home/submissions/');
-                alert("Submission added unsuccessfully.\n" +
+                alert("Submission not added.\n" +
                     "The competition has ended or not yet started!.");
                 console.error("Some error occurred");
                 console.log(response);
