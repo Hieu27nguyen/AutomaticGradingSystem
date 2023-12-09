@@ -20,6 +20,7 @@ import EditProblem from './features/problems/EditProblem';
 import SubmissionList from './features/submissions/submissionList';
 import NewSubbmision from './features/submissions/NewSubmission';
 import TranslatePage from './features/translations/TranslationPage';
+import ScoreBoard from './features/scoreboards/ScoreBoard';
 import Layout from './components/Layout';
 import DashLayout from './components/DashLayout'
 import AnnouncementList from './features/announcement/AnnouncementList';
@@ -77,6 +78,11 @@ function App() {
                 <Route path="translations">
                   <Route index element={<TranslatePage />} />
                 </Route>
+
+                <Route path="scoreboards">
+                  <Route index element={<ScoreBoard />} />
+                </Route>
+
                 <Route path="announcements">
                   <Route index element={<AnnouncementList />} />
                   <Route path=":id" element={<FullAnnouncement />} />
