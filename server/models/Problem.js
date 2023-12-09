@@ -4,7 +4,6 @@ const problemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true
     },
     description: {
         type: String, // Can be a text or PDF link

@@ -30,11 +30,11 @@ const createEmptyRecord = async (username) => {
         newRecord = await Scoreboard.create(newData);
         if (newRecord) {
             return newRecord;//Create susccessfully
-        }else{
-            
+        } else {
+
             return null;//Create fail
         }
-    }catch (e){
+    } catch (e) {
         //Log the error
         console.log(e);
     }
@@ -52,55 +52,72 @@ const FillRecordForNonSubmittingUsers = async () => {
         return !usernameWithRecordList.includes(user.username);
     });
 
-  
+
     const problemIDs = (await Problem.find()).map(problem => problem._id.toString());
 
     //Adding new records
-    noRecordUsers.forEach((user) => createEmptyRecord(user.username));
+    await Promise.all(noRecordUsers.map(async (user) => await createEmptyRecord(user.username)));
+    return true;
 }
 
 
 //Return a Sorted version of the scoreboard with ranking
-const sortScoreboard = async () =>{
+const sortScoreboard = async (currentUser) => {
     const scoreboard = await Scoreboard.find().sort({
         problemSolved: -1,//Sort descedning based on problem solved
         totalScore: 1,//Sort ascending based on total score (penalty)
     }).lean();
-
-    let finalScoreboard = []
-    let rank = 1;
-    for (let i = 0 ; i < scoreboard.length; i++){
-        if (i != 0){
-            if (scoreboard[i].problemSolved != scoreboard[i - 1].problemSolved || scoreboard[i].totalScore != scoreboard[i - 1].totalScore){
-                rank++;
+   
+    if (scoreboard) {
+        let currentRank = -1;
+        let finalScoreboard = []
+        let rank = 1;
+        for (let i = 0; i < scoreboard.length; i++) {
+            if (i != 0) {
+                if (scoreboard[i].problemSolved != scoreboard[i - 1].problemSolved || scoreboard[i].totalScore != scoreboard[i - 1].totalScore) {
+                    rank++;
+                }
             }
+            if (scoreboard[i].username === currentUser) {
+                currentRank = rank;
+            }
+            const data = {
+                rank: rank,
+                ...scoreboard[i],
+            }
+            finalScoreboard.push(data);
         }
-        const data = { 
-            rank: rank,
-            ...scoreboard[i],
-        }
-        finalScoreboard.push(data);
-    }
 
-    return finalScoreboard;
+        return {
+            finalScoreboard, currentRank
+        };
+    }
+  
 }
 
 //Getting the competition scoreboard
 //Required field in rest's body:
 const getScoreboard = asyncHandler(async (req, res) => {
     //Create record for user that does not submit anything
-    await FillRecordForNonSubmittingUsers();
+    const filled = await FillRecordForNonSubmittingUsers();
 
-    const finalScoreboard = await sortScoreboard();
-    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
-    if (finalScoreboard){
-        res.status(200).json(finalScoreboard);
+    if (filled) {
+        //Extract the username of the user making the request
+        const username = req.headers.username;
+
+        const { finalScoreboard, currentRank } = await sortScoreboard(username);
+        res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
+       
+        if (finalScoreboard) {
+            res.status(200).json({
+                currentRank: currentRank,
+                scoreboard: finalScoreboard
+            });
+        }
+        else {
+            res.status(500).json({ message: "Error when getting scoreboard. Please try again later" });
+        }
     }
-    else{
-        res.status(500).json({message: "Error when getting scoreboard. Please try again later"});
-    }
-    
-  
 })
 
 module.exports = {
