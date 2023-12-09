@@ -36,7 +36,7 @@ const AnnouncementList = () => {
                         <h2>Announcements</h2>
                     </div>
 
-                    <button className="add_button" onClick={() => navigate("/home/announcements/new")}><i className="bi-person-plus-fill"></i>Make Announcement</button>
+                    <button className={`add_button ${status === 'CONTESTANT' ? 'hidden' : ''}`} onClick={() => navigate("/home/announcements/new")}><i className="bi-person-plus-fill"></i>Make Announcement</button>
                 </div>
                 <div className="body">
                     <p className="no-contestant">No announcements found!</p>

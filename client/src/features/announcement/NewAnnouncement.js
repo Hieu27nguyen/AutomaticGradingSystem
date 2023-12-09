@@ -34,7 +34,9 @@ const NewUserForm = () => {
             navigate('/home/announcements')
         }
     }, [isSuccess, navigate])
-
+    const goBack = (e) => {
+        navigate("/home/announcements");
+    }
     const saveAnnouncement = async (e) => {
         e.preventDefault()
         if (!isLoading) {
@@ -44,7 +46,7 @@ const NewUserForm = () => {
 
     const content = (
         <div className="announcement-containter">  
-            
+            <button onClick={goBack} class="go-back-announcements"> <i class="bi bi-arrow-left"></i></button>
             <h1 id="newAnnouncement">Make New Announcement</h1>
 
             <form className="announcement-form" onSubmit={saveAnnouncement}>

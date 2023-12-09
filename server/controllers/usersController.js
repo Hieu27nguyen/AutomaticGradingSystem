@@ -64,7 +64,7 @@ const createNewUser = asyncHandler(async (req, res) => {
     const duplicate = await User.findOne({ username }).lean().exec()
 
     if (duplicate) {
-        return res.status(409).json({ message: 'Duplicate username' })
+        return res.status(409).json({ message: 'Username has already exist. Please choose another username!' })
     }
 
     // Hash password 
@@ -106,7 +106,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
     // Allow updates to the original user 
     if (duplicate && duplicate?._id.toString() !== id) {
-        return res.status(409).json({ message: 'Duplicate username' })
+        return res.status(409).json({ message: 'Username has already exist. Please choose another username!' })
     }
 
     user.username = username

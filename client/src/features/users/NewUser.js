@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { useAddNewUserMutation } from "./usersApiSlice"
 import { useNavigate } from "react-router-dom"
-import { ROLES } from "../../config/roles"
 import "../../style/UserForm.css"
 
 
@@ -38,7 +37,7 @@ const NewUserForm = () => {
    
 
     const [roles, setRoles] = useState(["CONTESTANT"])
-    const [online, setOnline] = useState(true)
+   
 
     useEffect(() => {
         userRef.current.focus();
@@ -54,7 +53,7 @@ const NewUserForm = () => {
 
     useEffect(() => {
         setValidPassword(PWD_REGEX.test(password))
-        setValidConfirmPassword(password == confirmPassword)
+        setValidConfirmPassword(password === confirmPassword)
     }, [password, confirmPassword])
 
     useEffect(() => {
@@ -70,41 +69,26 @@ const NewUserForm = () => {
         }
     }, [isSuccess, navigate])
 
-   
-    const onRolesChanged = e => {
-        const values = Array.from(
-            e.target.selectedOptions, //HTMLCollection 
-            (option) => option.value
-        )
-
-        setRoles(values)
+    const goBack = (e) => {
+        navigate("/home/users");
     }
 
-    const options = Object.values(ROLES).map(role => {
-        if (role.match("CONTESTANT") || role.match("JUDGE"))
-            return (
-                <option
-                    key={role}
-                    value={role}
-
-                > {role}</option >
-            )
-    })
-
-
-    const canSave = [roles.length, validUsername, validPassword].every(Boolean) && !isLoading
+    const canSave = [validUsername, validPassword].every(Boolean) && !isLoading
 
     const onSaveUserClicked = async (e) => {
         e.preventDefault()
         if (canSave) {
-            await addNewUser({ username, password, roles, online })
+            await addNewUser({ username, password, roles })
         }
     }
 
+    const errClass = (isError ) ? "errmsg" : "offscreen";
+    const errContent = (error?.data?.message) ?? '' ; 
 
 
     const content = (
-        <>
+        <> 
+             <button onClick={goBack} class="go-back-announcements"> <i class="bi bi-arrow-left"></i></button>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1 id="add-contestant-h1">Add Contestant</h1>
 
@@ -182,24 +166,11 @@ const NewUserForm = () => {
                 <i className="bi bi-exclamation-square-fill" style={{ color: 'red', fontSize: '12px', marginRight: '10px' }} ></i>
                           Must match the first password input field.
                 </p>
-               
+                
+                <p className={errClass}>{errContent}</p>
 
                 <button className="submit-button" disabled={!validUsername || !validPassword || !validConfirmPassword ? true : false}>Confirm</button>
             </form>
-
-            {/* {
-                <select
-                    id="roles"
-                    name="roles"
-                    className={`form__select ${validRolesClass}`}
-                    multiple={true}
-                    size="2"
-                    value={roles}
-                    onChange={onRolesChanged}
-                >
-                    {options}
-                </select>
-                /} */}
 
         </>
     )

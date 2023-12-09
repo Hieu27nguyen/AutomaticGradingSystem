@@ -69,6 +69,7 @@ margin-top: 1rem;
 }
 
 .errmsg {
+  margin-top: 1rem;
   background-color: lightpink;
   color: firebrick;
   font-weight: bold;

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import '../style/HomePage.css'
 const DashHeader = () => {
   const [sendLogout] = useSendLogoutMutation();
-
+  
   const { roles } = useAuth();
 
   const navigate = useNavigate();
@@ -43,6 +43,9 @@ const DashHeader = () => {
           </li>
           <li className={activeTab === '/home/translations' ? 'active' : ''}>
             <Link to="/home/translations" onClick={() => handleTabClick('/home/translations')}> Translate </Link>
+          </li>
+          <li className={activeTab === '/home/announcements' ? 'active' : ''}>
+            <Link to="/home/announcements" onClick={() => handleTabClick('/home/announcements')}> Announcements </Link>
           </li>
         </ul>
       );
