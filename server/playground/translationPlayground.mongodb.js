@@ -7,28 +7,35 @@ const collection = 'translations';
 use(database);
 
 //Test whether collection has existed or not
-try {
-    database.createCollection(collection);
-} catch (exception) {
-    console.log("Collection " + collection + " already exists");
-}
+// try {
+//     database.createCollection(collection);
+// } catch (exception) {
+//     console.log("Error occurs " + exception.message);
+//     console.log("Collection " + collection + " already exists");
+// }
 
 // Function to insert a new translation into the "translations" collection
-let importData = async (data) => {
-    for (const entry of data) {
-        uniqueFields = ['_id'];
-        let unique = {};
+let importData = async (data, uniqueFields = []) => {
+    for (const entry of data) { // Use "for...of" loop instead of forEach
+        let unique = [];
         uniqueFields.map(x => {
-            unique[x] = entry[x];
+            unique.push({ [x]: entry[x] });
         });
 
-        console.log("Fields that need to be unique" + JSON.stringify(unique));
+        if (entry["_id"] || !uniqueFields.includes("_id")) {
+            unique.push({ "_id": entry["_id"] });
+            // unique._id = entry["_id"]; 
+        }
 
-        if (await db[collection].findOne({ _id: entry._id }) !== null) {
-            console.log("Duplicate translation id: " + entry._id);
+        console.log("Fields that need to be unique" + JSON.stringify(unique));
+        let duplicatedEntry = await db[collection].findOne({ $or: unique });
+
+        if (duplicatedEntry !== null) {
+            console.log("Duplicate translation id: " +  JSON.stringify(entry));
+            await db[collection].updateOne({ _id: entry._id }, { $set: entry }, { upsert: true });
         } else {
             await db[collection].insertOne(entry);
-            console.log("Imported translation: " + entry._id);
+            console.log("Imported translation: " + JSON.stringify(entry));
         }
     }
 };
@@ -36,14 +43,16 @@ let importData = async (data) => {
 // Sample data to import
 const translationData = [
     {
-        username: "kokinh11",
+        _id: ObjectId("657575242985db81bb62151b"),
+        username: "adminTest00",
         languageFrom: "en",
         languageTo: "fr",
         requestedText: "Hello, how are you?",
         translatedText: "Bonjour, comment ça va?",
     },
     {
-        username: "kokinh12",
+        _id: ObjectId("657575242985db81bb62151c"),
+        username: "team01",
         languageFrom: "es",
         languageTo: "de",
         requestedText: "Hola, ¿cómo estás?",
@@ -52,4 +61,4 @@ const translationData = [
 ];
 
 // Import translation data
-importData(translationData);
+importData(translationData, ["_id"]);

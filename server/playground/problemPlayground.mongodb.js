@@ -17,22 +17,29 @@ try {
 
 // Problem Schema: id(given), name, description, judgeProgram, and test.
 // Function to insert a new problem into the "problems" collection
-let importData = async (data) => {
-    for (const entry of data) {
-        uniqueFields = ['_id', 'name'];
-        let unique = {};
+let importData = async (data, uniqueFields = ["_id"]) => {
+    for (const entry of data) { // Use "for...of" loop instead of forEach
+        let unique = [];
         uniqueFields.map(x => {
-            unique[x] = entry[x];
+            unique.push({ [x]: entry[x] });
         });
 
-        console.log("Fields that need to be unique" + JSON.stringify(unique));
+        if (entry["_id"] || !uniqueFields.includes("_id")) {
+            unique.push({ "_id": entry["_id"] });
+            // unique._id = entry["_id"]; 
+        }
 
-        if (await db[collection].findOne({ _id: entry._id }) !== null) {
-            console.log("Duplicate problem: " + entry._id);
+        // console.log("Fields that need to be unique" + JSON.stringify(unique));
+        let duplicatedEntry = await db[collection].findOne({ $or: unique });
+
+        if (duplicatedEntry !== null) {
+            console.log("Duplicate problem, will overide: " + JSON.stringify(entry));
+            await db[collection].updateOne({ _id: entry._id }, { $set: entry }, { upsert: true });
         } else {
             await db[collection].insertOne(entry);
-            console.log("Imported problem: " + entry._id);
+            console.log("Imported problem: " + JSON.stringify(entry));
         }
+        console.log("\n");
     }
 };
 
@@ -44,7 +51,7 @@ const problemsData = [
     //text = input()
     //print(text+'d')
     {
-        // _id: ObjectID("Prob0"),
+        _id: ObjectId("657547a23bb74cd60d3f4322"),
         name: "Added the D",
         description: "Added only 1 letter 'd' to the end of every input",
         judgeProgram: "",
@@ -77,7 +84,7 @@ const problemsData = [
     // 	}
     // }
     {
-        // _id: ObjectID("Prob1"),
+        _id: ObjectId("657547a23bb74cd60d3f4323"),
         name: "Say No",
         description: "Print \"No\", except if the input is yes then say \"Yes\"",
         judgeProgram: "",
@@ -105,7 +112,7 @@ const problemsData = [
     // 	}
     // }
     {
-        // _id: ObjectID("Prob2"),
+        _id: ObjectId("657547a23bb74cd60d3f4324"),
         name: "Add 2 to input",
         description: "Added 2 to any number in the input",
         judgeProgram: "",
@@ -119,8 +126,54 @@ const problemsData = [
         penaltyMinute: 20,
     },
 
+    //"Empty" problems to test scoreboard, do not use to submit on Client
+    {
+        _id: ObjectId("6575188b7413221ca2d5998f"),
+        name: "Test Scoreboard, DO NOT USE TO SUBMIT",
+        description: "Test Scoreboard, DO NOT USE TO SUBMIT",
+        judgeProgram: "",
+        test: [
+            { input: "Hello World", output: "Hello World" },
+            { input: "6", output: "6" },
+            { input: "12319", output: "12319" }
+        ],
+        memLimit: 128000,
+        timeLimit: 2,
+        penaltyMinute: 20,
+    },
+    {
+        _id: ObjectId("657518af48fcae1e2ec7733c"),
+        name: "Test Scoreboard, DO NOT USE TO SUBMIT 2",
+        description: "Test Scoreboard, DO NOT USE TO SUBMIT 2",
+        judgeProgram: "",
+        test: [
+            { input: "Hello World", output: "Hello World" },
+            { input: "6", output: "6" },
+            { input: "12319", output: "12319" }
+        ],
+        memLimit: 128000,
+        timeLimit: 2,
+        penaltyMinute: 20,
+    },
+
+    {
+
+        name: "Test Scoreboard, DO NOT USE TO SUBMIT 3",
+        description: "Test Scoreboard, DO NOT USE TO SUBMIT 3",
+        judgeProgram: "",
+        test: [
+            { input: "Hello World", output: "Hello World" },
+            { input: "6", output: "6" },
+            { input: "12319", output: "12319" }
+        ],
+        memLimit: 128000,
+        timeLimit: 2,
+        penaltyMinute: 20,
+    },
+
+
     // {
-    //     _id: ObjectID("Prob2"),
+    //     _id: ObjectId("Prob2"),
     //     name: "Problem02",
     //     description: "asdsad",
     //     judgeProgram: `
@@ -147,4 +200,4 @@ const problemsData = [
 ];
 
 // Import problems data
-importData(problemsData);
+importData(problemsData, ["_id"]);

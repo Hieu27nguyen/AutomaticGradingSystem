@@ -1,38 +1,80 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ScoreboardEntry from './ScoreBoardEntry';
 import { useGetScoreboardQuery } from './scoreboardsApiSlice';
-
+import { useGetProblemsQuery } from '../problems/problemsApiSlice';
+import useAuth from '../../hooks/useAuth';
+import { current } from '@reduxjs/toolkit';
 
 const ScoreBoard = ({ handleScoreboardItemClick }) => {
-  const { data: scoreboardData, isSuccess, error, isLoading } = useGetScoreboardQuery();
-  useEffect(() => {
-  }, [scoreboardData]);
+    const { username, roles } = useAuth();
+    const { data: scoreboardData, isSuccess, error, isLoading } = useGetScoreboardQuery(username);
+    useEffect(() => {
+    }, [scoreboardData]);
+    const [problemsData, setProblemsData] = useState({ ids: [], entities: {} });
+    const { data: initialProblemsData } = useGetProblemsQuery();
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+    useEffect(() => {
+        if (initialProblemsData) {
+            setProblemsData(initialProblemsData);
+        }
+    }, [initialProblemsData]);
 
-  if (error) {
-    return <div>Error loading scoreboard data. Please try again.</div>;
-  }
-let content;
- if (isSuccess) {
-  const { ids } = scoreboardData ;
+    if (!problemsData) {
+        // Handle loading state or return a placeholder
+        return <div className='scoreboard-entry placeholder'>Loading...</div>;
+    }
 
-  const entries = ids.map(id => (
-    <ScoreboardEntry
-      key={id}
-      entry={id}
-    />
-  ));
 
-  content = (
-    <div className="scoreboard">
-      <h2>Scoreboard</h2>
-      {entries}
-    </div>
-  )};
- return content;
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error loading scoreboard data. Please try again.</div>;
+    }
+    let content;
+    if (isSuccess) {
+        const { currentRank, scoreboard } = scoreboardData;
+        const entries = scoreboard.map(entry => (
+            <ScoreboardEntry
+                key={entry._id}
+                // value={console.log(entry._id)}
+                entry={entry}
+            />
+        ));
+
+        content = (
+            <div className="scoreboard">
+                <h2>Scoreboard</h2>
+                {/* Only display current role of a contestant */}
+                {(roles.includes('CONTESTANT') && currentRank != -1) &&
+                    <p id="currentRank"> Your current rank is {currentRank} </p>
+                }
+                <div className='scoreboard-entry'>
+                    <table className='scoreboard-table'>
+                        <thead key="thead">
+                            <tr>
+                                <th>Rank</th>
+                                <th>Contestant</th>
+                                <th>Total Solved</th>
+                                <th>Total Score</th>
+                                {Object.entries(problemsData.entities).map((problem, index) => (
+                                    <th key={problem?problem.name: "problemTitle_" + index } className="scoreboardProblemName">
+                                        {problem[1].name}
+                                    </th>
+                                ))}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {entries}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        )
+    };
+    return content;
 };
 
 export default ScoreBoard;

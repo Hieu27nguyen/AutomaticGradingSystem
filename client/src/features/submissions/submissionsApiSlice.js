@@ -11,7 +11,7 @@ export const submissionsApiSlice = apiSlice.injectEndpoints({
             query: () => '/submissions',
             validateStatus: (response, result) => response.status === 200 && !result.isError,
             transformResponse: (responseData) => {
-                if (responseData === null) {
+                if (!responseData) {
                     return [];
                 }
                 const loadedSubmissions = responseData.map((submission) => {
