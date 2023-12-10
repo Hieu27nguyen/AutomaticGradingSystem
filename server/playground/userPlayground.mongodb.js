@@ -73,7 +73,7 @@ let data = [
         _id: ObjectId("657542785d6447152b3809de"),
         username: "judgeTest01",
         password: "123",
-        roles: ["judge"],
+        roles: ["JUDGE"],
     },
     {
         //Test 02
@@ -95,7 +95,7 @@ let data = [
         _id: ObjectId("657542785d6447152b3809e1"),
         username: "adminTest03",
         password: "123",
-        roles: ["adMIN"],
+        roles: ["ADMIN"],
     },
     {
         _id: ObjectId("657542785d6447152b3809e2"),
@@ -108,31 +108,31 @@ let data = [
         _id: ObjectId("657542785d6447152b3809e3"),
         username: "team01",
         password: "123",
-        roles: ["Contestant"],
+        roles: ["CONTESTANT"],
     },
     {
         _id: ObjectId("657542785d6447152b3809e4"),
         username: "team02",
         password: "123",
-        roles: ["Contestant"],
+        roles: ["CONTESTANT"],
     },
     {
         _id: ObjectId("657541c01cbcfc5c1577e446"),
         username: "team03",
         password: "123",
-        roles: ["Contestant"],
+        roles: ["CONTESTANT"],
     },
     {
         _id: ObjectId("657542785d6447152b3809e5"),
         username: "team04",
         password: "123",
-        roles: ["Contestant"],
+        roles: ["CONTESTANT"],
     },
     {
         _id: ObjectId("657542785d6447152b3809dc"),
         username: "team05",
         password: "123",
-        roles: ["Contestant"],
+        roles: ["CONTESTANT"],
     },
 ];
 
