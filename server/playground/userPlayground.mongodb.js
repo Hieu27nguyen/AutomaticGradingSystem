@@ -59,7 +59,7 @@ let data = [
         _id: ObjectId("657542785d6447152b3809db"),
         username: "adminTest00",
         password: "123",
-        roles: "ADMIN",
+        roles: ["ADMIN"],
     },
     //Test 01
     //Testing insertion with different roles
@@ -67,13 +67,13 @@ let data = [
         _id: ObjectId("657542785d6447152b3809dd"),
         username: "adminTest01",
         password: "123",
-        roles: "ADMIN",
+        roles: ["ADMIN"],
     },
     {
         _id: ObjectId("657542785d6447152b3809de"),
         username: "judgeTest01",
         password: "123",
-        roles: "judge",
+        roles: ["judge"],
     },
     {
         //Test 02
@@ -95,13 +95,13 @@ let data = [
         _id: ObjectId("657542785d6447152b3809e1"),
         username: "adminTest03",
         password: "123",
-        roles: "adMIN",
+        roles: ["adMIN"],
     },
     {
         _id: ObjectId("657542785d6447152b3809e2"),
         username: "judgeTest03",
         password: "talaaai123",
-        roles: "JUDGE",
+        roles: ["JUDGE"],
     },
     //Test contestants
     {
