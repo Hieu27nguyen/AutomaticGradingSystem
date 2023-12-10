@@ -88,7 +88,7 @@ const NewUserForm = () => {
 
     const content = (
         <> 
-             <button onClick={goBack} class="go-back-announcements"> <i class="bi bi-arrow-left"></i></button>
+             <button onClick={goBack} className="go-back-announcements"> <i classname="bi bi-arrow-left"></i></button>
             <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <h1 id="add-contestant-h1">Add Contestant</h1>
 
