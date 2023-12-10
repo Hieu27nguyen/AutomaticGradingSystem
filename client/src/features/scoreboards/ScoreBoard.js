@@ -23,7 +23,6 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
         // Handle loading state or return a placeholder
         return <div className='scoreboard-entry placeholder'>Loading...</div>;
     }
-    console.log(problemsData.entities);
 
 
     if (isLoading) {
@@ -53,15 +52,15 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
                 }
                 <div className='scoreboard-entry'>
                     <table className='scoreboard-table'>
-                        <thead>
+                        <thead key="thead">
                             <tr>
                                 <th>Rank</th>
                                 <th>Contestant</th>
                                 <th>Total Solved</th>
                                 <th>Total Score</th>
-                                {Object.entries(problemsData.entities).map((problem) => (
-                                    <th key={problem.problemID}>
-                                        {problemsData.entities[problem.problemID]?.name}
+                                {Object.entries(problemsData.entities).map((problem, index) => (
+                                    <th key={problem?problem.name: "problemTitle_" + index } className="scoreboardProblemName">
+                                        {problem[1].name}
                                     </th>
                                 ))}
                             </tr>

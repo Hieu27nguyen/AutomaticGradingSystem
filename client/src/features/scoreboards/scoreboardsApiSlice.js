@@ -26,17 +26,17 @@ export const scoreboardApiSlice = apiSlice.injectEndpoints({
                         scoreboard: [],
                     };
                 }
-
+                
                 const responseObj = {
                     scoreboard: [],
                     currentRank: responseData.currentRank,
                 };
-
+                
                 responseObj.scoreboard = responseData.scoreboard.map(score => {
                     score.id = score._id;
                     return score;
                 });
-
+                
                 return responseObj;//scoreboardAdapter.setAll(initialState, responseObj);
             },
             // providesTags: (result, error, arg) => {
