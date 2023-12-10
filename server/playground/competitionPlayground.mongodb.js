@@ -17,22 +17,29 @@ try {
 
 // Problem Schema: id(given), name, description, judgeProgram, and test.
 // Function to insert a new problem into the "problems" collection
-let importData = async (data) => {
-    for (const entry of data) {
-      uniqueFields = ['_id'];
-      let unique = {};
-      uniqueFields.map(x => {
-          unique[x] = entry[x];
+let importData = async (data, uniqueFields = []) => {
+    for (const entry of data) { // Use "for...of" loop instead of forEach
+        let unique = [];
+        uniqueFields.map(x => {
+            unique.push({ [x]: entry[x] });
         });
 
-        console.log("Fields that need to be unique" + JSON.stringify(unique));
+        if (entry["_id"] || !uniqueFields.includes("_id")) {
+            unique.push({ "_id": entry["_id"] });
+            // unique._id = entry["_id"]; 
+        }
 
-        if (await db[collection].findOne({ _id: entry._id }) !== null) {
-            console.log("Duplicate competition id: " + entry._id);
+        console.log("Fields that need to be unique" + JSON.stringify(unique));
+        let duplicatedEntry = await db[collection].findOne({ $or: unique });
+
+        if (duplicatedEntry !== null) {
+            console.log("Duplicate competition id, will override: " + JSON.stringify(entry));
+            await db[collection].updateOne({ _id: entry._id }, { $set: entry }, { upsert: true });
         } else {
             await db[collection].insertOne(entry);
-            console.log("Imported competition: " + entry._id);
+            console.log("Imported competition: " + JSON.stringify(entry));
         }
+        console.log("\n");
     }
 };
 
@@ -42,20 +49,25 @@ const competitionData = [
     //Test 00
     //Testing duplicate problem id
     {
-      _id: 0,
-      name: "Event00",
-      date: new Date('2023-08-02T00:22:09.247Z'),
-      time: '10:09 PM',
-      duration: "4 hours",
+        _id: ObjectId("65717c949981f01378d7dd1b"),
+        name: "Test Competition Long Duration",
+        processTimeStart: new Date(Date.now()),
+        duration: "10000",
     },
-    {
-        _id: 0,
-        name: "Event00",
-        date: new Date('2023-11-02T00:22:09.247Z'),
-        time: '10:09 PM',
-        duration: "4 hours",
-    }
-  ];
-  
-  // Import problems data
-  importData(competitionData);
+
+    //Case 2: passed competition
+    // {
+    //     name: "Test Competition Had Passed",
+    //     processTimeStart: new Date("2014-03-01T08:00:00Z"),
+    //     duration: "1",
+    // },
+    //Case 2: Future competition
+    // {
+    //     name: "Test Competition Not started",
+    //     processTimeStart: new Date("2025-12-12T08:00:00Z"),
+    //     duration: "1",
+    // },
+];
+
+// Import problems data
+importData(competitionData, ['_id']);
