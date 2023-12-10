@@ -22,7 +22,7 @@ let importData = async (data, uniqueFields = []) => {
             unique.push({ [x]: entry[x] });
         });
 
-        if (entry["_id"] && !uniqueFields.includes("_id")) {
+        if (entry["_id"] || !uniqueFields.includes("_id")) {
             unique.push({ "_id": entry["_id"] });
             // unique._id = entry["_id"]; 
         }
