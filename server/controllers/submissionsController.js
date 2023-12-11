@@ -73,9 +73,9 @@ const createSubmission = asyncHandler(async (req, res) => {
     //  score: total obtained score calculated based on the time submitted and the contest start time
     //  status: status of the submittion
     let timeSubmitted = req.headers.timesubmitted;//Extract timeSubmitted from headers
-    if (!timeSubmitted){
+    if (!timeSubmitted) {
         timeSubmitted = req.headers.timeSubmitted;
-        if (!timeSubmitted){
+        if (!timeSubmitted) {
             timeSubmitted = Date.now();
         }
     }
@@ -96,13 +96,13 @@ const createSubmission = asyncHandler(async (req, res) => {
     let timeSubmittedInMili = new Date(timeSubmitted).getTime();
 
     if (timeSubmittedInMili < contestStartTime || timeSubmittedInMili > contestEndTime) {
-        return res.status(400).json({ message: 'Competition has ended or not yet started' });
+        return res.status(401).json({ message: 'Competition has ended or not yet started' });
     }
 
     // //Get problem
     const problemObj = await Problem.findById(problem);
     if (!problemObj || !problemObj.test) {
-        return res.status(400).json({ message: 'Cannot find problem with the correct ID' });
+        return res.status(402).json({ message: 'Cannot find problem with the correct ID' });
     }
 
     //Running the test cases
@@ -139,15 +139,15 @@ const createSubmission = asyncHandler(async (req, res) => {
                         status = result.status.description;
                     }
                 }
-                else{//Using judge program
-                   
+                else {//Using judge program
+
                     //  Submission has compile or runtime error
-                    if (result.status.id != 3 && result.status.id != 4){
+                    if (result.status.id != 3 && result.status.id != 4) {
                         status = result.status.description;
                     }
-                    else{
-                    //  Submisison is runnable
-                         //Run judgeProgram here
+                    else {
+                        //  Submisison is runnable
+                        //Run judgeProgram here
                     }
                 }
             }
@@ -220,7 +220,7 @@ const createSubmission = asyncHandler(async (req, res) => {
     if (submission) {
         res.status(201).json({ message: 'Submission created successfully', status, testResults });
     } else {
-        res.status(400).json({ message: 'Invalid submission data received' });
+        res.status(404).json({ message: 'Invalid submission data received' });
     }
 });
 
@@ -234,10 +234,10 @@ const getAllSubmissions = asyncHandler(async (req, res) => {
 
         // If no submissions
         if (!submissions?.length) {
-            return res.status(200).json({ message: 'No submissions found' });
+            return res.status(404).json({ message: 'No submissions found' });
         }
 
-        res.json(submissions);
+        res.status(200).json(submissions);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching submissions' });
     }
@@ -248,18 +248,22 @@ const getAllSubmissions = asyncHandler(async (req, res) => {
 // Required field in rest url:
 //      'username': username of the user requesting translation
 const getSubmissionByUsername = asyncHandler(async (req, res) => {
-    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
-    const user = req.params.username;
+    try {
+        res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
+        const user = req.params.username;
 
-    //Get all submission records from MongoDB
-    const submissionRecords = await Submission.find({ user }).select().lean()
+        //Get all submission records from MongoDB
+        const submissionRecords = await Submission.find({ user }).select().lean()
 
-    // If no records 
-    if (!submissionRecords?.length) {
-        return res.status(200).json({ message: `No submission records found matching with the username ${user}` })
+        // If no records 
+        if (!submissionRecords?.length) {
+            return res.status(404).json({ message: `No submission records found matching with the username ${user}` })
+        }
+
+        res.status(200).json(submissionRecords);
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching submission by username" })
     }
-
-    res.status(200).json(submissionRecords);
 
 })
 
@@ -267,18 +271,22 @@ const getSubmissionByUsername = asyncHandler(async (req, res) => {
 // Required field in url param:
 //      'id': id of the record
 const getSubmissionByID = asyncHandler(async (req, res) => {
-    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
-    const id = req.params.id;
+    try {
+        res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
+        const id = req.params.id;
 
-    //Get the translation record from MongoDB
-    const submissionRecords = await Submission.find({ "_id": id })
+        //Get the translation record from MongoDB
+        const submissionRecords = await Submission.find({ "_id": id })
 
-    // If no records 
-    if (!submissionRecords?.length) {
-        return res.status(200).json({ message: 'No submission record found matching the id' })
+        // If no records 
+        if (!submissionRecords?.length) {
+            return res.status(404).json({ message: 'No submission record found matching the id' })
+        }
+
+        res.status(200).json(submissionRecords);
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching submission by id" })
     }
-
-    res.status(200).json(submissionRecords);
 })
 
 // // @desc Update a specific submission by ID (only for admins)

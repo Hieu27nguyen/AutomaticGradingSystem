@@ -59,48 +59,52 @@ const getAllLanguages = asyncHandler(async (req, res) => {
 //Getting all the translation requested by ALL users
 // Required field in request body:
 const getAllTranslations = asyncHandler(async (req, res) => {
-    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
-    //Get all translation records from MongoDB
-    const translationRecords = await Translation.find().select().lean()
+    try {
+        res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
+        //Get all translation records from MongoDB
+        const translationRecords = await Translation.find().select().lean()
 
-    // If no records 
-    if (!translationRecords?.length) {
-        return res.status(400).json({ message: 'No translation records found' })
+        // If no records 
+        if (!translationRecords?.length) {
+            return res.status(404).json({ message: 'No translation records found' })
+        }
+
+        res.status(200).json(translationRecords)
+    } catch (error) {
+        res.status(500).json({ error: "Error fetching translation records" })
     }
 
-    res.json(translationRecords)
-    
 })
 
 //Getting all the translation requested by a user
 // Required field in rest url:
 //      'username': username of the user requesting translation
 const getTranslationsByUsername = asyncHandler(async (req, res) => {
-    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
+    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
     const username = req.params.username;
-    
+
     //Get all translation records from MongoDB
-    const translationRecords = await Translation.find({username}).select().lean()
-    
+    const translationRecords = await Translation.find({ username }).select().lean()
+
     // If no records 
     if (!translationRecords?.length) {
-        return res.status(200).json({ message: 'No translation records found' })
+        return res.status(404).json({ message: 'No translation records found for' })
     }
 
     res.status(200).json(translationRecords);
-    
+
 })
 
 //Getting a specific translation by id
 // Required field in url param:
 //      'id': id of the record
 const getTranslationsByID = asyncHandler(async (req, res) => {
-    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
+    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
     const id = req.params.id;
- 
+
     //Get the translation record from MongoDB
-    const translationRecords = await Translation.find({"_id": id})
-    
+    const translationRecords = await Translation.find({ "_id": id })
+
     // If no records 
     if (!translationRecords?.length) {
         return res.status(200).json({ message: 'No translation records found' })
@@ -116,7 +120,7 @@ const getTranslationsByID = asyncHandler(async (req, res) => {
 //      'source': Language ID to translate from, 
 //      'target': Language ID to translate to
 const createTranslation = asyncHandler(async (req, res) => {
-    res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
+    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
     let { username, text, source, target } = req.body;
 
     // Confirm data
@@ -141,17 +145,17 @@ const createTranslation = asyncHandler(async (req, res) => {
     });
 
     //Server cannot reach Google API
-    if (!translationResult){
+    if (!translationResult) {
         res.status(500).json({ message: 'Cannot connect to Google API to translate, please try again later.' });
     }
 
     //Created new translation record
-    const translationObject = { 
-        username, 
-        "languageFrom": source, 
-        "languageTo": target, 
-        "requestedText": text, 
-        "translatedText": translationResult.translatedText,  
+    const translationObject = {
+        username,
+        "languageFrom": source,
+        "languageTo": target,
+        "requestedText": text,
+        "translatedText": translationResult.translatedText,
     };
     //Add to the database
 
@@ -162,9 +166,9 @@ const createTranslation = asyncHandler(async (req, res) => {
         res.status(201).json({
             message: `New translation record for the user ${username} created`,
             translation: translationResult.translatedText,
-    })
+        })
     } else {
-        res.status(400).json({ message: 'Invalid data received' })
+        res.status(404).json({ message: 'Invalid data received' })
     }
 
     // 
