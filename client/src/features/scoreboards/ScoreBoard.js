@@ -66,10 +66,15 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
                     <table className='scoreboard-table'>
                         <thead key="thead">
                             <tr>
-                                <th>Rank</th>
-                                <th>Contestant</th>
-                                <th>Total Solved</th>
-                                <th>Total Score</th>
+                                {/* <th >Rank</th>
+                                <th >Contestant</th>
+                                <th >Total Solved</th>
+                                <th >Total Score</th> */}
+
+                                <th className="scoreboard-stat">Rank</th>
+                                <th className="scoreboard-stat">Contestant</th>
+                                <th className="scoreboard-stat">Total Solved</th>
+                                <th className="scoreboard-stat">Total Score</th>
 
                                 {Object.entries(problemsData.entities).map((problem, index) => (
                                     <th key={problem ? problem[1].name : "problemTitle_" + index} className="scoreboardProblemName">

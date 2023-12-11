@@ -6,7 +6,7 @@ import '../../style/ScoreBoard.css';
 
 const ScoreboardEntry = ({ entry }) => {
     const scoreboardEntry = entry;
-  
+
     if (!scoreboardEntry) {
         // Handle loading state or return a placeholder
         return <div className='scoreboard-entry placeholder'>Loading...</div>;
@@ -14,16 +14,16 @@ const ScoreboardEntry = ({ entry }) => {
     return (
 
         <tr>
-            <td>
+            <td className="scoreboard-stat">
                 {scoreboardEntry.rank}
-            </td>
-            <td>
+            </td >
+            <td className="scoreboard-stat">
                 {scoreboardEntry.username}
-            </td>
-            <td>
+            </td >
+            <td className="scoreboard-stat">
                 {scoreboardEntry.problemSolved}
-            </td>
-            <td>
+            </td >
+            <td className="scoreboard-stat">
                 {scoreboardEntry.totalScore}
             </td>
             {scoreboardEntry.problemStatistic.map((problem, index) => (
@@ -32,7 +32,7 @@ const ScoreboardEntry = ({ entry }) => {
                         (problem.attempts > 0) ? 'rejected-attempts-cell' : 'non-attempts-cell'
                 }>
 
-                    {problem.attempts}/{problem.score === 0 ? '--' : problem.score}
+                    {problem.attempts}/{problem.score === 0 && !problem.accepted? '--' : problem.score}
 
                 </td>
             ))}
