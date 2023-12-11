@@ -8,7 +8,7 @@ import '../../style/ScoreBoard.css';
 const ScoreboardEntry = ({ entry }) => {
     const scoreboardEntry = entry;
     const { username } = useAuth();
-    const currentRank = username  === scoreboardEntry.username ? 'current-rank' : '';
+    const currentRank = username  === scoreboardEntry.username ? 'current-rank-highlight' : '';
     if (!scoreboardEntry) {
         // Handle loading state or return a placeholder
         return <div className='scoreboard-entry placeholder'>Loading...</div>;

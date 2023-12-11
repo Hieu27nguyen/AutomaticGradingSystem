@@ -84,7 +84,7 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
                 <h2>Scoreboard</h2>
                 {/* Only display current role of a contestant */}
                 {(roles.includes('CONTESTANT') && currentRank !== -1) &&
-                    <p id="currentRank"> Your current rank is {currentRank} </p>
+                    <p id="currentRank" className='current-rank-message'> Your current rank is {currentRank} </p>
                 }
                 <div className='scoreboard-entry'>
                     <table className='scoreboard-table'>
