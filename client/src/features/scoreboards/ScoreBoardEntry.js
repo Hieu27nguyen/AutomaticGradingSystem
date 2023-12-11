@@ -4,18 +4,13 @@ import { selectScoreboardById } from './scoreboardsApiSlice';
 import { useGetProblemsQuery } from '../problems/problemsApiSlice';
 import '../../style/ScoreBoard.css';
 
-const ScoreboardEntry = ({ entry, problems }) => {
+const ScoreboardEntry = ({ entry }) => {
     const scoreboardEntry = entry;
-    let problemStatistic = new Map();
-    scoreboardEntry.problemStatistic.forEach((problem, index) => {
-        problemStatistic.set(problem.problemID, problem)
-    });
   
     if (!scoreboardEntry) {
         // Handle loading state or return a placeholder
         return <div className='scoreboard-entry placeholder'>Loading...</div>;
     }
-
     return (
 
         <tr>
@@ -31,26 +26,16 @@ const ScoreboardEntry = ({ entry, problems }) => {
             <td>
                 {scoreboardEntry.totalScore}
             </td>
+            {scoreboardEntry.problemStatistic.map((problem, index) => (
+                <td key={index} className={
+                    problem.accepted ? 'accepted-attempts-cell' :
+                        (problem.attempts > 0) ? 'rejected-attempts-cell' : 'non-attempts-cell'
+                }>
 
-            {Object.entries(problems.entities).map((problem, index) => {
-                const problemSubmissionStat = problemStatistic.get("" + problem[0].toString());
+                    {problem.attempts}/{problem.score === 0 ? '--' : problem.score}
 
-                //If the submission record exists then display it
-                if (problemSubmissionStat) {
-                    return <td key={index} className={problemSubmissionStat.accepted ? 'accepted-attempts-cell' : (problemSubmissionStat.attempts > 0) ? 'rejected-attempts-cell' : 'non-attempts-cell'}>
-                        {problemSubmissionStat.attempts}/{problemSubmissionStat.score === 0 ? '--' : problemSubmissionStat.score}
-                    </td>
-                }
-                else {
-                    return <td key={index} className='non-attempts-cell'>
-                        0/--
-                    </td>
-                }           
-            })}
-
-
-
-
+                </td>
+            ))}
         </tr>
 
     );
