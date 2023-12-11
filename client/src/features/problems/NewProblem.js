@@ -173,13 +173,13 @@ const NewProblem = () => {
                         required
                     ></textarea>
 
-                    <div className="form-check form-switch">
+                    {/* <div className="form-check form-switch">
                         <input className="form-check-input" type="checkbox" role="switch" onChange={handleSwitchChange} id="flexSwitchCheckDefault" />
                         <label className="form-check-label" htmlFor="flexSwitchCheckDefault" style={{ display: 'inline' }}>  Judge Program</label>
 
                         <input className="judgeProgram" type="text" placeholder="Judge Program Details" value={judgeProgram} onChange={(e) => setJudgeProgram(e.target.value)} disabled={!isSwitchChecked} />
 
-                    </div>
+                    </div> */}
 
                     <div className="input-cases">
                         <label htmlFor="problemTest">Input Test Cases:</label>
