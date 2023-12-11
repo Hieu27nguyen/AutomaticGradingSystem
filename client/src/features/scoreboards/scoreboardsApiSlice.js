@@ -39,7 +39,7 @@ export const scoreboardApiSlice = apiSlice.injectEndpoints({
                 
                 return responseObj;//scoreboardAdapter.setAll(initialState, responseObj);
             },
-            // providesTags: (result, error, arg) => {
+            providesTags: ['Scoreboard']
             //     console.log(result);
             //     if (result?.ids) {
             //         return [

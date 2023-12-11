@@ -1,18 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import ScoreboardEntry from './ScoreBoardEntry';
-import { useGetScoreboardQuery } from './scoreboardsApiSlice';
+import { scoreboardApiSlice, useGetScoreboardQuery } from './scoreboardsApiSlice';
 import { useGetProblemsQuery } from '../problems/problemsApiSlice';
 import useAuth from '../../hooks/useAuth';
-import { current } from '@reduxjs/toolkit';
+import { store } from '../../app/store'
 
 const ScoreBoard = ({ handleScoreboardItemClick }) => {
     const { username, roles } = useAuth();
-    const { data: scoreboardData, isSuccess, error, isLoading } = useGetScoreboardQuery(username);
-    useEffect(() => {
-    }, [scoreboardData]);
+
+    let { data: scoreboardData, isSuccess, error, isLoading } = useGetScoreboardQuery(username);
+
     const [problemsData, setProblemsData] = useState({ ids: [], entities: {} });
     const { data: initialProblemsData } = useGetProblemsQuery();
 
+    //Refetch score board every time users 
+    useEffect(() => {
+        const scoreboards = store.dispatch(scoreboardApiSlice.endpoints.getScoreboard.initiate(
+            username,
+            { subscribe: false, forceRefetch: true }
+        ))
+
+    }, [])
+
+    //Fetch problems
     useEffect(() => {
         if (initialProblemsData) {
             setProblemsData(initialProblemsData);
@@ -35,11 +45,13 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
     let content;
     if (isSuccess) {
         const { currentRank, scoreboard } = scoreboardData;
+
         const entries = scoreboard.map(entry => (
             <ScoreboardEntry
                 key={entry._id}
                 // value={console.log(entry._id)}
                 entry={entry}
+                problems={problemsData}
             />
         ));
 
@@ -47,7 +59,7 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
             <div className="scoreboard">
                 <h2>Scoreboard</h2>
                 {/* Only display current role of a contestant */}
-                {(roles.includes('CONTESTANT') && currentRank != -1) &&
+                {(roles.includes('CONTESTANT') && currentRank !== -1) &&
                     <p id="currentRank"> Your current rank is {currentRank} </p>
                 }
                 <div className='scoreboard-entry'>
@@ -58,8 +70,9 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
                                 <th>Contestant</th>
                                 <th>Total Solved</th>
                                 <th>Total Score</th>
+
                                 {Object.entries(problemsData.entities).map((problem, index) => (
-                                    <th key={problem?problem[1].name: "problemTitle_" + index } className="scoreboardProblemName">
+                                    <th key={problem ? problem[1].name : "problemTitle_" + index} className="scoreboardProblemName">
                                         {problem[1].name}
                                     </th>
                                 ))}
