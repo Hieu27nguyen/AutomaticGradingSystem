@@ -23,17 +23,21 @@ const checkUserRole = asyncHandler(async (req) => {
 // Required field in rest url:
 //      
 const getAllAnnouncements = asyncHandler(async (req, res) => {
-    // Get all announcements from MongoDB
-    const announcements = await Announcement.find()
-    res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
+    try {
+        // Get all announcements from MongoDB
+        const announcements = await Announcement.find();
+        
+        // If no announcements 
+        if (!announcements.length) {
+            return res.status(404).json({ message: 'No announcements found' });
+        }
 
-    // If no announcements 
-    if (!announcements?.length) {
-
-        return res.status(200).json({ message: 'No announcements found' })
+        res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN']);
+        res.status(200).json(announcements);
+    } catch (error) {
+        console.error('Error in getAllAnnouncements:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
-
-    res.json(announcements)
 })
 
 // Getting specific announcements by username
@@ -43,15 +47,19 @@ const getAllAnnouncements = asyncHandler(async (req, res) => {
 const getAnnouncementsByUsername = asyncHandler(async (req, res) => {
     res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     const username = req.params.username;
-    //Get all translation records from MongoDB
-    const announcementRecords = await Announcement.find({ username }).select().lean()
+    try {
+        // Get all announcement records from MongoDB
+        const announcementRecords = await Announcement.find({ username }).select().lean()
 
-    // If no records 
-    if (!announcementRecords?.length) {
-        return res.status(200).json({ message: 'No announcement records found' })
+        // If no records
+        if (!announcementRecords?.length) {
+            return res.status(404).json({ message: 'No announcement records found for the specified username' })
+        }
+
+        res.status(200).json(announcementRecords);
+    } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' });
     }
-
-    res.status(200).json(announcementRecords);
 
 })
 
@@ -62,16 +70,19 @@ const getAnnouncementsByUsername = asyncHandler(async (req, res) => {
 const getAnnouncementsByID = asyncHandler(async (req, res) => {
     res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
     const id = req.params.id;
-
+try {
     //Get announcement record from MongoDB
     const announcementRecords = await Announcement.find({ "_id": id })
 
-    // If no records 
-    if (!announcementRecords?.length) {
-        return res.status(200).json({ message: `No announcement with the ${id} found` })
+       // If no records 
+       if (!announcementRecords?.length) {
+        return res.status(404).json({ message: `No announcement with the ${id} found` })
     }
-
     res.status(200).json(announcementRecords);
+}
+catch (error) {
+    res.status(500).json({ message: 'Internal Server Error' });
+}
 })
 
 // Create a new announcement
@@ -87,8 +98,6 @@ const createNewAnnouncement = asyncHandler(async (req, res) => {
     if (userRole !== 'Authorized') {
         return res.status(403).json({ error: 'You are not authorized to create a new announcement' });
     }
-
-
     const { username, title, announceInformation } = req.body
 
     // Confirm data
@@ -104,45 +113,15 @@ const createNewAnnouncement = asyncHandler(async (req, res) => {
     if (announcement) { //created 
         res.status(201).json({ message: `New announcement from the user ${username} created` })
     } else {
-        res.status(400).json({ message: 'Invalid data received' })
+        res.status(500).json({ message: 'Internal Server Error' })
     }
 })
 
-// Delete an announcement by ID
-// Full URI: http://localhost:port/announcement/:id
-// Required field in url param:
-//      'id': id of the record
-const deleteAnnouncement = asyncHandler(async (req, res) => {
-    const id = req.params.id;
-    const userRole = await checkUserRole(req);
-    if (userRole !== 'Authorized') {
-        return res.status(403).json({ error: 'You are not authorized to delete announcement' });
-    }
 
-    // Confirm data
-    if (!id) {
-        return res.status(400).json({ message: 'Announcement ID Required' })
-    }
-
-    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
-    // Does the user exist to delete?
-    const announcement = await Announcement.findById(id).exec()
-
-    if (!announcement) {
-        return res.status(400).json({ message: 'Announcement not found' })
-    }
-
-    const result = await announcement.deleteOne()
-
-    const reply = `Announcement with ID ${result._id} has been deleted`
-
-    res.json(reply)
-})
 
 module.exports = {
     getAllAnnouncements,
     getAnnouncementsByUsername,
     getAnnouncementsByID,
     createNewAnnouncement,
-    deleteAnnouncement
 }

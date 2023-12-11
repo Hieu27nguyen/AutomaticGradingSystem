@@ -1,20 +1,24 @@
 const Problem = require('../models/Problem');
 const asyncHandler = require('express-async-handler')
-// const multer = require('multer');
-// const upload = multer(); // Set up multer for file uploads
+
 
 
 const getAllProblems = asyncHandler(async (req, res) => {
     res.setHeader('allowedRoles', ['CONTESTANT','JUDGE', 'ADMIN'])
-    // Get all users from MongoDB
+    try {
+         // Get all users from MongoDB
     const problems = await Problem.find().lean()
-
-    // If no users 
-    if (!problems?.length) {
-        return res.status(400).json({ message: 'No problems found' })
+     // If no users 
+     if (!problems?.length) {
+        return res.status(404).json({ message: 'No problems found' })
     }
 
-    res.json(problems)
+    res.status(200).json(problems)
+    }
+    catch (error) {
+    console.error('Error in getAllProblems:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+    }   
 })
 
 // Function to check the user's role
@@ -80,8 +84,6 @@ const createProblem = asyncHandler(async (req, res) => {
             testCases = Array.isArray(test) ? test : [];
 
         }
-
-
         const newProblem = new Problem({
             name,
             description,
@@ -90,9 +92,8 @@ const createProblem = asyncHandler(async (req, res) => {
         if (judgeProgram) {
             newProblem.judgeProgram = judgeProgram;
         }
-
         const savedProblem = await newProblem.save();
-        res.status(201).json(savedProblem);
+        res.status(201).json({message:'New problem created successfully'});
     } catch (error) {
         res.status(500).json({ error: 'Error creating problem' });
     }
@@ -155,7 +156,7 @@ const updateProblem = asyncHandler(async (req, res) => {
         if (!updatedProblem) {
             return res.status(404).json({ message: 'Problem not found' });
         }
-        res.json(updatedProblem);
+        res.status(200).json({message:"Problem updated successfully."});
     } catch (error) {
         res.status(500).json({ error: 'Error updating problem' });
     }
@@ -179,7 +180,7 @@ const deleteProblem = asyncHandler(async (req, res) => {
         if (!deletedProblem) {
             return res.status(404).json({ message: 'Problem not found' });
         }
-        res.json({ message: 'Problem deleted successfully' });
+        res.status(200).json({ message: 'Problem deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error deleting problem' });
     }

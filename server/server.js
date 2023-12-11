@@ -24,6 +24,7 @@ app.use(cors(corsOptions))
 app.use(express.json())
 
 app.use(cookieParser())
+
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(jsdocConfig));
 
 app.use('/', express.static(path.join(__dirname, 'public')))
@@ -55,8 +56,11 @@ app.use(errorHandler)
 
 mongoose.connection.once('open', () => {
     console.log('Connected to MongoDB');
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}\nSwagger UI is running on http://localhost:3500/api-docs'`));
+   
 })
+
+  
 
 mongoose.connection.on('error', err => {
     console.log(err)

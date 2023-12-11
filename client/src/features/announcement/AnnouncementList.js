@@ -16,7 +16,7 @@ const AnnouncementList = () => {
         isError,
         error
     } = useGetAnnouncementsQuery();
-
+   
     const { status } = useAuth();
 
 
@@ -39,7 +39,7 @@ const AnnouncementList = () => {
                     <button className={`add_button ${status === 'CONTESTANT' ? 'hidden' : ''}`} onClick={() => navigate("/home/announcements/new")}><i className="bi-person-plus-fill"></i>Make Announcement</button>
                 </div>
                 <div className="body">
-                    <p className="no-contestant">No announcements found!</p>
+                    <p className="no-contestant">{error.data.message}</p>
                 </div>   
             </div>
         )

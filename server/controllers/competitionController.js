@@ -47,7 +47,10 @@ const getAllCompetitions = asyncHandler(async (req, res) => {
     res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     try {
         const competitions = await Competition.find().lean();
-        res.json(competitions);
+        if (!competitions?.length) {
+            res.status(404).json({message:"No competition hosted yet"})
+        }
+        res.status(200).json(competitions);
     } catch (error) {
         res.status(500).json({ error: 'Error fetching competitions' });
     }
@@ -76,7 +79,7 @@ const updateCompetition = asyncHandler(async (req, res) => {
         firstCompetition.processTimeStart = processTimeStart;
         firstCompetition.duration = duration;
         const updatedCompetition = await firstCompetition.save();
-        res.json(updatedCompetition);
+        res.status(201).json({message:"Competition Updated Successfully"});
     } catch (error) {
         res.status(500).json({ error: 'Error updating competition' });
     }
@@ -98,7 +101,7 @@ const deleteCompetition = asyncHandler(async (req, res) => {
         if (!deletedCompetition) {
             return res.status(404).json({ message: 'Competition not found' });
         }
-        res.json({ message: 'Competition deleted successfully' });
+        res.status(201).json({ message: 'Competition deleted successfully' });
     } catch (error) {
         res.status(500).json({ error: 'Error deleting competition' });
     }
