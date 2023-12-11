@@ -2,18 +2,20 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { selectScoreboardById } from './scoreboardsApiSlice';
 import { useGetProblemsQuery } from '../problems/problemsApiSlice';
+import useAuth from '../../hooks/useAuth';
 import '../../style/ScoreBoard.css';
 
 const ScoreboardEntry = ({ entry }) => {
     const scoreboardEntry = entry;
-
+    const { username } = useAuth();
+    const currentRank = username  === scoreboardEntry.username ? 'current-rank' : '';
     if (!scoreboardEntry) {
         // Handle loading state or return a placeholder
         return <div className='scoreboard-entry placeholder'>Loading...</div>;
     }
     return (
 
-        <tr>
+        <tr className={currentRank}>
             <td className="scoreboard-stat">
                 {scoreboardEntry.rank}
             </td >

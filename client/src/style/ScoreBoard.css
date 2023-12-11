@@ -59,3 +59,42 @@
   .scoreboardProblemName {
       width: 300px;
   }
+  .current-rank {
+    border: 2px solid black;
+  }
+
+.competition-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contest-name {
+    flex: 200%;
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.left {
+    text-align: left;
+}
+
+.time.right, .time.left {
+    font-size: 15px;
+}
+
+.right .label, .left .label {
+    font-size: 17px;
+    color: red;
+    font-weight: bold;
+}
+
+.competition-progress {
+    margin-bottom: 10px;
+    color: white;
+    text-align: center;
+    background-color: green;
+    border-radius: 10px;
+}

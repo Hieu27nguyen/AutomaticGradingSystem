@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import ScoreboardEntry from './ScoreBoardEntry';
 import { scoreboardApiSlice, useGetScoreboardQuery } from './scoreboardsApiSlice';
 import { useGetProblemsQuery } from '../problems/problemsApiSlice';
+import { useGetCompetitionsQuery } from '../competitions/competitionApiSlice';
 import useAuth from '../../hooks/useAuth';
 import { store } from '../../app/store'
 
 const ScoreBoard = ({ handleScoreboardItemClick }) => {
     const { username, roles } = useAuth();
-
+    const { data: competitionData } = useGetCompetitionsQuery();
     let { data: scoreboardData, isSuccess, error, isLoading } = useGetScoreboardQuery(username);
-
     const [problemsData, setProblemsData] = useState({ ids: [], entities: {} });
     const { data: initialProblemsData } = useGetProblemsQuery();
 
@@ -29,7 +29,7 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
         }
     }, [initialProblemsData]);
 
-    if (!problemsData) {
+    if (!problemsData || !competitionData) {
         // Handle loading state or return a placeholder
         return <div className='scoreboard-entry placeholder'>Loading...</div>;
     }
@@ -42,6 +42,14 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
     if (error) {
         return <div>Error loading scoreboard data. Please try again.</div>;
     }
+
+    // Current competition time
+    const startTime = new Date(competitionData[0].processTimeStart);
+    const endTime = new Date(
+        (startTime.getTime() + competitionData[0].duration * 3600000)
+    );
+    const isCompetitionInProgress = new Date(Date.now()) < endTime.getTime();
+
     let content;
     if (isSuccess) {
         const { currentRank, scoreboard } = scoreboardData;
@@ -57,6 +65,22 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
 
         content = (
             <div className="scoreboard">
+                <div>
+                    <h2 className="competition-header">
+                        <span className="time left">
+                            <span className="label">Start: </span>
+                            {startTime.toString()}
+                        </span>
+                        <span className="contest-name">{competitionData[0].name}</span>
+                        <span className="time right">
+                            <span className="label">End: </span>
+                            {endTime.toString()}
+                        </span>
+                    </h2>
+                </div>
+                <div className='competition-progress'>
+                    <span>{isCompetitionInProgress ? `Contest is in duration` : 'Contest is over'}</span>
+                </div>
                 <h2>Scoreboard</h2>
                 {/* Only display current role of a contestant */}
                 {(roles.includes('CONTESTANT') && currentRank !== -1) &&
