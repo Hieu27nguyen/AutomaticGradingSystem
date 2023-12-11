@@ -10,6 +10,11 @@ const path = require('path')
  *     ##### Run the User Mongo playground then execute this API before trying others with the pre-defined username and password. 
  *     ##### After successfully login, copy the access token and paste it in Authorize button before using other APIs. 
  * 
+ *  - name: Translations
+ *    description: |
+ *     ##### Request translation for a particular word or phrase
+ *     ##### Service provided by Google Cloud Translation API.
+ * 
  *  - name: Announcements
  *    description: |
  *     ##### Allow Judges to communicate with all contestants during a contest.
@@ -35,12 +40,9 @@ const path = require('path')
  *  - name: Submissions
  *    description: |
  *     ##### Help judges view all submissions
+ *     ##### Please setup Judge0 before running submission.
  *     ##### Contestant can create and view their own submissions
  * 
- *  - name: Translations
- *    description: |
- *     ##### Request translation for a particular word or phrase
- *     ##### Service provided by Google Cloud Translation API.
  */
 router.get('^/$|/index(.html)?', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'views', 'index.html'))
