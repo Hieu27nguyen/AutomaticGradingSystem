@@ -31,7 +31,7 @@ let importData = async (data, uniqueFields = []) => {
         let duplicatedEntry = await db[collection].findOne({ $or: unique });
 
         if (duplicatedEntry !== null) {
-            console.log("Duplicate scoreboard id: " + JSON.stringify(entry));
+            console.log("Duplicate translation id: " + JSON.stringify(entry));
             await db[collection].updateOne({ _id: entry._id }, { $set: entry }, { upsert: true });
         } else {
             await db[collection].insertOne(entry);
@@ -244,106 +244,6 @@ const scoreboardData = [
             },
         ],
     },
-    {
-        _id: ObjectId("6577ba63626145744540689c"),
-        username: "kokinh11",
-        problemSolved: 1,
-        totalScore: 668.15,
-        problemStatistic: [
-            {
-                problemId: "657547a23bb74cd60d3f4322",//Add the D
-                attempts: 0,
-                penalty: 0,
-                score: 0,
-                accepted: false
-            },
-            {
-                problemId: "657547a23bb74cd60d3f4323",//Say No
-                attempts: 0,
-                penalty: 0,
-                score: 668.15,
-                accepted: true
-            },
-            {
-                problemId: "657547a23bb74cd60d3f4324",//Add 2 to input
-                attempts: 0,
-                penalty: 0,
-                score: 0,
-                accepted: false
-            },
-            {
-                problemId: "6575188b7413221ca2d5998f",//Test Problem 1
-                attempts: 0,
-                penalty: 0,
-                score: 0,
-                accepted: false
-            },
-            {
-                problemId: "657518af48fcae1e2ec7733c",//Test Problem 2
-                attempts: 1,
-                penalty: 0,
-                score: 300,
-                accepted: true
-            },
-            {
-                problemId: "657576dc8b34e161d229059a",// Test Problem 3
-                attempts: 12,
-                penalty: 240,
-                score: 0,
-                accepted: false
-            },
-        ],
-    },
-    {
-        _id: ObjectId("65778f284ab6ef4abd3506df"),
-        username: "kokinh12",
-        problemSolved: 1,
-        totalScore: 668.15,
-        problemStatistic: [
-            {
-                problemId: "657547a23bb74cd60d3f4322",//Add the D
-                attempts: 0,
-                penalty: 0,
-                score: 0,
-                accepted: false
-            },
-            {
-                problemId: "657547a23bb74cd60d3f4323",//Say No
-                attempts: 1,
-                penalty: 20,
-                score: 0,
-                accepted: false
-            },
-            {
-                problemId: "657547a23bb74cd60d3f4324",//Add 2 to input
-                attempts: 0,
-                penalty: 0,
-                score: 0,
-                accepted: false
-            },
-            {
-                problemId: "6575188b7413221ca2d5998f",//Test Problem 1
-                attempts: 0,
-                penalty: 0,
-                score: 0,
-                accepted: false
-            },
-            {
-                problemId: "657518af48fcae1e2ec7733c",//Test Problem 2
-                attempts: 1,
-                penalty: 0,
-                score: 300,
-                accepted: true
-            },
-            {
-                problemId: "657576dc8b34e161d229059a",// Test Problem 3
-                attempts: 12,
-                penalty: 240,
-                score: 0,
-                accepted: false
-            },
-        ],
-    }
 ];
 
 // Import translation data

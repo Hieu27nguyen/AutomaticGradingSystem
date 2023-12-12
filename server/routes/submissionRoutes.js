@@ -8,51 +8,45 @@ const submissionControllers = require('../controllers/submissionsController')
  *   get:
  *     summary: Get all submission records
  *     tags: [Submissions]
- *     description: |- 
- *             **Description:**
- * 
- *                 Get all submission records from the database.
+ *     description: Get all submission records from the database.
  *     parameters:
  *     responses:
  *       200:
- *         description: |
- *              **Successful response**
+ *         description: Successful response
  *         content:
  *           application/json:
  *             example:
- *             - _id: '6577baad6261457445406941'
+ *             - _id: '65771f0e8d4f7ba9176d9c68'
  *               user: 'kokinh11'
- *               problem: '657547a23bb74cd60d3f4323'
+ *               problem: '656584ad6ef030f2596f3aa6'
  *               code: 'try:\n\tname = input()\n\tprint(\"hello world \" + name)\nexcept EOFError as e:\n\tprint(\"hello world\")'
  *               status: 'Accepted'
  *               language_id: 71
- *               score: 668.15
- *               timeSubmitted: '2023-12-12T01:43:09.000+00:00' 
+ *               score: 4.15
+ *               timeSubmitted: '2023-12-11T14:39:09.000Z' 
  *               testResults: [
  *                      {   
- *                       stdout: 'No\n',
- *                       time: 0.014,
- *                       stderr: null,
- *                       _id: '6577baad6261457445406942'
+ *                       stdout: 'hello world\n',
+ *                       time: 0.018,
+ *                       stderr: 'null',
+ *                       _id: '65771f0e8d4f7ba9176d9c69'
  *                      },
  *                      {
- *                       stdout: 'Yes\n',
- *                       time: 0.014,
- *                       stderr: null,
- *                       _id: '6577baad6261457445406943'
+ *                       stdout: 'hello world tas\n',
+ *                       time: 0.02,
+ *                       stderr: 'null',
+ *                       _id: '65771f0e8d4f7ba9176d9c6a'
  *                      }
  *               ]
  *               __v: 0
  *       404:
- *         description: |
- *              **No submssion records found**
+ *         description: No submssion records found
  *         content:
  *           application/json:
  *             example:
  *               message: 'No submissions found'
  *       500:
- *         description: |
- *              **Internal Server Error**
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             example:
@@ -68,64 +62,38 @@ router.route('/').get(submissionControllers.getAllSubmissions)
  *     summary: Create a New Submission
  *     tags: [Submissions]
  *     description: |- 
- *          **Description:**
- * 
- *              Add a new submission to the database.
- * 
- *           **Reminder:**
- * 
- *              Must host judgeO in order for a successful request 
- *              Make sure to format the code source correctly, like how you use in thunderclient
+ *         Add a new submission to the database.
+ *         
+ *         _Notes: Must host judgeO in order for a successful request_  
  *     parameters:
- *       - name: timesubmitted
+ *       - name: Time Submit
  *         in: header
  *         type: string
  *         required: true
  *         description: |-
  *              Submit time, use competition date timezone when submit.
  * 
- *              _Example: 2023-12-12T01:43:09.000Z_
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               user:
- *                 type: string
- *                 required: true
- *                 description: Username of the user requesting submission 
- *                 default: kokinh11
- *               problem:
- *                 type: string
- *                 description: Problem id
- *                 required: true
- *                 default: 657547a23bb74cd60d3f4323
- *               language_id:
- *                 type: number
- *                 description: Programming anguage ID 
- *                 required: true
- *                 default: 71
- *               code:
- *                 type: string
- *                 description: Code source for submission
- *                 required: true
- *                 default: | 
- *                          try:
- * 
- *                              name = input()
- *                              if name.lower() == "yes":
- *                                  print("Yes")
- *                              else:
- *                              print("No")
- *                          except EOFError as e:
- *                              print("hello world")
- *
+ *              _Example: 2023-12-11T14:35:00.000Z_
+ *       - in: body
+ *         user: Username/Contestant name
+ *         problem: Problem id
+ *         language_id: Programming language type
+ *         code: Code submission content
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             user:
+ *               type: string
+ *             problem:
+ *               type: string
+ *             language_id:
+ *               type: integer
+ *             code:
+ *               type: string
  *     responses:
  *       201:
- *         description: |
- *              **Successful Request**
+ *         description: Successful Request
  *         content:
  *           application/json:
  *             example:
@@ -133,40 +101,36 @@ router.route('/').get(submissionControllers.getAllSubmissions)
  *               status: 'Accepted'
  *               testResults: [
  *                     {
- *                      stdout: 'No\n',
+ *                      stdout: 'hello world\n',
  *                      time: '0.013',
- *                      stderr: null
+ *                      stderr: 'null'
  *                     },
  *                     {
- *                      stdout: 'Yes\n',
+ *                      stdout: 'hello world tas\n',
  *                      time: '0.013',
- *                      stderr: null
+ *                      stderr: 'null'
  *                     } 
  *               ] 
  *       401:
- *         description: |
- *                  **Invalid time submission**
+ *         description: Invalid time submission
  *         content:
  *           application/json:
  *             example:
  *               error: 'Competition has ended or not yet started'
  *       402:
- *         description: |
- *                  **Invalid problem id**
+ *         description: Invalid problem id
  *         content:
  *           application/json:
  *             example:
  *               error: 'Cannot find problem with the correct ID'
  *       404:
- *         description: |
- *                  **Invalid submission**
+ *         description: Invalid submission
  *         content:
  *           application/json:
  *             example:
  *               error: 'Invalid submission data received'  
  *       500:
- *         description: |
- *                  **Internal Server Error**
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             example:
@@ -181,17 +145,12 @@ router.route('/').post(submissionControllers.createSubmission)
  *     summary: Get all supported programming languages
  *     tags: [Submissions]
  *     description: |- 
- *          **Description:**
+ *        Retrieve all supported progamming languages.
  * 
- *              Retrieve all supported progamming languages.
- * 
- *          **Reminder:**
- * 
- *              Must host judgeO in order for a successful request 
+ *        _Notes: Must host judgeO in order for a successful request_    
  *     responses:
  *       200:
- *         description: |
- *                  **Successful response**
+ *         description: Successful response
  *         content:
  *           application/json:
  *             example:
@@ -386,8 +345,7 @@ router.route('/').post(submissionControllers.createSubmission)
  *                }
  *               ]
  *       500:
- *         description: |
- *                  **Internal Server Error**
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             example:
@@ -398,62 +356,49 @@ router.route('/languages').get(submissionControllers.getSupportedLanguage);
 
 /**
  * @swagger
- * /submissions/username/{username}:
+ * /submisions/username/{username}:
  *   get:
  *     summary: Get submission records by specificed username
  *     tags: [Submissions]
- *     description: |-
- *          **Description:**
- * 
- *              Get submission records by specificed username.     
- * 
+ *     description: Get submission records by specificed username.
  *     parameters:
- *       - in: path
- *         name: username
- *         default: kokinh11
- *         description: username of the submission record to retrieve
- *         required: true
- *         type: string 
  *     responses:
  *       200:
- *         description: |
- *                  **Successful response**
+ *         description: Successful response
  *         content:
  *           application/json:
  *             example:
- *             - _id: '6577baad6261457445406941'
+ *             - _id: '65771f0e8d4f7ba9176d9c68'
  *               user: 'kokinh11'
- *               problem: '657547a23bb74cd60d3f4323'
+ *               problem: '656584ad6ef030f2596f3aa6'
  *               code: 'try:\n\tname = input()\n\tprint(\"hello world \" + name)\nexcept EOFError as e:\n\tprint(\"hello world\")'
  *               status: 'Accepted'
  *               language_id: 71
- *               score: 668.15
- *               timeSubmitted: '2023-12-12T01:43:09.000+00:00' 
+ *               score: 4.15
+ *               timeSubmitted: '2023-12-11T14:39:09.000Z' 
  *               testResults: [
  *                      {   
- *                       stdout: 'No\n',
- *                       time: 0.014,
- *                       stderr: null,
- *                       _id: '6577baad6261457445406942'
+ *                       stdout: 'hello world\n',
+ *                       time: 0.018,
+ *                       stderr: 'null',
+ *                       _id: '65771f0e8d4f7ba9176d9c69'
  *                      },
  *                      {
- *                       stdout: 'Yes\n',
- *                       time: 0.014,
- *                       stderr: null,
- *                       _id: '6577baad6261457445406943'
+ *                       stdout: 'hello world tas\n',
+ *                       time: 0.02,
+ *                       stderr: 'null',
+ *                       _id: '65771f0e8d4f7ba9176d9c6a'
  *                      }
  *               ]
  *               __v: 0
  *       404:
- *         description: |
- *                  **No submssion records found by username**
+ *         description: No submssion records found by username
  *         content:
  *           application/json:
  *             example:
  *               message: 'No submission records found matching with the username {username}'
  *       500:
- *         description: |
- *                  **Internal Server Error**
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             example:
@@ -466,61 +411,49 @@ router.route('/username/:username').get(submissionControllers.getSubmissionByUse
 
 /**
  * @swagger
- * /submissions/id/{id}:
+ * /submisions/id/{id}:
  *   get:
  *     summary: Get submission records by specificed submission id
  *     tags: [Submissions]
- *     description: |-
- *          **Description:**
- * 
- *              Get submission records by specificed submission id.
+ *     description: Get submission records by specificed submission id.
  *     parameters:
- *       - in: path
- *         name: id
- *         description: id of the translation record to retrieve
- *         required: true
- *         type: string
- *         default: 6577baad6261457445406941
  *     responses:
  *       200:
- *         description: |
- *                  **Successful response**
+ *         description: Successful response
  *         content:
  *           application/json:
  *             example:
- *             - _id: '6577baad6261457445406941'
+ *             - _id: '65771f0e8d4f7ba9176d9c68'
  *               user: 'kokinh11'
- *               problem: '657547a23bb74cd60d3f4323'
- *               code: 'try:\n    name = input()\n    if name.lower() == \"yes\":\n        print(\"Yes\")\n    else:\n        print(\"No\")\nexcept EOFError as e:\n    print(\"hello world\")'
+ *               problem: '656584ad6ef030f2596f3aa6'
+ *               code: 'try:\n\tname = input()\n\tprint(\"hello world \" + name)\nexcept EOFError as e:\n\tprint(\"hello world\")'
  *               status: 'Accepted'
  *               language_id: 71
- *               score: 668.15
- *               timeSubmitted: '2023-12-12T01:43:09.000+00:00' 
+ *               score: 4.15
+ *               timeSubmitted: '2023-12-11T14:39:09.000Z' 
  *               testResults: [
  *                      {   
- *                       stdout: 'No\n',
- *                       time: 0.014,
- *                       stderr: null,
- *                       _id: '6577baad6261457445406942'
+ *                       stdout: 'hello world\n',
+ *                       time: 0.018,
+ *                       stderr: 'null',
+ *                       _id: '65771f0e8d4f7ba9176d9c69'
  *                      },
  *                      {
- *                       stdout: 'Yes\n',
- *                       time: 0.014,
- *                       stderr: null,
- *                       _id: '6577baad6261457445406943'
+ *                       stdout: 'hello world tas\n',
+ *                       time: 0.02,
+ *                       stderr: 'null',
+ *                       _id: '65771f0e8d4f7ba9176d9c6a'
  *                      }
  *               ]
  *               __v: 0
  *       404:
- *         description: |
- *                  **No submssion records found by username**
+ *         description: No submssion records found by username
  *         content:
  *           application/json:
  *             example:
- *               message: 'No submission record found matching the id'
+ *               message: 'No submission records found matching with the username {username}'
  *       500:
- *         description: |
- *                  **Internal Server Error**
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             example:

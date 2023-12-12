@@ -8,14 +8,10 @@ const scoreboardController = require('../controllers/scoreboardController')
  *   get:
  *     summary: Get all scoreboard data
  *     tags: [Scoreboard]
- *     description: |-
- *          **Description:**
- * 
- *              Retrieve all scoreboard data from database
+ *     description: Retrieve all scoreboard data from database
  *     responses:
  *       200:
- *         description: |
- *              **Successful response**
+ *         description: Successful response
  *         content:
  *           application/json:
  *             example:
@@ -73,8 +69,7 @@ const scoreboardController = require('../controllers/scoreboardController')
  *                      }
  *               ]
  *       500:
- *         description: |
- *               **Internal Server Error**
+ *         description: Internal Server Error
  *         content:
  *           application/json:
  *             example:
