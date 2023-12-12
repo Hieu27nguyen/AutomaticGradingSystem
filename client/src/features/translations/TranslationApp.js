@@ -68,9 +68,7 @@ const TranslationApp = () => {
 
     if (languagesLoading || isLoading) {
         content = <p>Loading...</p>;
-    } else if (isError) {
-        content = <p className="errmsg">{error?.data?.message}</p>;
-    } else if (isSuccess) {
+    } else {
         content = (
             <div>
                 {/* Translation App */}
@@ -152,10 +150,13 @@ const TranslationApp = () => {
                     <i className="bi bi-clock-history"></i>
                 </button>
                 {/* Render TranslationList component */}
-                {showTranslationList && (
+                {isSuccess &&  (
                     <TranslationList
                         translationsData={roles.includes('JUDGE') ? translationsData : userTranslationsData}
                         handleDataBoxClick={handleDataBoxClick} />
+                )}
+                {isError &&  (
+                    <p className="errmsg">{error?.data?.message}</p>
                 )}
             </div>
         )
