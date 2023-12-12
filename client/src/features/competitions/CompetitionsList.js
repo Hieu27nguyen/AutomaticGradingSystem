@@ -13,7 +13,7 @@ import {
 const CompetitionsList = () => {
     const { roles } = useAuth();
 
-    const { data: competitionData } = useGetCompetitionsQuery();
+    const { data: competitionData, isSuccess, isLoading, isError } = useGetCompetitionsQuery();
     const [addNewCompetition] = useAddNewCompetitionMutation();
     const [updateCompetition] = useUpdateCompetitionMutation();
 
@@ -43,46 +43,86 @@ const CompetitionsList = () => {
         }
     }, [competitionData]);
 
-    return (
-        <div
-            className="event-container"
-            style={{
-                backgroundImage: `url(${UWBuildingImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-            }}
-        >
-            {contestData && editingContest ? (
-                <CompetitionForm
-                    onSubmit={handleFormSubmit}
-                    initialData={contestData}
-                    isJudge={roles.includes('JUDGE') || roles.includes('ADMIN')}
-                />
-            ) : contestData && !editingContest ? (
-                <div className="event-information-wrapper">
-                    <CompetitionInformation
-                        name={contestData.name}
-                        duration={contestData.duration}
-                        // paused={contestData.paused}
-                        // extended={contestData.extended}
-                        // pausedTime={contestData.pausedTime}
-                        // extendedTime={contestData.extendedTime}
-                        // memLimit={contestData.memLimit}
-                        // timeLimit={contestData.timeLimit}
-                        isJudge={roles.includes('JUDGE') || roles.includes('ADMIN')}
-                        processTimeStart={contestData.processTimeStart}
-                        onEdit={handleContestClick}
-                    />
+    if (isLoading && roles.includes('CONTESTANT')) {
+        return (
+            <div
+                className="event-container"
+                style={{
+                    backgroundImage: `url(${UWBuildingImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                }}
+            >
+                <div className="event-input-form">
+                    <h2>Loading... Competition is not yet started<br />
+                        To be announced soon!
+                    </h2>
                 </div>
-            ) : (
-                <CompetitionForm
-                    onSubmit={handleFormSubmit}
-                    isJudge={roles.includes('JUDGE') || roles.includes('ADMIN')}
-                />
-            )}
-        </div>
-    );
+            </div>
+        );
+    } else if (isError && roles.includes('CONTESTANT')) {
+        return (
+            <div
+                className="event-container"
+                style={{
+                    backgroundImage: `url(${UWBuildingImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                }}
+            >
+                <div className="event-input-form">
+                    <h2>Error!!, Loading... Competition is not yet started<br />
+                        To be announced soon!
+                    </h2>
+                </div>
+            </div>
+        )
+    }
+
+    else if ( isSuccess || roles.includes('JUDGE')) {
+        return (
+            <div
+                className="event-container"
+                style={{
+                    backgroundImage: `url(${UWBuildingImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                }}
+            >
+                {contestData && editingContest ? (
+                    <CompetitionForm
+                        onSubmit={handleFormSubmit}
+                        initialData={contestData}
+                        isJudge={roles.includes('JUDGE') || roles.includes('ADMIN')}
+                    />
+                ) : contestData && !editingContest ? (
+                    <div className="event-information-wrapper">
+                        <CompetitionInformation
+                            name={contestData.name}
+                            duration={contestData.duration}
+                            // paused={contestData.paused}
+                            // extended={contestData.extended}
+                            // pausedTime={contestData.pausedTime}
+                            // extendedTime={contestData.extendedTime}
+                            // memLimit={contestData.memLimit}
+                            // timeLimit={contestData.timeLimit}
+                            isJudge={roles.includes('JUDGE') || roles.includes('ADMIN')}
+                            processTimeStart={contestData.processTimeStart}
+                            onEdit={handleContestClick}
+                        />
+                    </div>
+                ) : (
+                    <CompetitionForm
+                        onSubmit={handleFormSubmit}
+                        isJudge={roles.includes('JUDGE') || roles.includes('ADMIN')}
+                    />
+                )}
+            </div>
+        );
+    }
 };
 
 export default CompetitionsList;
