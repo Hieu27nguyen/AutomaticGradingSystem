@@ -105,3 +105,11 @@
       background-color: green;
       border-radius: 10px;
   }
+
+  .competition-err {
+    margin-bottom: 10px;
+    color: white;
+    text-align: center;
+    background-color: red;
+    border-radius: 10px;
+}
