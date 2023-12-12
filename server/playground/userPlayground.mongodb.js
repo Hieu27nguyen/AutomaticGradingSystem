@@ -134,6 +134,18 @@ let data = [
         password: "123",
         roles: ["CONTESTANT"],
     },
+    {
+        _id: ObjectId("657542785d6447152b2809dc"),
+        username: "team05",
+        password: "123",
+        roles: ["CONTESTANT"],
+    },
+    {
+        _id: ObjectId("657542785d6447152b3709dc"),
+        username: "koinh12",
+        password: "123",
+        roles: ["CONTESTANT"],
+    },
 ];
 
 importData(data, ["username"], ["password"]);

@@ -68,9 +68,7 @@ const TranslationApp = () => {
 
     if (languagesLoading || isLoading) {
         content = <p>Loading...</p>;
-    } else if (isError) {
-        content = <p className="errmsg">{error?.data?.message}</p>;
-    } else if (isSuccess) {
+    } else {
         content = (
             <div>
                 {/* Translation App */}
@@ -153,9 +151,16 @@ const TranslationApp = () => {
                 </button>
                 {/* Render TranslationList component */}
                 {showTranslationList && (
-                    <TranslationList
-                        translationsData={roles.includes('JUDGE') ? translationsData : userTranslationsData}
-                        handleDataBoxClick={handleDataBoxClick} />
+                    <>
+                        {isError ? (
+                            <p className="errmsg">Currently {error.data.message.toLowerCase()}</p>
+                        ) : (
+                            <TranslationList
+                                translationsData={roles.includes('JUDGE') ? translationsData : userTranslationsData}
+                                handleDataBoxClick={handleDataBoxClick}
+                            />
+                        )}
+                    </>
                 )}
             </div>
         )
