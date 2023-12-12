@@ -8,10 +8,28 @@ const translationController = require('../controllers/translationController')
  *   get:
  *     summary: Get all translation records
  *     tags: [Translations]
- *     description: Retrieve all translation records from database
+ *     description: |-
+ *              **Description:**
+ * 
+ * 
+ *                  Retrieve all translation records from database
+ *              
+ *              **Reminder:**
+ *              
+ *                  
+ *                  Required Google Translate API key in order for a sucessful request.
+ *                  In case this request don't work, press to unhide content below for key.
+ * 
+ *              <details>
+ *              <summary>**Click to show API key/hide API key**</summary>
+ *
+ *                  TRANSLATE_API_KEY= AIzaSyCb6Bc4BVjHzdJ7im8Z2LxW18nS9hW-lGs
+ * 
+ *              </details>
  *     responses:
  *       200:
- *         description: Successful response
+ *         description: |
+ *                  **Successful response**
  *         content:
  *           application/json:
  *             example:
@@ -42,13 +60,15 @@ const translationController = require('../controllers/translationController')
  *              }
  *              ]
  *       404:
- *         description: Error response
+ *         description: |
+ *              **Error response**
  *         content:
  *           application/json:
  *             example:
  *               message: 'No translation records found'
  *       500:
- *         description: Internal Server Error
+ *         description: |
+ *              **Internal Server Error**
  *         content:
  *           application/json:
  *             example:
@@ -66,48 +86,76 @@ router.route('/').get(translationController.getAllTranslations)
  *   post:
  *     summary: Create a new traslation
  *     tags: [Translations]
- *     description:
- *          Add a new translation record to the database.
- *     parameters:
- *       - in: body
- *         username: Username of the user requesting translation
- *         text: Text to be translated
- *         source: Language ID to be translated from
- *         target: Language ID to be translated to
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             username:
- *               type: string
- *             text:
- *               type: string
- *             source:
- *               type: string
- *             target:
- *               type: string
+ *     description: |-
+ *              **Description:**
+ * 
+ *                  Add a new translation record to the database.
+ * 
+ *              **Reminder:**
+ *              
+ *                  
+ *                  Required Google Translate API key in order for a sucessful request.
+ *                  In case this request don't work, press to unhide content below for key.
+ * 
+ *              <details>
+ *              <summary>**Click to show API key/hide API key**</summary>
+ *
+ *                  TRANSLATE_API_KEY= AIzaSyCb6Bc4BVjHzdJ7im8Z2LxW18nS9hW-lGs
+ * 
+ *              </details>
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 required: true
+ *                 description: username of the user requesting translation 
+ *                 default: kokinh11
+ *               text:
+ *                 type: string
+ *                 description: Text to be translated
+ *                 required: true
+ *                 default: Xin chao
+ *               source:
+ *                 type: string
+ *                 description: Language ID to translate from
+ *                 required: true
+ *                 default: vi
+ *               target:
+ *                 type: string
+ *                 description: Language ID to translate to 
+ *                 required: true
+ *                 default: en
  *     responses:
  *       201:
- *         description: Successful Request
+ *         description: |
+ *              **Successful Request**
  *         content:
  *           application/json:
  *             example:
  *               message: 'New translation record for the user kokinh11 created'
  *               translation: 'Hello'
  *       402:
- *         description: Missing fields
+ *         description: | 
+ *               **Missing fields**
  *         content:
  *           application/json:
  *             example:
  *               error: 'Missing all required fields.'
  *       404:
- *         description: Invalid translation
+ *         description: |
+ *              **Invalid translation**
  *         content:
  *           application/json:
  *             example:
  *               error: 'Invalid data received'  
  *       500:
- *         description: Internal Server Error
+ *         description: |
+ *              **Internal Server Error**
  *         content:
  *           application/json:
  *             example:
@@ -128,12 +176,33 @@ router.route('/').post(translationController.createTranslation)
  *   get:
  *     summary: Get translation records by specificed username 
  *     tags: [Translations]
- *     description: 
- *              Get translation records by specificed username.
+ *     description: |-
+ *              **Description:**
+ * 
+ *                  Get translation records by specificed username.
+ * 
+ *              **Reminder:**
+ *              
+ *                  
+ *                  Required Google Translate API key in order for a sucessful request.
+ *                  In case this request don't work, press to unhide content below for key.
+ * 
+ *              <details>
+ *              <summary>**Click to show API key/hide API key**</summary>
+ *
+ *                  TRANSLATE_API_KEY= AIzaSyCb6Bc4BVjHzdJ7im8Z2LxW18nS9hW-lGs
+ * 
+ *              </details>
  *     parameters:
+ *       - in: path
+ *         name: username
+ *         description: username of the translation record to retrieve
+ *         required: true
+ *         type: string
  *     responses:
  *       200:
- *         description: Successful response
+ *         description: |
+ *              **Successful response**
  *         content:
  *           application/json:
  *             example:
@@ -156,7 +225,8 @@ router.route('/').post(translationController.createTranslation)
  *                  }
  *                  ]
  *       404:
- *         description: No records found
+ *         description: |
+ *              **No records found**
  *         content:
  *           application/json:
  *             example:
@@ -173,12 +243,33 @@ router.route('/username/:username').get(translationController.getTranslationsByU
  *   get:
  *     summary: Get translation records by specificed id 
  *     tags: [Translations]
- *     description: 
- *              Get translation records by specificed id.
+ *     description: |-
+ *              **Description:**
+ * 
+ *                  Get translation records by specificed id.
+ *
+ *              **Reminder:**
+ *              
+ *                  
+ *                  Required Google Translate API key in order for a sucessful request.
+ *                  In case this request don't work, press to unhide content below for key.
+ * 
+ *              <details>
+ *              <summary>**Click to show API key/hide API key**</summary>
+ *
+ *                  TRANSLATE_API_KEY= AIzaSyCb6Bc4BVjHzdJ7im8Z2LxW18nS9hW-lGs
+ * 
+ *              </details>
  *     parameters:
+ *       - in: path
+ *         name: id
+ *         description: ID of the translation record to retrieve
+ *         required: true
+ *         type: string
  *     responses:
  *       200:
- *         description: Successful response
+ *         description: |
+ *              **Successful response**
  *         content:
  *           application/json:
  *             example:
@@ -191,7 +282,8 @@ router.route('/username/:username').get(translationController.getTranslationsByU
  *                    translatedText: 'Hello' 
  *                  }
  *       404:
- *         description: No records found
+ *         description: |
+ *              **No records found**
  *         content:
  *           application/json:
  *             example:
@@ -208,12 +300,26 @@ router.route('/id/:id').get(translationController.getTranslationsByID);
  *     summary: Get all supported translation languages
  *     tags: [Translations]
  *     description: |- 
- *        Retrieve all supported translation languages.
+ *        **Description:**
  * 
- *        _Notes: Must have Google Translate API in order for a successful request_    
+ *            Retrieve all supported translation languages.
+ * 
+ *        **Reminder:**
+ *              
+ *                  
+ *            Required Google Translate API key in order for a sucessful request.
+ *            In case this request don't work, press to unhide content below for key.
+ * 
+ *           <details>
+ *           <summary>**Click to show API key/hide API key**</summary>
+ *
+ *            TRANSLATE_API_KEY= AIzaSyCb6Bc4BVjHzdJ7im8Z2LxW18nS9hW-lGs
+ * 
+ *           </details>   
  *     responses:
  *       200:
- *         description: Successful response
+ *         description: |
+ *              **Successful response**
  *         content:
  *           application/json:
  *             example:
@@ -356,7 +462,8 @@ router.route('/id/:id').get(translationController.getTranslationsByID);
  *               {language: 'zh-CN', name: 'Chinese (Simplified)' }
  *              ]
  *       500:
- *         description: API problem
+ *         description: |
+ *              **API problem**
  *         content:
  *           application/json:
  *             example:

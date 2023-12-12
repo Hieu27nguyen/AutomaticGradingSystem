@@ -2,36 +2,6 @@ const User = require('../models/User')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       required:
- *         - username
- *         - roles
- *         - password
- *       properties:
- *         _id:
- *           type: string
- *           description: the user name of the user
- *         username:
- *           type: string
- *           description: the user name of the user
- *         roles:
- *           type: Array
- *           description: The roles of this user
- *         password:
- *           type: string
- *           description: The encrypted password
- *       example:
- *         id: 1
- *         username: theJudge
- *         roles: [Judge]
- *         password: $2b$10$YDFbyT9uvl36oc8OdI1c5.NBsI71fI5yhV3eOXrbPP6wMQ4QVsySS
- */
-
 // @desc Get all users
 // @route GET /users
 // @access Private
@@ -54,7 +24,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 const createNewUser = asyncHandler(async (req, res) => {
     res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
     const { username, password, roles } = req.body
-
+    console.log(username, password, roles);
     // Confirm data
     if (!username || !password || !Array.isArray(roles) || !roles.length) {
         return res.status(400).json({ message: 'All fields are required' })
@@ -87,10 +57,10 @@ const createNewUser = asyncHandler(async (req, res) => {
 // @access Private
 const updateUser = asyncHandler(async (req, res) => {
     res.setHeader('allowedRoles', ['CONTESTANT', 'JUDGE', 'ADMIN'])
-    const { id, username, roles, online, password } = req.body
+    const { id, username, roles, password } = req.body
 
     // Confirm data 
-    if (!id || !username || !Array.isArray(roles) || !roles.length || typeof online !== 'boolean') {
+    if (!id || !username || !Array.isArray(roles) || !roles.length) {
         return res.status(400).json({ message: 'All fields except password are required' })
     }
 
@@ -111,7 +81,6 @@ const updateUser = asyncHandler(async (req, res) => {
 
     user.username = username
     user.roles = roles
-    user.online = online
 
     if (password) {
         // Hash password 

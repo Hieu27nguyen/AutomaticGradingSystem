@@ -17,7 +17,7 @@ try {
 }
 
 // Submission Schema: id, user, problem, code, status, and timeSubmitted.
-// Function to insert a new submission into the "submissions" collection
+// Function to insert a new submission into the "submission" collection
 let importData = async (data, uniqueFields = []) => {
     for (const entry of data) { // Use "for...of" loop instead of forEach
         let unique = [];
@@ -32,123 +32,70 @@ let importData = async (data, uniqueFields = []) => {
 
         console.log("Fields that need to be unique" + JSON.stringify(unique));
         let duplicatedEntry = await db[collection].findOne({ $or: unique });
+
         if (duplicatedEntry !== null) {
-            console.log("Duplicate problem: " + entry._id);
+            console.log("Duplicate submission id: " + JSON.stringify(entry));
+            await db[collection].updateOne({ _id: entry._id }, { $set: entry }, { upsert: true });
         } else {
-            if (entry.score < 0) {
-                console.log("Negative Score: " + entry.score);
-            } else {
-                await db[collection].insertOne(entry);
-                console.log("Imported problem: " + entry._id);
-            }
+            await db[collection].insertOne(entry);
+            console.log("Imported submission: " + JSON.stringify(entry));
         }
+
+        console.log("\n");
     }
 };
 
 // Import submission data
 const submissionsData = [
-
-    //Test 00
-    //Testing duplicate submission id
     {
-        _id: "1",
-        user: 'team01',
-        problem: '1',
-        sourcecode: 'console.log("Hello, World!");',
-        status: 'Pending',
-        score: 0,
-        timeSubmitted: new Date('2023-08-02T00:22:09.247Z')
+        _id: ObjectId("6577baad6261457445406941"),
+        user: "kokinh11",
+        problem: "657547a23bb74cd60d3f4323",
+        code: "try:\n    name = input()\n    if name.lower() == \"yes\":\n        print(\"Yes\")\n    else:\n        print(\"No\")\nexcept EOFError as e:\n    print(\"hello world\")",
+        status: "Accepted",
+        language_id: 71,
+        score: 668.15,
+        timeSubmitted: "2023-12-12T01:43:09.000Z",
+        testResults: [
+          {
+            stdout: "No\n",
+            time: 0.014,
+            stderr: null,
+            _id: "6577baad6261457445406942"
+          },
+          {
+            stdout: "Yes\n",
+            time: 0.014,
+            stderr: null,
+            _id: "6577baad6261457445406943"
+          }
+        ]
     },
     {
-        _id: "1",
-        user: 'team01',
-        problem: '1',
-        sourcecode: 'print("Hello, World!")',
-        status: 'Accepted',
-        score: 100,
-        timeSubmitted: new Date('2023-08-02T00:22:09.247Z')
-    },
-    //Test 01
-    //Testing allow user to submit mutiple submissions
-    {
-        _id: "2",
-        user: 'team01',
-        problem: '3',
-        sourcecode: 'console.log("Hello, World!");',
-        status: 'Pending',
-        score: 0,
-        timeSubmitted: new Date('2023-09-02T04:23:09.247Z')
-    },
-    {
-        _id: "3",
-        user: 'team01',
-        problem: '2',
-        sourcecode: 'console.log("Hello, World!");',
-        status: 'Pending',
-        score: 0,
-        timeSubmitted: new Date('2023-01-01T02:22:09.247Z')
-    },
-    //Test 02
-    //Testing allow duplicate problem_id
-    {
-        _id: "4",
-        user: 'team01',
-        problem: '1',
-        sourcecode: 'console.log("Hello, World!");',
-        status: 'Pending',
-        score: 0,
-        timeSubmitted: new Date('2023-11-02T04:23:09.247Z')
-    },
-    {
-        _id: "4",
-        user: 'team01',
-        problem: '1',
-        sourcecode: 'console.log("Hello, World!");',
-        status: 'Compilation error',
-        score: 0,
-        timeSubmitted: new Date('2023-01-01T02:22:09.247Z')
-    },
-    //Test 03
-    //Testing allow empty code
-    {
-        _id: "5",
-        user: 'team01',
-        problem: '1',
-        sourcecode: '',
-        status: 'Failed test',
-        score: 0,
-        timeSubmitted: new Date('2023-11-02T04:23:09.247Z')
-    },
-    {
-        _id: "6",
-        user: 'team01',
-        problem: '1',
-        sourcecode: '',
-        status: 'Runtime error',
-        score: 20,
-        timeSubmitted: new Date('2023-01-01T02:22:09.247Z')
-    },
-    //Test 04
-    //Testing negative score
-    {
-        _id: "7",
-        user: 'team01',
-        problem: '1',
-        sourcecode: 'console.log("Hello, World!");',
-        status: 'Accepted',
-        score: -10,
-        timeSubmitted: new Date('2022-11-02T04:05:09.247Z')
-    },
-    {
-        _id: "8",
-        user: 'team01',
-        problem: '1',
-        sourcecode: 'console.log("Hello, World!");',
-        status: 'Pending',
-        score: -99,
-        timeSubmitted: new Date('2021-01-01T02:02:09.247Z')
+        _id: ObjectId("6577c9fbc61e36250c4601b3"),
+        user: "kokinh12",
+        problem: "657547a23bb74cd60d3f4323",
+        code: "try:\n    name = input()\n    if name.lower() == \"no\":\n        print(\"Yes\")\n    else:\n        print(\"No\")\nexcept EOFError as e:\n    print(\"hello world\")",
+        status: "Accepted",
+        language_id: 71,
+        score: 668.15,
+        timeSubmitted: "2023-12-12T01:43:09.000Z",
+        message: "Submission created successfully",
+        status: "Wrong Answer",
+        testResults: [
+          {
+            stdout: "No\n",
+            time: "0.013",
+            stderr: null
+          },
+          {
+            stdout: "No\n",
+            time: "0.013",
+            stderr: null
+          }
+        ]
     }
 ];
 
 // Call the importData function with the sample data
-importData(submissionsData);
+importData(submissionsData, ["_id"]);
