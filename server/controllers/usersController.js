@@ -101,7 +101,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 
     // Confirm data
     if (!id) {
-        return res.status(400).json({ message: 'User ID Required' })
+        return res.status(409).json({ message: 'User ID Required' })
     }
 
     // Does the user exist to delete?
