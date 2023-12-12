@@ -46,7 +46,7 @@ const TranslationApp = () => {
             setCurrentTranslations([...currentTranslations, response.data.translation]);
 
             // Set the source text
-            setSourceText(response.data.translation.sourceText);
+            setSourceText('');
         } catch (error) {
             setTranslationError('Error translating text. Please try again.');
             console.error('Error translating text:', error);
@@ -150,15 +150,19 @@ const TranslationApp = () => {
                     <i className="bi bi-clock-history"></i>
                 </button>
                 {/* Render TranslationList component */}
-                {isSuccess &&  (
-                    <TranslationList
-                        translationsData={roles.includes('JUDGE') ? translationsData : userTranslationsData}
-                        handleDataBoxClick={handleDataBoxClick} />
-                )}
-                {isError &&  (
-                    <p className="errmsg">{error?.data?.message}</p>
-                )}
-            </div>
+                {showTranslationList &&  (
+                    <>
+                    {isError ? (
+                        <p className="errmsg">Currently {error.data.message.toLowerCase()}</p>
+                    ) : (
+                        <TranslationList
+                            translationsData={roles.includes('JUDGE') ? translationsData : userTranslationsData}
+                            handleDataBoxClick={handleDataBoxClick}
+                        />
+                    )}
+                </>
+            )}
+        </div>
         )
     }
     return content;
