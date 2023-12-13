@@ -30,6 +30,14 @@ const translationController = require('../controllers/translationController')
  *       200:
  *         description: |
  *                  **Successful response**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['JUDGE', 'ADMIN']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -134,6 +142,14 @@ router.route('/').get(translationController.getAllTranslations)
  *       201:
  *         description: |
  *              **Successful Request**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['JUDGE', 'ADMIN', 'CONTESTANT']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -203,6 +219,14 @@ router.route('/').post(translationController.createTranslation)
  *       200:
  *         description: |
  *              **Successful response**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['JUDGE', 'ADMIN', 'CONTESTANT']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -270,6 +294,14 @@ router.route('/username/:username').get(translationController.getTranslationsByU
  *       200:
  *         description: |
  *              **Successful response**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['JUDGE', 'ADMIN', 'CONTESTANT']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -320,6 +352,14 @@ router.route('/id/:id').get(translationController.getTranslationsByID);
  *       200:
  *         description: |
  *              **Successful response**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['JUDGE', 'ADMIN']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:

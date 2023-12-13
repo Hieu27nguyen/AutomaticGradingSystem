@@ -16,6 +16,14 @@ const scoreboardController = require('../controllers/scoreboardController')
  *       200:
  *         description: |
  *              **Successful response**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['JUDGE', 'ADMIN', 'CONTESTANT']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:

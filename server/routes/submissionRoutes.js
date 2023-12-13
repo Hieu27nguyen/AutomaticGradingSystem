@@ -4,7 +4,7 @@ const submissionControllers = require('../controllers/submissionsController')
 
 /**
  * @swagger
- * /submisions:
+ * /submissions:
  *   get:
  *     summary: Get all submission records
  *     tags: [Submissions]
@@ -12,11 +12,18 @@ const submissionControllers = require('../controllers/submissionsController')
  *             **Description:**
  * 
  *                 Get all submission records from the database.
- *     parameters:
  *     responses:
  *       200:
  *         description: |
  *              **Successful response**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['JUDGE', 'ADMIN']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -126,6 +133,14 @@ router.route('/').get(submissionControllers.getAllSubmissions)
  *       201:
  *         description: |
  *              **Successful Request**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['CONTESTANT']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -192,6 +207,14 @@ router.route('/').post(submissionControllers.createSubmission)
  *       200:
  *         description: |
  *                  **Successful response**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['JUDGE', 'ADMIN', 'CONTESTANT']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -418,6 +441,14 @@ router.route('/languages').get(submissionControllers.getSupportedLanguage);
  *       200:
  *         description: |
  *                  **Successful response**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['JUDGE', 'ADMIN', 'CONTESTANT']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -485,6 +516,14 @@ router.route('/username/:username').get(submissionControllers.getSubmissionByUse
  *       200:
  *         description: |
  *                  **Successful response**
+ *         headers:
+ *           allowedRoles:
+ *             description: |
+ *                  ['JUDGE', 'ADMIN', 'CONTESTANT']
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
