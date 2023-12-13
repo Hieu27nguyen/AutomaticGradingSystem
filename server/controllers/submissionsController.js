@@ -189,6 +189,8 @@ const createSubmission = asyncHandler(async (req, res) => {
                     problemStat.penalty += problemObj.penaltyMinute;
             } else if (problemStat.accepted != true) {
                 score = (timeSubmittedInMili - contestStartTime) / 1000 / 60 + problemStat.penalty;//Calculation based on minutes
+                //Round score
+                score = score.toFixed(2);
                 submissionRecord.totalScore += score;
                 problemStat.score = score;
                 submissionRecord.problemSolved++;
