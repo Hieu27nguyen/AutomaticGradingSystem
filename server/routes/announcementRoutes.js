@@ -15,6 +15,12 @@ router.use(verifyJWT);
  *     responses:
  *       200:
  *         description: Successful response
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -55,6 +61,12 @@ router.route('/').get(announcementController.getAllAnnouncements)
  *     responses:
  *       200:
  *         description: Successful response
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -103,6 +115,12 @@ router.route('/id/:id').get(announcementController.getAnnouncementsByID);
  *     responses:
  *       201:
  *         description: New announcement created successfully
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -145,6 +163,12 @@ router.route('/').post(announcementController.createNewAnnouncement)
  *     responses:
  *       200:
  *         description: Successful response
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -169,6 +193,57 @@ router.route('/').post(announcementController.createNewAnnouncement)
  */
 router.route('/username/:username').get(announcementController.getAnnouncementsByUsername);
 
+/**
+ * @swagger
+ * /announcements/{id}:
+ *   delete:
+ *     summary: Delete an Announcement
+ *     tags: [Announcements]
+ *     description: Delete an announcement by providing its ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 required: true
+ *                 description: id of the announcement you want to delete.
+ *     responses:
+ *       201:
+ *         description: Successful Deletion
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: 'Announcement with ID {announcement_id} has been deleted'
+ *       400:
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: 'Announcement ID Required'
+ *       403:
+ *         description: Forbidden
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: 'User is not authorized to delete announcement'
+ *       404:
+ *         description: Not Found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: 'Announcement not found'
+ */
+router.route('/:id').delete(announcementController.deleteAnnouncement);
 
 
 module.exports = router
