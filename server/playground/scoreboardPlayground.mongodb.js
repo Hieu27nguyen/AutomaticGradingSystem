@@ -51,42 +51,42 @@ const scoreboardData = [
         totalScore: 100,
         problemStatistic: [
             {
-                problemId: "657547a23bb74cd60d3f4322",//Add the D
+                problemID: "657547a23bb74cd60d3f4322",//Add the D
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4323",//Say No
+                problemID: "657547a23bb74cd60d3f4323",//Say No
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4324",//Add 2 to input
+                problemID: "657547a23bb74cd60d3f4324",//Add 2 to input
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "6575188b7413221ca2d5998f",//Test Problem 1
+                problemID: "6575188b7413221ca2d5998f",//Test Problem 1
                 attempts: 1,
                 penalty: 0,
                 score: 0,
                 accepted: true
             },
             {
-                problemId: "657518af48fcae1e2ec7733c",//Test Problem 2
+                problemID: "657518af48fcae1e2ec7733c",//Test Problem 2
                 attempts: 2,
                 penalty: 80,
                 score: 100,
                 accepted: true
             },
             {
-                problemId: "657576dc8b34e161d229059a",// Test Problem 3
+                problemID: "657576dc8b34e161d229059a",// Test Problem 3
                 attempts: 5,
                 penalty: 200,
                 score: 0,
@@ -101,42 +101,42 @@ const scoreboardData = [
         totalScore: 120,
         problemStatistic: [
             {
-                problemId: "657547a23bb74cd60d3f4322",//Add the D
+                problemID: "657547a23bb74cd60d3f4322",//Add the D
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4323",//Say No
+                problemID: "657547a23bb74cd60d3f4323",//Say No
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4324",//Add 2 to input
+                problemID: "657547a23bb74cd60d3f4324",//Add 2 to input
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "6575188b7413221ca2d5998f",//Test Problem 1
+                problemID: "6575188b7413221ca2d5998f",//Test Problem 1
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657518af48fcae1e2ec7733c",//Test Problem 2
+                problemID: "657518af48fcae1e2ec7733c",//Test Problem 2
                 attempts: 1,
                 penalty: 0,
                 score: 0,
                 accepted: true
             },
             {
-                problemId: "657576dc8b34e161d229059a",// Test Problem 3
+                problemID: "657576dc8b34e161d229059a",// Test Problem 3
                 attempts: 1,
                 penalty: 0,
                 score: 120,
@@ -151,42 +151,42 @@ const scoreboardData = [
         totalScore: 1000,
         problemStatistic: [
             {
-                problemId: "657547a23bb74cd60d3f4322",//Add the D
+                problemID: "657547a23bb74cd60d3f4322",//Add the D
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4323",//Say No
+                problemID: "657547a23bb74cd60d3f4323",//Say No
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4324",//Add 2 to input
+                problemID: "657547a23bb74cd60d3f4324",//Add 2 to input
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "6575188b7413221ca2d5998f",//Test Problem 1
+                problemID: "6575188b7413221ca2d5998f",//Test Problem 1
                 attempts: 1,
                 penalty: 0,
                 score: 500,
                 accepted: true
             },
             {
-                problemId: "657518af48fcae1e2ec7733c",//Test Problem 2
+                problemID: "657518af48fcae1e2ec7733c",//Test Problem 2
                 attempts: 1,
                 penalty: 0,
                 score: 100,
                 accepted: true
             },
             {
-                problemId: "657576dc8b34e161d229059a",// Test Problem 3
+                problemID: "657576dc8b34e161d229059a",// Test Problem 3
                 attempts: 11,
                 penalty: 200,
                 score: 400,
@@ -201,42 +201,42 @@ const scoreboardData = [
         totalScore: 300,
         problemStatistic: [
             {
-                problemId: "657547a23bb74cd60d3f4322",//Add the D
+                problemID: "657547a23bb74cd60d3f4322",//Add the D
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4323",//Say No
+                problemID: "657547a23bb74cd60d3f4323",//Say No
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4324",//Add 2 to input
+                problemID: "657547a23bb74cd60d3f4324",//Add 2 to input
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "6575188b7413221ca2d5998f",//Test Problem 1
+                problemID: "6575188b7413221ca2d5998f",//Test Problem 1
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657518af48fcae1e2ec7733c",//Test Problem 2
+                problemID: "657518af48fcae1e2ec7733c",//Test Problem 2
                 attempts: 1,
                 penalty: 0,
                 score: 300,
                 accepted: true
             },
             {
-                problemId: "657576dc8b34e161d229059a",// Test Problem 3
+                problemID: "657576dc8b34e161d229059a",// Test Problem 3
                 attempts: 12,
                 penalty: 240,
                 score: 0,
@@ -251,42 +251,42 @@ const scoreboardData = [
         totalScore: 668.15,
         problemStatistic: [
             {
-                problemId: "657547a23bb74cd60d3f4322",//Add the D
+                problemID: "657547a23bb74cd60d3f4322",//Add the D
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4323",//Say No
+                problemID: "657547a23bb74cd60d3f4323",//Say No
                 attempts: 0,
                 penalty: 0,
                 score: 668.15,
                 accepted: true
             },
             {
-                problemId: "657547a23bb74cd60d3f4324",//Add 2 to input
+                problemID: "657547a23bb74cd60d3f4324",//Add 2 to input
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "6575188b7413221ca2d5998f",//Test Problem 1
+                problemID: "6575188b7413221ca2d5998f",//Test Problem 1
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657518af48fcae1e2ec7733c",//Test Problem 2
+                problemID: "657518af48fcae1e2ec7733c",//Test Problem 2
                 attempts: 1,
                 penalty: 0,
                 score: 300,
                 accepted: true
             },
             {
-                problemId: "657576dc8b34e161d229059a",// Test Problem 3
+                problemID: "657576dc8b34e161d229059a",// Test Problem 3
                 attempts: 12,
                 penalty: 240,
                 score: 0,
@@ -301,42 +301,42 @@ const scoreboardData = [
         totalScore: 668.15,
         problemStatistic: [
             {
-                problemId: "657547a23bb74cd60d3f4322",//Add the D
+                problemID: "657547a23bb74cd60d3f4322",//Add the D
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4323",//Say No
+                problemID: "657547a23bb74cd60d3f4323",//Say No
                 attempts: 1,
                 penalty: 20,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657547a23bb74cd60d3f4324",//Add 2 to input
+                problemID: "657547a23bb74cd60d3f4324",//Add 2 to input
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "6575188b7413221ca2d5998f",//Test Problem 1
+                problemID: "6575188b7413221ca2d5998f",//Test Problem 1
                 attempts: 0,
                 penalty: 0,
                 score: 0,
                 accepted: false
             },
             {
-                problemId: "657518af48fcae1e2ec7733c",//Test Problem 2
+                problemID: "657518af48fcae1e2ec7733c",//Test Problem 2
                 attempts: 1,
                 penalty: 0,
                 score: 300,
                 accepted: true
             },
             {
-                problemId: "657576dc8b34e161d229059a",// Test Problem 3
+                problemID: "657576dc8b34e161d229059a",// Test Problem 3
                 attempts: 12,
                 penalty: 240,
                 score: 0,

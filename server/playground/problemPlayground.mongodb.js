@@ -66,23 +66,23 @@ const problemsData = [
     },
 
     //Solution for problem 1 with Java Say No
-    // import java.util.*;
-    // import java.lang.*;
-    // import java.io.*;
+        // import java.util.*;
+        // import java.lang.*;
+        // import java.io.*;
 
-    // class Ideone
-    // {
-    // 	public static void main (String[] args) throws java.lang.Exception
-    // 	{
-    // 		Scanner input = new Scanner(System.in);
-    // 		if (input.next().toLowerCase().equals("yes")){
-    // 			System.out.print("Yes");
-    // 		}
-    // 		else{
-    // 			System.out.print("No");
-    // 		}
-    // 	}
-    // }
+        // class Main
+        // {
+        // 	public static void main (String[] args) throws java.lang.Exception
+        // 	{
+        // 		Scanner input = new Scanner(System.in);
+        // 		if (input.next().toLowerCase().equals("yes")){
+        // 			System.out.print("Yes");
+        // 		}
+        // 		else{
+        // 			System.out.print("No");
+        // 		}
+        // 	}
+        // }
     {
         _id: ObjectId("657547a23bb74cd60d3f4323"),
         name: "Say No",
@@ -102,7 +102,7 @@ const problemsData = [
     // import java.lang.*;
     // import java.io.*;
 
-    // class Ideone
+    // class Main
     // {
     // 	public static void main (String[] args) throws java.lang.Exception
     // 	{
