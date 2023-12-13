@@ -39,7 +39,18 @@ const NewSubmission = () => {
         setLanguageId(lang_id)
     }
 
-
+    const handleFileChange = async (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const fileContent = event.target.result;
+                setSubmissionCode(fileContent);
+            };
+            reader.readAsText(file);
+        }
+    };
+    
     const onSaveSubmission = async (e) => {
         e.preventDefault();
         const newSubmissionData = {
@@ -76,7 +87,7 @@ const NewSubmission = () => {
             <div className="upload">
                 <h2>UPLOAD CODE FILE</h2>
                 <form onSubmit={onSaveSubmission}>
-                    <input type="file" name="problems" />
+                <input type="file" name="problems" onChange={handleFileChange} />
                     <input type="submit" value="Submit" />
                 </form>
             </div>
