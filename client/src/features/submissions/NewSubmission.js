@@ -1,17 +1,18 @@
 import { useAddNewSubmissionMutation, useGetSubmissionLanguagesQuery } from "./submissionsApiSlice";
 import { useGetProblemsQuery } from "../problems/problemsApiSlice";
-import { useState, useEffect  } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useAuth from '../../hooks/useAuth';
 import '../../style/SubmissionForm.css';
 
 const NewSubmission = () => {
     const chosenProblemID = useParams().problemID;
-    
+
     const { username } = useAuth();
     const [problemId, setProblemId] = useState(chosenProblemID ? chosenProblemID : '');
     const [submissionCode, setSubmissionCode] = useState('');
     const [languageId, setLanguageId] = useState(62);
+    const [javaClassWarning, setJavaClassWarning] = useState(true);
     const [problemsData, setProblemsData] = useState({ ids: [], entities: {} });
     const [submissionLanguages, setSubmissionLanguages] = useState([]);
     const navigate = useNavigate();
@@ -31,6 +32,12 @@ const NewSubmission = () => {
         }
     }, [initialSubmissionLanguages]);
 
+    const changeSubmissionLanguageHandler = (e) => {
+        const lang_id = e.target.value;
+      
+        setJavaClassWarning(lang_id == 62);
+        setLanguageId(lang_id)
+    }
 
 
     const onSaveSubmission = async (e) => {
@@ -113,12 +120,14 @@ const NewSubmission = () => {
                         required
                     /> */}
                     {/* Only display language list when fetched the supported list */}
-                    {submissionLanguages && <select id="languageId" value={languageId} onChange={(e) => {setLanguageId(e.target.value)}} >
-                        {Object.entries(submissionLanguages).map(language => {
-                            return <option key={language[1].id} value={language[1].id}>{language[1].name}</option>
-                        })
+                    {submissionLanguages && <select id="languageId" value={languageId} onChange={changeSubmissionLanguageHandler} >
+                        {
+                            Object.entries(submissionLanguages).map(language => {
+                                return <option key={language[1].id} value={language[1].id}>{language[1].name}</option>
+                            })
                         }
                     </select>}
+                    {javaClassWarning && <p id="javaClassWarning">Please name your class "Main" if you are choosing Java OpenJDK</p>}
                     <button className="submission-button" type="submit">Confirm</button>
                 </form>
             </div>

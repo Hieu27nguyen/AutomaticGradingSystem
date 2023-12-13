@@ -205,3 +205,8 @@ button {
   background-color: #e9e8e8;
   border-color: transparent;
 }
+
+#javaClassWarning{
+    color:red;
+    font-size:small;
+}

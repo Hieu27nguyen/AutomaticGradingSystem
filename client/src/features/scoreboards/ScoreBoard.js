@@ -121,8 +121,8 @@ const ScoreBoard = ({ handleScoreboardItemClick }) => {
 
                                 <th className="scoreboard-stat">Rank</th>
                                 <th className="scoreboard-stat">Contestant</th>
-                                <th className="scoreboard-stat">Total Solved</th>
-                                <th className="scoreboard-stat">Total Score</th>
+                                <th className="scoreboard-stat">Total Problems Solved</th>
+                                <th className="scoreboard-stat">Total Time</th>
 
                                 {Object.entries(problemsData.entities).map((problem, index) => (
                                     <th key={problem ? problem[1].name : "problemTitle_" + index} className="scoreboardProblemName">
