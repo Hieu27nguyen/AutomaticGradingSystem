@@ -17,7 +17,7 @@ const Submission = ({ submissionId }) => {
     const [submissionData, setSubmissionData] = useState(null);
     const [problemName, setProblemName] = useState(null);
     const { roles, username } = useAuth();
-    const isJudge = roles.includes('JUDGE');
+    const isJudge = roles.includes('JUDGE') || roles.includes('ADMIN');
     const { submission, problem } = useFetchSubmissionData(submissionId);
 
     useEffect(() => {
