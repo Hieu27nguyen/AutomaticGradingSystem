@@ -243,7 +243,7 @@ router.route('/username/:username').get(announcementController.getAnnouncementsB
  *             example:
  *               message: 'Announcement not found'
  */
-router.route('/:id').delete(announcementController.deleteAnnouncement);
+router.route('/').delete(announcementController.deleteAnnouncement);
 
 
 module.exports = router
