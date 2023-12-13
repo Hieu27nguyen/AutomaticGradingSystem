@@ -33,7 +33,7 @@ const scoreboardController = require('./scoreboardController')
 const checkUserRole = asyncHandler(async (req) => {
     try {
         // If the user is found, retrieve the roles from the "roles" array
-        const roles = req.roles.map(role => role.toLowerCase());
+        const roles = req.headers.roles.map(role => role.toLowerCase());
         // Check if the user has the "Admin" or "judge" role
         if (roles.includes('admin') || roles.includes('judge')) {
             return 'Authorized'; // Return a custom role to represent authorized access
