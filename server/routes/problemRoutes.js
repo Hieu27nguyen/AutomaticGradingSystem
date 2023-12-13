@@ -14,7 +14,13 @@ router.use(verifyJWT)
  *     description: Retrieve all problems from database
  *     responses:
  *       200:
- *         description: Successful response
+ *         description: Successful request
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -74,6 +80,12 @@ router.route('/').get(problemControllers.getAllProblems)
  *     responses:
  *       201:
  *         description: Successful Request
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -125,6 +137,12 @@ router.route('/').post(problemControllers.createProblem)
  *     responses:
  *       200:
  *         description: Successful Request
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -169,6 +187,12 @@ router.route('/').patch(problemControllers.updateProblem)
  *     responses:
  *       200:
  *         description: Successful Request
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:

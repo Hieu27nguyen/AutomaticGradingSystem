@@ -14,6 +14,12 @@ router.use(verifyJWT);
  *     responses:
  *       200:
  *         description: Successful response
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -62,6 +68,12 @@ router.route('/').get(competitionController.getAllCompetitions)
  *     responses:
  *       201:
  *         description: New competition created successfully
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -105,6 +117,12 @@ router.route('/').post(competitionController.createCompetition)
  *     responses:
  *       201:
  *         description: Competition updated successfully
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:
@@ -145,6 +163,12 @@ router.route('/').patch(competitionController.updateCompetition)
  *     responses:
  *       201:
  *         description: Competition deleted successfully
+ *         headers:
+ *           allowedRoles:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
  *         content:
  *           application/json:
  *             example:

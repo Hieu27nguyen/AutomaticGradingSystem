@@ -116,7 +116,33 @@ const createNewAnnouncement = asyncHandler(async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' })
     }
 })
+// Delete an announcement by ID
+// Full URI: http://localhost:port/announcement
+// Required field in url param:
+//      'id': id of the record
+const deleteAnnouncement = asyncHandler(async (req, res) => {
+    res.setHeader('allowedRoles', ['JUDGE', 'ADMIN'])
+    const id  = req.body.id;
+    const userRole = await checkUserRole(req);
+    if (userRole==='Contestant') {
+        return res.status(403).json({message:'User is not authorized to delete announcement'})
+    }
+    // Confirm data
+    if (!id) {
+        return res.status(400).json({ message: 'Announcement ID Required' })
+    }
 
+    // Does the announcement exist to delete?
+    const announcement = await Announcement.findById(id).exec()
+
+    if (!announcement) {
+        return res.status(404).json({ message: 'Announcement not found' })
+    }
+    const result = await announcement.deleteOne()
+    const reply = `Announcement with ID ${result._id} has been deleted`
+
+    res.status(201).json(reply)
+})
 
 
 module.exports = {
@@ -124,4 +150,5 @@ module.exports = {
     getAnnouncementsByUsername,
     getAnnouncementsByID,
     createNewAnnouncement,
+    deleteAnnouncement
 }
