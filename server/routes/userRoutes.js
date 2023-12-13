@@ -4,35 +4,6 @@ const usersController = require('../controllers/usersController')
 const verifyJWT = require('../middleware/verifyJWT')
 
 router.use(verifyJWT)
-/**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       required:
- *         - username
- *         - roles
- *         - password
- *       properties:
- *         _id:
- *           type: string
- *           description: the _id of the user
- *         username:
- *           type: string
- *           description: the user name of the user
- *         roles:
- *           type: Array
- *           description: The roles of this user
- *         password:
- *           type: string
- *           description: The encrypted password
- *       example:
- *         id: 1
- *         username: theJudge
- *         roles: [Judge]
- *         password: $2b$10$YDFbyT9uvl36oc8OdI1c5.NBsI71fI5yhV3eOXrbPP6wMQ4QVsySS
- */
 
 /**
  * @swagger

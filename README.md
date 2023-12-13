@@ -3,9 +3,7 @@
 - Our Automatic Grading System is a comprehensive solution designed specifically for programming competitions, leveraging the power of the MERN (MongoDB, Express.js, React.js, Node.js) stack. This cutting-edge system is built to streamline the process of evaluating programming submissions, enabling efficient and fair grading while saving valuable time for organizers and participants alike.
 
 ## **Key Features:**
-- Efficient Submission Management: The system provides a user-friendly interface for participants to submit their code solutions. 
-
--  Real-time Feedback: Participants receive immediate feedback on their submissions.  The system automatically evaluates the code against predefined test cases and provides detailed feedback, including runtime analysis and error detection.
+- Submission Management: The system provides a user-friendly interface for participants to submit their code solutions. We feature multiple languages popular for programming contests such as Java (OpenJDK 13.0.1) ,JavaScript (Node.js 12.14.0), C++ (GCC 7.4.0), Python (3.8.1), Swift (5.2.3), Assembly (NASM 2.14.02), etc.
 
 - Test Case Management: The Automatic Grading System allows organizers to define and manage test cases for each programming problem. They can easily create, edit, and update test cases, ensuring that the evaluation process aligns with the competition's requirements.
 
@@ -16,8 +14,6 @@
 - Secure and Scalable Architecture: With the MERN stack's robustness, the Automatic Grading System ensures a secure and scalable infrastructure. Participants' code submissions and personal data are protected, while the system can effortlessly handle a large volume of submissions during peak periods.
 
 - Customizability: The system is designed to be easily customizable, allowing organizers to tailor it to their specific competition requirements.
-
-- Analytics and Insights: The Automatic Grading System provides comprehensive  analytics and insights to organizers, helping them gain valuable data on participant performance, question difficulty, and overall competition trends. This data can be leveraged to enhance future competitions and make informed decisions.
 
 ## **Author**
 - [Thomas (Toan) Nguyen](https://github.com/Engity), &emsp; [Linkedin](https://www.linkedin.com/in/thomas-nguyen-cs)

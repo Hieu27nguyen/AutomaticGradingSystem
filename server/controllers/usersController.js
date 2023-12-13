@@ -1,4 +1,5 @@
 const User = require('../models/User')
+const Scoreboard = require('../models/Scoreboard')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 
@@ -111,7 +112,11 @@ const deleteUser = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'User not found' })
     }
 
+    //Remove user from the scoreboard
+    const scoreboardResult = await Scoreboard.findOneAndDelete({'username': user.username});
+  
     const result = await user.deleteOne()
+   
 
     const reply = `Username ${result.username} with ID ${result._id} deleted`
 
