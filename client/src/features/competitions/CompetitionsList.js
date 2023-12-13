@@ -81,7 +81,7 @@ const CompetitionsList = () => {
         )
     }
 
-    else if ( isSuccess || roles.includes('JUDGE')) {
+    else if ( isSuccess || roles.includes('JUDGE') || roles.includes('ADMIN')) {
         return (
             <div
                 className="event-container"
